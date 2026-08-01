@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Cost Estimator — EventSphere Operations Platform</title>
+  <meta name="description" content="Real-time event financial calculator. Estimate venue, catering, AV, lighting, marketing costs and see instant profit or loss results with visual breakdowns.">
+
+  <!-- Tailwind CSS v3 via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#0066FF',
+              700: '#0052cc',
+            },
+            tealAccent: '#00A896',
+            violetAccent: '#7C3AED',
+            coralAccent: '#FF6B6B',
+            darkSlate: '#0F172A',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            syne: ['Syne', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3, h4, .font-syne { font-family: 'Syne', sans-serif; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(226,232,240,0.8);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05), 0 20px 25px -5px rgba(0,102,255,0.03);
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Text gradient */
+    .text-gradient {
+      background: linear-gradient(135deg, #0066FF, #7C3AED);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Input styling */
+    .est-input {
+      width: 100%;
+      padding: 11px 14px 11px 36px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #0f172a;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+    .est-input::-webkit-inner-spin-button,
+    .est-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .est-input:focus {
+      border-color: #0066FF;
+      box-shadow: 0 0 0 3px rgba(0,102,255,0.1);
+    }
+    .est-input::placeholder { color: #94a3b8; }
+
+    /* Progress bar animation */
+    .bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* Result banner */
+    .result-profit { background: linear-gradient(135deg,rgba(16,185,129,0.1),rgba(5,150,105,0.05)); border-color: rgba(16,185,129,0.3); }
+    .result-loss   { background: linear-gradient(135deg,rgba(239,68,68,0.1),rgba(220,38,38,0.05));  border-color: rgba(239,68,68,0.3); }
+    .result-even   { background: linear-gradient(135deg,rgba(245,158,11,0.1),rgba(217,119,6,0.05)); border-color: rgba(245,158,11,0.3); }
+    .result-empty  { background: rgba(248,250,252,1); border-color: #e2e8f0; }
+
+    /* Stacked bar */
+    .stack-seg { height: 100%; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* Float animation for hero card */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .animate-float { animation: float 5s ease-in-out infinite; }
+
+    /* Navbar scroll effect */
+    .navbar-scrolled {
+      background: rgba(255,255,255,0.95) !important;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+      padding-top: 12px !important;
+      padding-bottom: 12px !important;
+    }
+
+    /* Active nav link */
+    .nav-active {
+      background: white;
+      color: #0066FF !important;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Tooltip */
+    .tooltip-wrap { position: relative; }
+    .tooltip-wrap:hover .tooltip-box { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .tooltip-box {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #0f172a;
+      color: #e2e8f0;
+      font-size: 0.7rem;
+      padding: 5px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s;
+      z-index: 50;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-slate-900 selection:bg-blue-600 selection:text-white relative">
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION BAR (exact match to main site)
+  ════════════════════════════════════════════════ -->
+  <header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shadow-md group-hover:border-blue-500 transition duration-300">
+          <svg class="w-6 h-6 text-blue-500 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.3"/>
+            <circle cx="12" cy="12" r="4" fill="currentColor"/>
+            <path d="M12 2A10 10 0 0 1 22 12" stroke="url(#logo-grad)" stroke-width="3.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0066FF"/>
+                <stop offset="100%" stop-color="#7C3AED"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="font-syne font-bold text-2xl tracking-tight text-slate-900">Event<span class="text-gradient">Sphere</span></span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
+        <a href="index.html#hero"             class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
+        <a href="index.html#features"         class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+        <a href="index.html#workflow"         class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
+        <a href="index.html#dashboard"        class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
+        <a href="cost-estimator.html"         class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
+        <a href="index.html#invitation-sender" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
+      </nav>
+
+      <!-- Right CTA & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <a href="index.html#invitation-sender" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20">
+          <span>Get Started</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-xl translate-x-full transition-transform duration-300 flex flex-col justify-between p-6 md:hidden">
+    <div>
+      <div class="flex justify-between items-center pb-6 border-b border-slate-800">
+        <span class="font-syne font-bold text-xl text-white">Event<span class="text-gradient">Sphere</span></span>
+        <button id="close-drawer-btn" class="p-2 text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-4 mt-8">
+        <a href="index.html#hero"              class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
+        <a href="index.html#features"          class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass &amp; Modules</a>
+        <a href="index.html#dashboard"         class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
+        <a href="cost-estimator.html"          class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
+        <a href="index.html#invitation-sender" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send" class="w-5 h-5"></i> Invitation Dispatcher</a>
+      </nav>
+    </div>
+    <div class="pt-6 border-t border-slate-800">
+      <a href="index.html#invitation-sender" class="w-full block text-center py-3 rounded-xl bg-blue-600 text-white font-bold">Launch Access Portal</a>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════════════════════ -->
+  <section class="pt-32 pb-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/20 relative overflow-hidden">
+    <!-- ambient blobs -->
+    <div class="absolute top-10 right-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div class="space-y-4">
+          <!-- Breadcrumb -->
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <a href="index.html" class="hover:text-blue-600 transition">Home</a>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+            <span class="text-blue-600 font-semibold">Cost Estimator</span>
+          </div>
+
+          <!-- Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-xs font-bold text-teal-700">
+            <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+            Module 3 — Financial Planning Engine
+          </div>
+
+          <h1 class="font-syne font-extrabold text-4xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
+            Event Cost<br><span class="text-gradient">Estimator</span>
+          </h1>
+          <p class="text-slate-500 text-base max-w-xl leading-relaxed">
+            Enter your event details below. Results update <strong class="text-slate-700">instantly</strong> — no button needed. See total expenses, gross revenue, net profit or loss, and a full cost breakdown chart.
+          </p>
+        </div>
+
+        <!-- Quick tips pill -->
+        <div class="flex-shrink-0 glass-card rounded-2xl p-4 max-w-xs space-y-2">
+          <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-500"></i> Quick Tips</span>
+          <ul class="space-y-1 text-xs text-slate-500">
+            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Leave any field blank to treat it as ₹0</li>
+            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Food cost × attendee count = catering total</li>
+            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Ticket price × attendee count = ticket revenue</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN ESTIMATOR SECTION
+  ════════════════════════════════════════════════ -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- ─── LEFT COLUMN: INPUT FORM ─── -->
+        <div class="lg:col-span-7 space-y-6">
+
+          <!-- ── EXPENSE INPUTS ── -->
+          <div class="glass-card rounded-3xl p-7 space-y-6">
+            <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+              <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
+                <i data-lucide="receipt" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Event Expenses</h2>
+                <p class="text-xs text-slate-500">All costs your event will incur</p>
+              </div>
+            </div>
+
+            <!-- Venue & Furniture -->
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Venue &amp; Facilities
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="venue-fee">
+                    Venue Base Fee
+                    <span class="tooltip-wrap ml-1 inline-block">
+                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                      <span class="tooltip-box">Fixed hall / venue hire cost</span>
+                    </span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="venue-fee" class="est-input" placeholder="e.g. 80000" min="0" step="500">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="chair-rental">
+                    Chair / Furniture Rental
+                    <span class="tooltip-wrap ml-1 inline-block">
+                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                      <span class="tooltip-box">Tables, chairs, décor hire</span>
+                    </span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="chair-rental" class="est-input" placeholder="e.g. 12000" min="0" step="500">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Attendees & Catering -->
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <i data-lucide="utensils" class="w-3.5 h-3.5"></i> Attendees &amp; Catering
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="attendee-count">
+                    Attendee Count
+                    <span class="tooltip-wrap ml-1 inline-block">
+                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                      <span class="tooltip-box">Total expected headcount</span>
+                    </span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">#</span>
+                    <input type="number" id="attendee-count" class="est-input" placeholder="e.g. 200" min="0" step="1">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="food-cost">
+                    Per-Plate Food Cost
+                    <span class="tooltip-wrap ml-1 inline-block">
+                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                      <span class="tooltip-box">Cost per person · multiplied by headcount</span>
+                    </span>
+                  </label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="food-cost" class="est-input" placeholder="e.g. 450" min="0" step="10">
+                  </div>
+                </div>
+
+              </div>
+              <!-- Live catering total -->
+              <div id="catering-total-row" class="mt-2 px-3 py-2 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-700 font-semibold hidden">
+                <i data-lucide="info" class="w-3.5 h-3.5 inline mr-1"></i>
+                Catering total: <span id="catering-total-val">₹0</span>
+              </div>
+            </div>
+
+            <!-- Production -->
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <i data-lucide="mic-2" class="w-3.5 h-3.5"></i> Production &amp; Technical
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="audio-system">Audio System</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="audio-system" class="est-input" placeholder="e.g. 25000" min="0" step="500">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="stage-lighting">Stage Lighting</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="stage-lighting" class="est-input" placeholder="e.g. 18000" min="0" step="500">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Marketing -->
+            <div>
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <i data-lucide="megaphone" class="w-3.5 h-3.5"></i> Marketing &amp; Promotion
+              </p>
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-slate-700" for="marketing-budget">Marketing Budget</label>
+                <div class="relative max-w-xs">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                  <input type="number" id="marketing-budget" class="est-input" placeholder="e.g. 15000" min="0" step="500">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── REVENUE INPUTS ── -->
+          <div class="glass-card rounded-3xl p-7 space-y-5">
+            <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+              <div class="w-9 h-9 rounded-xl bg-tealAccent text-white flex items-center justify-center shadow-md shadow-teal-500/20">
+                <i data-lucide="trending-up" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Revenue Sources</h2>
+                <p class="text-xs text-slate-500">What income does the event generate?</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-slate-700" for="ticket-price">
+                  Ticket Price (per person)
+                  <span class="tooltip-wrap ml-1 inline-block">
+                    <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                    <span class="tooltip-box">Price per ticket × attendee count = revenue</span>
+                  </span>
+                </label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                  <input type="number" id="ticket-price" class="est-input" placeholder="e.g. 999" min="0" step="10">
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-slate-700" for="sponsorship-funds">
+                  Sponsorship Funds
+                  <span class="tooltip-wrap ml-1 inline-block">
+                    <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
+                    <span class="tooltip-box">Total money received from sponsors</span>
+                  </span>
+                </label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                  <input type="number" id="sponsorship-funds" class="est-input" placeholder="e.g. 50000" min="0" step="1000">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Live ticket revenue info -->
+            <div id="ticket-rev-row" class="px-3 py-2 bg-teal-50 border border-teal-100 rounded-xl text-xs text-teal-700 font-semibold hidden">
+              <i data-lucide="info" class="w-3.5 h-3.5 inline mr-1"></i>
+              Gross ticket revenue: <span id="ticket-rev-val">₹0</span>
+            </div>
+
+            <!-- Reset button -->
+            <div class="flex gap-3 pt-2">
+              <button onclick="resetAll()" class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50 transition flex items-center justify-center gap-2">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset All
+              </button>
+              <button onclick="scrollToResults()" class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2">
+                <i data-lucide="bar-chart-2" class="w-4 h-4"></i> View Results ↓
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ─── RIGHT COLUMN: LIVE RESULTS ─── -->
+        <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24" id="results-anchor">
+
+          <!-- NET RESULT BANNER -->
+          <div id="net-banner" class="result-empty rounded-3xl p-6 border transition-all duration-500">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Net Result</span>
+              <span id="result-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-400">Awaiting input</span>
+            </div>
+            <div class="flex items-end gap-3">
+              <div id="result-icon" class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl flex-shrink-0">💰</div>
+              <div>
+                <p id="result-label" class="text-xs font-semibold text-slate-400 mb-0.5">Net Profit / Loss</p>
+                <p id="result-amount" class="font-syne font-extrabold text-3xl text-slate-300">₹0</p>
+              </div>
+            </div>
+            <div id="result-alert" class="mt-4 hidden"></div>
+          </div>
+
+          <!-- SUMMARY CARDS -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="glass-card rounded-2xl p-4 space-y-1 border border-blue-100">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Expenses</span>
+                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-rose-400"></i>
+              </div>
+              <p id="val-expenses" class="font-syne font-extrabold text-2xl text-slate-900">₹0</p>
+              <p id="delta-expenses" class="text-xs text-slate-400">— per head</p>
+            </div>
+            <div class="glass-card rounded-2xl p-4 space-y-1 border border-teal-100">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Gross Revenue</span>
+                <i data-lucide="arrow-up-circle" class="w-4 h-4 text-emerald-400"></i>
+              </div>
+              <p id="val-revenue" class="font-syne font-extrabold text-2xl text-tealAccent">₹0</p>
+              <p id="delta-revenue" class="text-xs text-slate-400">— per head</p>
+            </div>
+          </div>
+
+          <!-- PROFIT MARGIN GAUGE -->
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5"><i data-lucide="percent" class="w-3.5 h-3.5 text-blue-500"></i> Profit Margin</span>
+              <span id="margin-label" class="text-sm font-extrabold font-syne text-slate-400">0%</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
+              <div id="margin-bar" class="bar-fill bg-slate-300" style="width:0%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-400 font-medium">
+              <span>Loss</span><span>Break-Even</span><span>Strong</span>
+            </div>
+          </div>
+
+          <!-- BREAKEVEN TABLE -->
+          <div class="glass-card rounded-2xl p-5 space-y-3">
+            <h3 class="font-syne font-bold text-base text-slate-900 flex items-center gap-2">
+              <i data-lucide="target" class="w-4 h-4 text-violetAccent"></i> Breakeven Analysis
+            </h3>
+            <div class="divide-y divide-slate-100">
+              <div class="flex justify-between items-center py-2.5 text-xs">
+                <span class="text-slate-500 font-medium">Ticket Revenue</span>
+                <span id="be-ticket-rev" class="font-bold text-slate-800">₹0</span>
+              </div>
+              <div class="flex justify-between items-center py-2.5 text-xs">
+                <span class="text-slate-500 font-medium">Sponsorship</span>
+                <span id="be-sponsor" class="font-bold text-slate-800">₹0</span>
+              </div>
+              <div class="flex justify-between items-center py-2.5 text-xs">
+                <span class="text-slate-500 font-medium">Catering Total</span>
+                <span id="be-catering" class="font-bold text-slate-800">₹0</span>
+              </div>
+              <div class="flex justify-between items-center py-2.5 text-xs">
+                <span class="text-slate-500 font-medium">Cost Per Attendee</span>
+                <span id="be-cpp" class="font-bold text-slate-800">—</span>
+              </div>
+              <div class="flex justify-between items-center py-2.5 text-xs">
+                <span class="text-slate-500 font-medium">Breakeven Ticket Count</span>
+                <span id="be-count" class="font-bold text-slate-800">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- COST DISTRIBUTION CHART -->
+          <div class="glass-card rounded-2xl p-5 space-y-4">
+            <h3 class="font-syne font-bold text-base text-slate-900 flex items-center gap-2">
+              <i data-lucide="pie-chart" class="w-4 h-4 text-tealAccent"></i> Cost Distribution
+            </h3>
+
+            <!-- Stacked bar -->
+            <div class="flex rounded-full overflow-hidden h-4 gap-px bg-slate-100 border border-slate-200" id="stack-bar">
+              <div id="seg-venue"     class="stack-seg bg-blue-500"   style="width:0%" title="Venue"></div>
+              <div id="seg-food"      class="stack-seg bg-teal-500"   style="width:0%" title="Catering"></div>
+              <div id="seg-chair"     class="stack-seg bg-violet-500" style="width:0%" title="Furniture"></div>
+              <div id="seg-audio"     class="stack-seg bg-amber-500"  style="width:0%" title="Audio"></div>
+              <div id="seg-lighting"  class="stack-seg bg-pink-500"   style="width:0%" title="Lighting"></div>
+              <div id="seg-marketing" class="stack-seg bg-emerald-500" style="width:0%" title="Marketing"></div>
+            </div>
+
+            <!-- Per-cost bars -->
+            <div class="space-y-3" id="dist-bars">
+
+              <!-- Venue -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span>Venue Fee</span>
+                  <span class="font-bold text-slate-700"><span id="pct-venue">0%</span> · <span id="amt-venue" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-venue" class="bar-fill bg-blue-500" style="width:0%"></div></div>
+              </div>
+
+              <!-- Catering -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-teal-500 inline-block"></span>Food &amp; Catering</span>
+                  <span class="font-bold text-slate-700"><span id="pct-food">0%</span> · <span id="amt-food" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-food" class="bar-fill bg-teal-500" style="width:0%"></div></div>
+              </div>
+
+              <!-- Furniture -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-violet-500 inline-block"></span>Chair / Furniture</span>
+                  <span class="font-bold text-slate-700"><span id="pct-chair">0%</span> · <span id="amt-chair" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-chair" class="bar-fill bg-violet-500" style="width:0%"></div></div>
+              </div>
+
+              <!-- Audio -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500 inline-block"></span>Audio System</span>
+                  <span class="font-bold text-slate-700"><span id="pct-audio">0%</span> · <span id="amt-audio" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-audio" class="bar-fill bg-amber-500" style="width:0%"></div></div>
+              </div>
+
+              <!-- Lighting -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-pink-500 inline-block"></span>Stage Lighting</span>
+                  <span class="font-bold text-slate-700"><span id="pct-lighting">0%</span> · <span id="amt-lighting" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-lighting" class="bar-fill bg-pink-500" style="width:0%"></div></div>
+              </div>
+
+              <!-- Marketing -->
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span>Marketing</span>
+                  <span class="font-bold text-slate-700"><span id="pct-marketing">0%</span> · <span id="amt-marketing" class="text-slate-500">₹0</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-marketing" class="bar-fill bg-emerald-500" style="width:0%"></div></div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       HOW IT WORKS STRIP
+  ════════════════════════════════════════════════ -->
+  <section class="py-16 bg-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-100 text-teal-700 uppercase tracking-wide">How It Works</span>
+        <h2 class="font-syne text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">3 Steps to Your Event Budget</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center space-y-3">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-blue-500/25">01</div>
+          <h4 class="font-syne font-bold text-lg text-slate-900">Enter All Costs</h4>
+          <p class="text-slate-500 text-sm leading-relaxed">Fill in venue, catering, AV, lighting, furniture, and marketing expenses. Leave any field blank to skip it.</p>
+        </div>
+        <div class="text-center space-y-3">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-tealAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-teal-500/25">02</div>
+          <h4 class="font-syne font-bold text-lg text-slate-900">Add Revenue</h4>
+          <p class="text-slate-500 text-sm leading-relaxed">Set your target ticket price and any sponsorship income. The calculator multiplies ticket price by your headcount automatically.</p>
+        </div>
+        <div class="text-center space-y-3">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-violetAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-purple-500/25">03</div>
+          <h4 class="font-syne font-bold text-lg text-slate-900">Read Instant Results</h4>
+          <p class="text-slate-500 text-sm leading-relaxed">See total expenses, gross revenue, net profit or loss, margin gauge, breakeven analysis, and cost distribution — all live.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER (exact match to main site)
+  ════════════════════════════════════════════════ -->
+  <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-4">
+          <a href="index.html" class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+              <i data-lucide="orbit" class="w-5 h-5"></i>
+            </div>
+            <span class="font-syne font-bold text-xl text-white">Event<span class="text-blue-500">Sphere</span></span>
+          </a>
+          <p class="text-xs text-slate-500 leading-relaxed max-w-sm">
+            Premium glassmorphic event operations and guest management platform. Engineered for seamless check-ins, VIP pass generation, and real-time event analytics.
+          </p>
+          <div class="text-xs text-slate-400 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Live System Time: <strong id="live-clock" class="text-white font-mono">--:--:-- UTC</strong></span>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="md:col-span-3 space-y-3 text-xs">
+          <h5 class="font-bold text-white uppercase tracking-wider">Quick Navigation</h5>
+          <ul class="space-y-2">
+            <li><a href="index.html#hero"              class="hover:text-white transition">Home</a></li>
+            <li><a href="index.html#features"          class="hover:text-white transition">VIP Modules</a></li>
+            <li><a href="index.html#workflow"          class="hover:text-white transition">Platform Workflow</a></li>
+            <li><a href="index.html#dashboard"         class="hover:text-white transition">Telemetry Dashboard</a></li>
+            <li><a href="cost-estimator.html"          class="text-blue-400 font-semibold">Cost Estimator</a></li>
+            <li><a href="index.html#invitation-sender" class="hover:text-white transition">Invitation Dispatcher</a></li>
+          </ul>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="md:col-span-4 space-y-3 text-xs">
+          <h5 class="font-bold text-white uppercase tracking-wider">Tech Architecture</h5>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">HTML5</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Tailwind CSS v3</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Vanilla ES6+</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Chart.js v4</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Lucide Icons</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+        <span>© 2026 EventSphere Inc. All rights reserved. Prepared for GitHub Pages deployment.</span>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Service</a>
+          <a href="#" class="hover:text-slate-400">Security Specs</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════════ -->
+  <script>
+    /* ── Init Lucide icons ── */
+    lucide.createIcons();
+
+    /* ── Navbar scroll effect ── */
+    const navbar = document.getElementById('main-navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) navbar.classList.add('navbar-scrolled');
+      else navbar.classList.remove('navbar-scrolled');
+    }, { passive: true });
+
+    /* ── Mobile drawer ── */
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-drawer').classList.remove('translate-x-full');
+    });
+    document.getElementById('close-drawer-btn').addEventListener('click', () => {
+      document.getElementById('mobile-drawer').classList.add('translate-x-full');
+    });
+
+    /* ── Live clock ── */
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2,'0');
+      const m = String(now.getUTCMinutes()).padStart(2,'0');
+      const s = String(now.getUTCSeconds()).padStart(2,'0');
+      document.getElementById('live-clock').textContent = `${h}:${m}:${s} UTC`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    /* ── Scroll to results ── */
+    function scrollToResults() {
+      document.getElementById('results-anchor').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ── Helpers ── */
+    function val(id) {
+      const n = parseFloat(document.getElementById(id).value);
+      return isNaN(n) || n < 0 ? 0 : n;
+    }
+
+    function fmt(n) {
+      if (n >= 1e7) return '₹' + (n / 1e7).toFixed(2) + ' Cr';
+      if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2) + ' L';
+      return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    /* ── Core calculation (runs on every keystroke) ── */
+    function calculate() {
+      const venue      = val('venue-fee');
+      const attendees  = val('attendee-count');
+      const food       = val('food-cost');
+      const chair      = val('chair-rental');
+      const audio      = val('audio-system');
+      const lighting   = val('stage-lighting');
+      const marketing  = val('marketing-budget');
+      const ticketP    = val('ticket-price');
+      const sponsor    = val('sponsorship-funds');
+
+      const foodTotal  = attendees * food;
+      const totalExp   = venue + foodTotal + chair + audio + lighting + marketing;
+      const ticketRev  = attendees * ticketP;
+      const totalRev   = ticketRev + sponsor;
+      const net        = totalRev - totalExp;
+      const margin     = totalRev > 0 ? (net / totalRev) * 100 : (totalExp > 0 ? -100 : 0);
+
+      /* ── Catering helper row ── */
+      const cRow = document.getElementById('catering-total-row');
+      if (attendees > 0 && food > 0) {
+        cRow.classList.remove('hidden');
+        document.getElementById('catering-total-val').textContent = fmt(foodTotal);
+      } else { cRow.classList.add('hidden'); }
+
+      /* ── Ticket revenue helper row ── */
+      const tRow = document.getElementById('ticket-rev-row');
+      if (attendees > 0 && ticketP > 0) {
+        tRow.classList.remove('hidden');
+        document.getElementById('ticket-rev-val').textContent = fmt(ticketRev);
+      } else { tRow.classList.add('hidden'); }
+
+      /* ── Summary cards ── */
+      document.getElementById('val-expenses').textContent = fmt(totalExp);
+      document.getElementById('val-revenue').textContent  = fmt(totalRev);
+      document.getElementById('delta-expenses').textContent = attendees > 0 ? fmt(totalExp / attendees) + ' / head' : '—';
+      document.getElementById('delta-revenue').textContent  = attendees > 0 ? fmt(totalRev / attendees) + ' / head' : '—';
+
+      /* ── Net result banner ── */
+      const banner  = document.getElementById('net-banner');
+      const badge   = document.getElementById('result-badge');
+      const icon    = document.getElementById('result-icon');
+      const label   = document.getElementById('result-label');
+      const amount  = document.getElementById('result-amount');
+      const alertEl = document.getElementById('result-alert');
+
+      amount.textContent = fmt(Math.abs(net));
+      banner.className = 'rounded-3xl p-6 border transition-all duration-500 ';
+
+      if (totalExp === 0 && totalRev === 0) {
+        banner.className += 'result-empty';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-400';
+        badge.textContent = 'Awaiting input';
+        icon.textContent  = '💰'; icon.className = 'w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Net Profit / Loss'; label.className = 'text-xs font-semibold text-slate-400 mb-0.5';
+        amount.className  = 'font-syne font-extrabold text-3xl text-slate-300';
+        alertEl.className = 'mt-4 hidden';
+      } else if (net > 0) {
+        banner.className += 'result-profit';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700';
+        badge.textContent = '✅ Profitable';
+        icon.textContent  = '🟢'; icon.className = 'w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Net Profit'; label.className = 'text-xs font-semibold text-emerald-600 mb-0.5';
+        amount.className  = 'font-syne font-extrabold text-3xl text-emerald-600';
+        alertEl.className = 'mt-4 px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-700 leading-relaxed';
+        const tip = margin >= 20
+          ? `Strong ${margin.toFixed(1)}% margin. The event is financially healthy. Consider reinvesting excess into production quality.`
+          : `Slim ${margin.toFixed(1)}% margin. Profitable, but a cost overrun could push into loss. Review variable costs carefully.`;
+        alertEl.innerHTML = `<strong>💡 Insight:</strong> ${tip}`;
+      } else if (net < 0) {
+        banner.className += 'result-loss';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700';
+        badge.textContent = '🚨 In Loss';
+        icon.textContent  = '🔴'; icon.className = 'w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Net Loss'; label.className = 'text-xs font-semibold text-rose-600 mb-0.5';
+        amount.className  = 'font-syne font-extrabold text-3xl text-rose-600';
+        alertEl.className = 'mt-4 px-4 py-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 leading-relaxed';
+        alertEl.innerHTML = `<strong>⚠️ Action needed:</strong> Event is ${fmt(Math.abs(net))} short. Raise ticket price, secure more sponsorships, or reduce expenses to reach breakeven.`;
+      } else {
+        banner.className += 'result-even';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700';
+        badge.textContent = '⚖️ Break-Even';
+        icon.textContent  = '🟡'; icon.className = 'w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Break-Even Point'; label.className = 'text-xs font-semibold text-amber-600 mb-0.5';
+        amount.className  = 'font-syne font-extrabold text-3xl text-amber-600';
+        alertEl.className = 'mt-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 leading-relaxed';
+        alertEl.innerHTML = '<strong>ℹ️ Note:</strong> Exact breakeven. Any unexpected cost or lower attendance will produce a loss.';
+      }
+
+      /* ── Margin gauge ── */
+      const clampedM = Math.max(0, Math.min(100, Math.abs(margin)));
+      const bar = document.getElementById('margin-bar');
+      bar.style.width = clampedM + '%';
+      document.getElementById('margin-label').textContent = margin.toFixed(1) + '%';
+      if (margin >= 20)      { bar.className = 'bar-fill bg-emerald-500'; document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-emerald-600'; }
+      else if (margin > 0)   { bar.className = 'bar-fill bg-amber-400';   document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-amber-600'; }
+      else if (margin === 0) { bar.className = 'bar-fill bg-slate-300';   document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-slate-500'; }
+      else                   { bar.className = 'bar-fill bg-rose-500';    document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-rose-600'; }
+
+      /* ── Breakeven ── */
+      document.getElementById('be-ticket-rev').textContent = fmt(ticketRev);
+      document.getElementById('be-sponsor').textContent    = fmt(sponsor);
+      document.getElementById('be-catering').textContent   = fmt(foodTotal);
+      document.getElementById('be-cpp').textContent = attendees > 0 ? fmt(totalExp / attendees) : '—';
+
+      if (ticketP > food && ticketP > 0) {
+        const beN = Math.ceil((totalExp - sponsor) / (ticketP - food));
+        const beEl = document.getElementById('be-count');
+        beEl.textContent = beN > 0 ? beN.toLocaleString('en-IN') + ' tickets' : '0 tickets';
+        beEl.className = 'font-bold ' + (beN <= attendees ? 'text-emerald-600' : 'text-rose-600');
+      } else {
+        document.getElementById('be-count').textContent = '—';
+        document.getElementById('be-count').className = 'font-bold text-slate-800';
+      }
+
+      /* ── Distribution bars ── */
+      const cats = [
+        { key: 'venue',     amt: venue,     fillId: 'fill-venue',     segId: 'seg-venue',     pctId: 'pct-venue',     amtId: 'amt-venue'     },
+        { key: 'food',      amt: foodTotal,  fillId: 'fill-food',      segId: 'seg-food',      pctId: 'pct-food',      amtId: 'amt-food'      },
+        { key: 'chair',     amt: chair,     fillId: 'fill-chair',     segId: 'seg-chair',     pctId: 'pct-chair',     amtId: 'amt-chair'     },
+        { key: 'audio',     amt: audio,     fillId: 'fill-audio',     segId: 'seg-audio',     pctId: 'pct-audio',     amtId: 'amt-audio'     },
+        { key: 'lighting',  amt: lighting,  fillId: 'fill-lighting',  segId: 'seg-lighting',  pctId: 'pct-lighting',  amtId: 'amt-lighting'  },
+        { key: 'marketing', amt: marketing, fillId: 'fill-marketing', segId: 'seg-marketing', pctId: 'pct-marketing', amtId: 'amt-marketing' },
+      ];
+      const maxAmt = Math.max(...cats.map(c => c.amt), 1);
+      cats.forEach(c => {
+        const pct    = totalExp > 0 ? (c.amt / totalExp) * 100 : 0;
+        const barPct = (c.amt / maxAmt) * 100;
+        document.getElementById(c.pctId).textContent = pct.toFixed(1) + '%';
+        document.getElementById(c.fillId).style.width = barPct + '%';
+        document.getElementById(c.segId).style.width  = pct + '%';
+        document.getElementById(c.amtId).textContent  = fmt(c.amt);
+      });
+    }
+
+    /* ── Reset ── */
+    function resetAll() {
+      ['venue-fee','attendee-count','food-cost','chair-rental',
+       'audio-system','stage-lighting','marketing-budget',
+       'ticket-price','sponsorship-funds'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      calculate();
+    }
+
+    /* ── Live on every input ── */
+    document.querySelectorAll('input[type="number"]').forEach(inp => {
+      inp.addEventListener('input', calculate);
+    });
+
+    /* ── Initial call ── */
+    calculate();
+  </script>
+</body>
+</html>
