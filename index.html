@@ -313,20 +313,21 @@
           </span>
         </div>
 
-        <!-- Card 3: Event Cost Estimator -->
-        <div onclick="openFeatureDemo('cost-estimator')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
-          <div class="w-12 h-12 rounded-xl bg-tealAccent text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
+        <!-- Card 3: Event Cost Estimator → links to real page -->
+        <a href="cost-estimator.html" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-teal-200 hover:border-teal-400 hover:shadow-teal-200/40 hover:shadow-xl relative overflow-hidden">
+          <span class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-teal-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live Page</span>
+          <div class="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
             <i data-lucide="calculator" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">💰 Cost Estimator</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Dynamic budget math engine. Calculate venue, catering, AV equipment, and staff overheads in real time with precision.
+            Dynamic budget math engine with Rate × Quantity inputs, multi-chart analytics telemetry, risk radar, and CSV export.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-tealAccent group-hover:gap-2.5 transition-all">
-            <span>Launch Math Calculator</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 group-hover:gap-2.5 transition-all">
+            <span>Open Cost Estimator</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </span>
-        </div>
+        </a>
 
         <!-- Card 4: Schedule Planner -->
         <div onclick="openFeatureDemo('schedule-planner')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
