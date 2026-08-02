@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Cost Estimator & Analytics — EventSphere Operations Platform</title>
-  <meta name="description" content="Real-time event financial calculator & executive telemetry dashboard. Estimate venue, catering, AV, lighting, marketing costs with instant sensitivity analysis, breakeven curve, and ROI telemetry.">
+  <meta name="description" content="Real-time event financial calculator & executive telemetry dashboard. Estimate venue, catering, AV, lighting, marketing costs with itemized unit quantities, sensitivity analysis, and ROI telemetry.">
 
   <!-- Tailwind CSS v3 via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -84,20 +84,13 @@
       background-clip: text;
     }
 
-    .text-gradient-teal {
-      background: linear-gradient(135deg, #00A896, #0066FF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
     /* Input styling */
     .est-input {
       width: 100%;
-      padding: 11px 14px 11px 36px;
+      padding: 10px 12px 10px 32px;
       border: 1.5px solid #e2e8f0;
       border-radius: 12px;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #0f172a;
       background: white;
@@ -112,6 +105,10 @@
       box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
     }
     .est-input::placeholder { color: #94a3b8; }
+
+    .qty-input {
+      padding-left: 28px !important;
+    }
 
     /* Progress bar animation */
     .bar-fill {
@@ -129,10 +126,6 @@
     /* Stacked bar */
     .stack-seg { height: 100%; transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-    /* Float animation */
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-    .animate-float { animation: float 5s ease-in-out infinite; }
-
     /* Navbar scroll effect */
     .navbar-scrolled {
       background: rgba(255, 255, 255, 0.95) !important;
@@ -148,27 +141,6 @@
       background: white;
       color: #0066FF !important;
       box-shadow: 0 1px 8px rgba(0,0,0,0.06);
-    }
-
-    /* Tooltip */
-    .tooltip-wrap { position: relative; }
-    .tooltip-wrap:hover .tooltip-box { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .tooltip-box {
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: #0f172a;
-      color: #e2e8f0;
-      font-size: 0.7rem;
-      padding: 5px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.2s;
-      z-index: 50;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
     }
 
     /* Range slider custom styling */
@@ -205,7 +177,6 @@
       header, footer, .no-print, #mobile-drawer { display: none !important; }
       body { background: white; color: black; }
       .glass-card, .dark-glass-card { border: 1px solid #ccc !important; box-shadow: none !important; background: white !important; }
-      .text-gradient, .text-gradient-teal { color: #0066FF !important; -webkit-text-fill-color: initial !important; background: none !important; }
     }
   </style>
 </head>
@@ -303,21 +274,21 @@
           <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
             <a href="index.html" class="hover:text-blue-600 transition">Home</a>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            <span class="text-blue-600 font-semibold">Module 3: Cost Estimator & Telemetry</span>
+            <span class="text-blue-600 font-semibold">Module 3: Itemized Cost Estimator</span>
           </div>
 
           <!-- Status Badge -->
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold shadow-md">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Real-time Financial Telemetry Engine v3.4 Active</span>
+            <span>Itemized Quantity &amp; Unit Rate Calculator Active</span>
           </div>
 
           <h1 class="font-syne font-extrabold text-4xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
-            Extended Event<br><span class="text-gradient">Cost Estimator & Analytics</span>
+            Extended Event<br><span class="text-gradient">Cost Estimator & Requirements</span>
           </h1>
 
           <p class="text-slate-600 text-base leading-relaxed">
-            Real-time financial calculator for event logistics. Compute expenses, revenue, net margins, and launch your executive <strong class="text-slate-900">Data Analytics Telemetry Dashboard</strong> in one click.
+            Real-time financial calculator with <strong class="text-slate-900">Unit Rate × Quantity Requirements</strong> for all items. Specify venue days, chair counts, AV sets, food plates, security guards, and ad channels.
           </p>
 
           <!-- Launch Analytics Popup Button -->
@@ -419,138 +390,202 @@
                 <i data-lucide="receipt" class="w-5 h-5"></i>
               </div>
               <div>
-                <h2 class="font-syne font-bold text-lg text-slate-900">Event Expense Breakdown</h2>
-                <p class="text-xs text-slate-500">Configure logistics, venue, production, and catering costs</p>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Event Expense Requirements (Rate × Quantity)</h2>
+                <p class="text-xs text-slate-500">Specify required unit quantities and daily/unit rates for every requirement</p>
               </div>
             </div>
 
-            <!-- Venue & Furniture -->
-            <div>
-              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <i data-lucide="building-2" class="w-3.5 h-3.5"></i> Venue &amp; Facilities
+            <!-- 1. VENUE & FACILITIES -->
+            <div class="space-y-4">
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="building-2" class="w-3.5 h-3.5"></i> 1. Venue &amp; Facilities
               </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="venue-fee">
-                    Venue Base Fee
-                    <span class="tooltip-wrap ml-1 inline-block">
-                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                      <span class="tooltip-box">Fixed hall / venue hire cost</span>
-                    </span>
-                  </label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="venue-fee" class="est-input" placeholder="e.g. 80000" min="0" step="500" value="80000">
+              <!-- Venue Base Fee -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Venue Daily Base Fee</label>
+                  <span id="venue-subtotal" class="text-xs font-bold font-mono text-blue-600">Subtotal: ₹80,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Daily Rate (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="venue-rate" class="est-input" placeholder="40000" min="0" value="40000">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Days (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="venue-qty" class="est-input qty-input" placeholder="2" min="1" value="2">
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="chair-rental">
-                    Chair / Furniture Rental
-                    <span class="tooltip-wrap ml-1 inline-block">
-                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                      <span class="tooltip-box">Tables, chairs, stage hire</span>
-                    </span>
-                  </label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="chair-rental" class="est-input" placeholder="e.g. 12000" min="0" step="500" value="12000">
+              <!-- Chair / Furniture Rental -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Chair &amp; Furniture Requirement</label>
+                  <span id="chair-subtotal" class="text-xs font-bold font-mono text-violet-600">Subtotal: ₹12,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Rental Cost / Chair (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="chair-rate" class="est-input" placeholder="60" min="0" value="60">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Chairs (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="chair-qty" class="est-input qty-input" placeholder="200" min="0" value="200">
+                    </div>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <!-- Attendees & Catering -->
-            <div>
-              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <i data-lucide="utensils" class="w-3.5 h-3.5"></i> Attendees &amp; Catering
+            <!-- 2. ATTENDEES & CATERING -->
+            <div class="space-y-4">
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="utensils" class="w-3.5 h-3.5"></i> 2. Attendees &amp; Catering Requirements
               </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="attendee-count">
-                    Attendee Count
-                    <span class="tooltip-wrap ml-1 inline-block">
-                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                      <span class="tooltip-box">Total expected headcount</span>
-                    </span>
-                  </label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">#</span>
-                    <input type="number" id="attendee-count" class="est-input" placeholder="e.g. 200" min="0" step="1" value="200">
+              <!-- Food & Catering -->
+              <div class="p-3.5 rounded-2xl bg-blue-50/50 border border-blue-100 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Per-Plate Food &amp; Catering</label>
+                  <span id="catering-total-val" class="text-xs font-bold font-mono text-teal-600">Subtotal: ₹90,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Per-Plate Rate (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="food-cost" class="est-input" placeholder="450" min="0" value="450">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Attendee Headcount (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="attendee-count" class="est-input qty-input" placeholder="200" min="1" value="200">
+                    </div>
                   </div>
                 </div>
-
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="food-cost">
-                    Per-Plate Food Cost
-                    <span class="tooltip-wrap ml-1 inline-block">
-                      <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                      <span class="tooltip-box">Cost per person · multiplied by headcount</span>
-                    </span>
-                  </label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="food-cost" class="est-input" placeholder="e.g. 450" min="0" step="10" value="450">
-                  </div>
-                </div>
-
-              </div>
-              
-              <!-- Live catering total pill -->
-              <div id="catering-total-row" class="mt-2 px-3.5 py-2 bg-blue-50/80 border border-blue-100 rounded-xl text-xs text-blue-700 font-semibold flex items-center justify-between">
-                <span class="flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Calculated Catering Total:</span>
-                <span id="catering-total-val" class="font-bold font-mono">₹90,000</span>
               </div>
             </div>
 
-            <!-- Production -->
-            <div>
-              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <i data-lucide="mic-2" class="w-3.5 h-3.5"></i> Production &amp; Technical
+            <!-- 3. PRODUCTION & TECHNICAL -->
+            <div class="space-y-4">
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="mic-2" class="w-3.5 h-3.5"></i> 3. Production &amp; AV Requirements
               </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="audio-system">Audio System</label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="audio-system" class="est-input" placeholder="e.g. 25000" min="0" step="500" value="25000">
+              <!-- Audio System -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Audio System &amp; Speakers</label>
+                  <span id="audio-subtotal" class="text-xs font-bold font-mono text-amber-600">Subtotal: ₹25,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Rate / System Set (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="audio-rate" class="est-input" placeholder="12500" min="0" value="12500">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Audio Sets (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="audio-qty" class="est-input qty-input" placeholder="2" min="1" value="2">
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="stage-lighting">Stage Lighting</label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="stage-lighting" class="est-input" placeholder="e.g. 18000" min="0" step="500" value="18000">
+              <!-- Stage Lighting -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Stage Lighting Rig Requirements</label>
+                  <span id="lighting-subtotal" class="text-xs font-bold font-mono text-pink-600">Subtotal: ₹18,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Rate / Lighting Rig (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="lighting-rate" class="est-input" placeholder="6000" min="0" value="6000">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Rigs (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="lighting-qty" class="est-input qty-input" placeholder="3" min="1" value="3">
+                    </div>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <!-- Marketing & Staffing -->
-            <div>
-              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <i data-lucide="megaphone" class="w-3.5 h-3.5"></i> Marketing &amp; Staff Overhead
+            <!-- 4. MARKETING & STAFFING -->
+            <div class="space-y-4">
+              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="megaphone" class="w-3.5 h-3.5"></i> 4. Marketing &amp; Staffing Requirements
               </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="marketing-budget">Marketing Budget</label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="marketing-budget" class="est-input" placeholder="e.g. 15000" min="0" step="500" value="15000">
+
+              <!-- Marketing Budget -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Marketing &amp; Ad Campaigns</label>
+                  <span id="marketing-subtotal" class="text-xs font-bold font-mono text-emerald-600">Subtotal: ₹15,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Cost / Campaign (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="marketing-rate" class="est-input" placeholder="5000" min="0" value="5000">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Campaigns (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="marketing-qty" class="est-input qty-input" placeholder="3" min="1" value="3">
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="space-y-1.5">
-                  <label class="block text-xs font-bold text-slate-700" for="staffing-cost">Staffing & Security</label>
-                  <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="staffing-cost" class="est-input" placeholder="e.g. 10000" min="0" step="500" value="10000">
+              <!-- Staffing & Security -->
+              <div class="p-3.5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-2">
+                <div class="flex justify-between items-center">
+                  <label class="text-xs font-bold text-slate-800">Event Staff &amp; Security Guards</label>
+                  <span id="staffing-subtotal" class="text-xs font-bold font-mono text-indigo-600">Subtotal: ₹10,000</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">Staff Daily Wage (₹)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">₹</span>
+                      <input type="number" id="staffing-rate" class="est-input" placeholder="2000" min="0" value="2000">
+                    </div>
+                  </div>
+                  <div>
+                    <span class="text-[11px] text-slate-500 block mb-1">No. of Staff Guards (#)</span>
+                    <div class="relative">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-semibold pointer-events-none">#</span>
+                      <input type="number" id="staffing-qty" class="est-input qty-input" placeholder="5" min="1" value="5">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -597,7 +632,7 @@
                 <i data-lucide="trending-up" class="w-5 h-5"></i>
               </div>
               <div>
-                <h2 class="font-syne font-bold text-lg text-slate-900">Revenue &amp; Sponsorship Sources</h2>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Revenue &amp; Sponsorship Requirements</h2>
                 <p class="text-xs text-slate-500">Configure ticket pricing strategies and partner funds</p>
               </div>
             </div>
@@ -609,7 +644,7 @@
                   Target Ticket Price
                   <span class="tooltip-wrap ml-1 inline-block">
                     <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                    <span class="tooltip-box">Price per ticket × attendee count = gross ticket revenue</span>
+                    <span class="tooltip-box">Price per ticket × attendee headcount</span>
                   </span>
                 </label>
                 <div class="relative">
@@ -672,7 +707,7 @@
             </div>
 
             <div id="result-alert" class="mt-4 px-4 py-3 bg-emerald-50/90 border border-emerald-200 rounded-xl text-xs text-emerald-800 leading-relaxed">
-              <strong>💡 Executive Telemetry:</strong> Strong margin of 34.2%. Financial structure is resilient to vendor fluctuation.
+              <strong>💡 Executive Telemetry:</strong> Profit margin of 34.2%. Financial structure is resilient to vendor fluctuation.
             </div>
           </div>
 
@@ -768,7 +803,7 @@
               
               <div>
                 <div class="flex justify-between mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500"></span>Venue Fee</span>
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500"></span>Venue Base Fee</span>
                   <span class="font-bold text-slate-800"><span id="pct-venue">32.0%</span> · <span id="amt-venue" class="text-slate-500 font-mono">₹80,000</span></span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-venue" class="bar-fill bg-blue-500" style="width:32%"></div></div>
@@ -1074,54 +1109,93 @@
       return '₹' + Math.round(n).toLocaleString('en-IN');
     }
 
-    /* ── Preset Templates ── */
+    /* ── Preset Templates (Itemized Rates & Quantities) ── */
     const presets = {
-      summit:   { venue: 120000, chair: 25000, attendees: 500, food: 600, audio: 45000, lighting: 35000, marketing: 30000, staffing: 20000, ticket: 1999, sponsor: 150000, contingency: 5, tax: 18 },
-      gala:     { venue: 200000, chair: 40000, attendees: 150, food: 1500, audio: 35000, lighting: 40000, marketing: 20000, staffing: 30000, ticket: 4999, sponsor: 200000, contingency: 10, tax: 18 },
-      workshop: { venue: 35000,  chair: 5000,  attendees: 100, food: 350,  audio: 15000, lighting: 10000, marketing: 10000, staffing: 5000,  ticket: 999,  sponsor: 30000,  contingency: 5, tax: 18 },
-      meetup:   { venue: 15000,  chair: 3000,  attendees: 75,  food: 250,  audio: 8000,  lighting: 5000,  marketing: 5000,  staffing: 2000,  ticket: 499,  sponsor: 15000,  contingency: 5, tax: 18 }
+      summit:   { vRate: 60000, vQty: 2, cRate: 75, cQty: 500, attendees: 500, food: 600, aRate: 15000, aQty: 3, lRate: 7500, lQty: 4, mRate: 7500, mQty: 4, sRate: 2000, sQty: 10, ticket: 1999, sponsor: 150000, contingency: 5, tax: 18 },
+      gala:     { vRate: 100000, vQty: 2, cRate: 150, cQty: 150, attendees: 150, food: 1500, aRate: 17500, aQty: 2, lRate: 10000, lQty: 4, mRate: 10000, mQty: 2, sRate: 3000, sQty: 10, ticket: 4999, sponsor: 200000, contingency: 10, tax: 18 },
+      workshop: { vRate: 35000, vQty: 1, cRate: 50, cQty: 100, attendees: 100, food: 350, aRate: 7500, aQty: 2, lRate: 5000, lQty: 2, mRate: 5000, mQty: 2, sRate: 1500, sQty: 3, ticket: 999, sponsor: 30000, contingency: 5, tax: 18 },
+      meetup:   { vRate: 15000, vQty: 1, cRate: 40, cQty: 75, attendees: 75, food: 250, aRate: 4000, aQty: 2, lRate: 2500, lQty: 2, mRate: 2500, mQty: 2, sRate: 1000, sQty: 2, ticket: 499, sponsor: 15000, contingency: 5, tax: 18 }
     };
 
     function applyPreset(key) {
       const p = presets[key];
       if (!p) return;
-      document.getElementById('venue-fee').value        = p.venue;
-      document.getElementById('chair-rental').value      = p.chair;
+      document.getElementById('venue-rate').value       = p.vRate;
+      document.getElementById('venue-qty').value        = p.vQty;
+      document.getElementById('chair-rate').value       = p.cRate;
+      document.getElementById('chair-qty').value        = p.cQty;
       document.getElementById('attendee-count').value   = p.attendees;
       document.getElementById('food-cost').value        = p.food;
-      document.getElementById('audio-system').value     = p.audio;
-      document.getElementById('stage-lighting').value  = p.lighting;
-      document.getElementById('marketing-budget').value = p.marketing;
-      document.getElementById('staffing-cost').value     = p.staffing;
+      document.getElementById('audio-rate').value       = p.aRate;
+      document.getElementById('audio-qty').value        = p.aQty;
+      document.getElementById('lighting-rate').value    = p.lRate;
+      document.getElementById('lighting-qty').value     = p.lQty;
+      document.getElementById('marketing-rate').value   = p.mRate;
+      document.getElementById('marketing-qty').value    = p.mQty;
+      document.getElementById('staffing-rate').value    = p.sRate;
+      document.getElementById('staffing-qty').value     = p.sQty;
       document.getElementById('ticket-price').value     = p.ticket;
       document.getElementById('sponsorship-funds').value= p.sponsor;
       document.getElementById('contingency-pct').value   = p.contingency;
       document.getElementById('tax-rate').value         = p.tax;
       calculate();
-      showToast(`Loaded "${key.toUpperCase()}" scenario template!`, 'success');
+      showToast(`Loaded "${key.toUpperCase()}" scenario requirements!`, 'success');
     }
 
     /* ── Main Calculation Logic ── */
     let lastCalcData = {};
 
     function calculate() {
-      const venue       = val('venue-fee');
-      const attendees   = val('attendee-count');
-      const food        = val('food-cost');
-      const chair       = val('chair-rental');
-      const audio       = val('audio-system');
-      const lighting    = val('stage-lighting');
-      const marketing   = val('marketing-budget');
-      const staffing    = val('staffing-cost');
-      const ticketP     = val('ticket-price');
-      const sponsor     = val('sponsorship-funds');
+      // 1. VENUE
+      const vRate = val('venue-rate');
+      const vQty  = val('venue-qty') || 1;
+      const venue = vRate * vQty;
+      document.getElementById('venue-subtotal').textContent = `Subtotal: ${fmt(venue)}`;
+
+      // 2. CHAIR / FURNITURE
+      const cRate = val('chair-rate');
+      const cQty  = val('chair-qty');
+      const chair = cRate * cQty;
+      document.getElementById('chair-subtotal').textContent = `Subtotal: ${fmt(chair)}`;
+
+      // 3. FOOD / CATERING
+      const attendees = val('attendee-count');
+      const foodRate  = val('food-cost');
+      const foodTotal = attendees * foodRate;
+      document.getElementById('catering-total-val').textContent = `Subtotal: ${fmt(foodTotal)}`;
+
+      // 4. AUDIO SYSTEM
+      const aRate = val('audio-rate');
+      const aQty  = val('audio-qty') || 1;
+      const audio = aRate * aQty;
+      document.getElementById('audio-subtotal').textContent = `Subtotal: ${fmt(audio)}`;
+
+      // 5. STAGE LIGHTING
+      const lRate    = val('lighting-rate');
+      const lQty     = val('lighting-qty') || 1;
+      const lighting = lRate * lQty;
+      document.getElementById('lighting-subtotal').textContent = `Subtotal: ${fmt(lighting)}`;
+
+      // 6. MARKETING
+      const mRate     = val('marketing-rate');
+      const mQty      = val('marketing-qty') || 1;
+      const marketing = mRate * mQty;
+      document.getElementById('marketing-subtotal').textContent = `Subtotal: ${fmt(marketing)}`;
+
+      // 7. STAFFING & SECURITY
+      const sRate    = val('staffing-rate');
+      const sQty     = val('staffing-qty');
+      const staffing = sRate * sQty;
+      document.getElementById('staffing-subtotal').textContent = `Subtotal: ${fmt(staffing)}`;
+
+      // 8. REVENUE
+      const ticketP  = val('ticket-price');
+      const sponsor  = val('sponsorship-funds');
 
       const contingencyPct = val('contingency-pct');
       const taxRatePct     = val('tax-rate');
 
-      const foodTotal   = attendees * food;
-      const baseSubtotal= venue + foodTotal + chair + audio + lighting + marketing + staffing;
-      
+      const baseSubtotal = venue + foodTotal + chair + audio + lighting + marketing + staffing;
       const contingencyAmt = baseSubtotal * (contingencyPct / 100);
       const taxAmt         = (baseSubtotal + contingencyAmt) * (taxRatePct / 100);
       const totalExp       = baseSubtotal + contingencyAmt + taxAmt;
@@ -1135,9 +1209,6 @@
       // Update slider labels
       document.getElementById('contingency-val-label').textContent = `${contingencyPct}% (+${fmt(contingencyAmt)})`;
       document.getElementById('tax-val-label').textContent         = `${taxRatePct}% (+${fmt(taxAmt)})`;
-
-      // Catering & Ticket Helper Pill Updates
-      document.getElementById('catering-total-val').textContent = fmt(foodTotal);
       document.getElementById('ticket-rev-val').textContent   = fmt(ticketRev);
 
       // Summary Cards
@@ -1211,8 +1282,8 @@
       document.getElementById('be-cpp').textContent        = attendees > 0 ? fmt(totalExp / attendees) : '—';
 
       let beCountVal = 0;
-      if (ticketP > food && ticketP > 0) {
-        beCountVal = Math.ceil((totalExp - sponsor) / (ticketP - food));
+      if (ticketP > foodRate && ticketP > 0) {
+        beCountVal = Math.ceil((totalExp - sponsor) / (ticketP - foodRate));
         const beEl = document.getElementById('be-count');
         beEl.textContent = beCountVal > 0 ? beCountVal.toLocaleString('en-IN') + ' tickets' : '0 tickets';
         beEl.className = 'font-extrabold font-mono ' + (beCountVal <= attendees ? 'text-emerald-600' : 'text-rose-600');
@@ -1273,10 +1344,11 @@
 
     /* ── Reset Form ── */
     function resetAll() {
-      ['venue-fee','attendee-count','food-cost','chair-rental',
-       'audio-system','stage-lighting','marketing-budget','staffing-cost',
-       'ticket-price','sponsorship-funds'].forEach(id => {
-        document.getElementById(id).value = '';
+      ['venue-rate','venue-qty','chair-rate','chair-qty','attendee-count','food-cost',
+       'audio-rate','audio-qty','lighting-rate','lighting-qty','marketing-rate','marketing-qty',
+       'staffing-rate','staffing-qty','ticket-price','sponsorship-funds'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
       });
       document.getElementById('contingency-pct').value = 5;
       document.getElementById('tax-rate').value        = 18;
@@ -1297,7 +1369,6 @@
       box.classList.add('scale-100');
       document.body.style.overflow = 'hidden';
 
-      // Render/update charts after DOM visibility
       setTimeout(() => {
         initAnalyticsCharts();
       }, 100);
@@ -1415,38 +1486,40 @@
         ["EventSphere Cost Estimator & Financial Summary"],
         ["Generated At", new Date().toLocaleString()],
         [""],
-        ["Item Category", "Amount (INR)"],
-        ["Venue Base Fee", d.venue],
-        ["Food & Catering Total", d.foodTotal],
-        ["Furniture Rental", d.chair],
-        ["Audio System", d.audio],
-        ["Stage Lighting", d.lighting],
-        ["Marketing Budget", d.marketing],
-        ["Staffing & Security", d.staffing],
-        ["Total Expenses", d.totalExp],
+        ["Requirement Item", "Rate (INR)", "Quantity (#)", "Subtotal (INR)"],
+        ["Venue Daily Base Fee", val('venue-rate'), val('venue-qty'), d.venue],
+        ["Food & Catering", val('food-cost'), val('attendee-count'), d.foodTotal],
+        ["Chair & Furniture Rental", val('chair-rate'), val('chair-qty'), d.chair],
+        ["Audio System Requirement", val('audio-rate'), val('audio-qty'), d.audio],
+        ["Stage Lighting Rigs", val('lighting-rate'), val('lighting-qty'), d.lighting],
+        ["Marketing Ad Campaigns", val('marketing-rate'), val('marketing-qty'), d.marketing],
+        ["Event Staff & Security", val('staffing-rate'), val('staffing-qty'), d.staffing],
+        ["Contingency Buffer (%)", val('contingency-pct') + "%", "-", "-"],
+        ["GST / Tax Rate (%)", val('tax-rate') + "%", "-", "-"],
+        ["TOTAL OPERATING EXPENSES", "-", "-", d.totalExp],
         [""],
-        ["Target Ticket Price", d.ticketP],
-        ["Attendee Count", d.attendees],
-        ["Gross Ticket Sales", d.attendees * d.ticketP],
-        ["Sponsorship Funds", d.sponsor],
-        ["Gross Total Revenue", d.totalRev],
+        ["Target Ticket Price", val('ticket-price'), "-", "-"],
+        ["Attendee Headcount", val('attendee-count'), "-", "-"],
+        ["Gross Ticket Revenue", "-", "-", d.attendees * d.ticketP],
+        ["Sponsorship Funds", "-", "-", d.sponsor],
+        ["GROSS TOTAL REVENUE", "-", "-", d.totalRev],
         [""],
-        ["Net Profit / Loss", d.net],
-        ["Profit Margin (%)", d.margin.toFixed(2) + "%"],
-        ["ROI (%)", d.roi.toFixed(2) + "%"],
-        ["Breakeven Ticket Count", d.beCountVal + " tickets"]
+        ["NET PROFIT / LOSS", "-", "-", d.net],
+        ["Profit Margin (%)", "-", "-", d.margin.toFixed(2) + "%"],
+        ["Return on Investment (ROI %)", "-", "-", d.roi.toFixed(2) + "%"],
+        ["Breakeven Ticket Count", "-", "-", d.beCountVal + " tickets"]
       ].map(e => e.join(",")).join("\n");
 
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url  = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `EventSphere_Financial_Report_${Date.now()}.csv`);
+      link.setAttribute("download", `EventSphere_Requirement_Report_${Date.now()}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      showToast('CSV Executive Summary Downloaded!', 'success');
+      showToast('CSV Executive Requirement Report Downloaded!', 'success');
     }
 
     /* ── Input Event Listeners ── */
