@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Cost Estimator — EventSphere Operations Platform</title>
-  <meta name="description" content="Real-time event financial calculator. Estimate venue, catering, AV, lighting, marketing costs and see instant profit or loss results with visual breakdowns.">
+  <title>Event Cost Estimator & Analytics — EventSphere Operations Platform</title>
+  <meta name="description" content="Real-time event financial calculator & executive telemetry dashboard. Estimate venue, catering, AV, lighting, marketing costs with instant sensitivity analysis, breakeven curve, and ROI telemetry.">
 
   <!-- Tailwind CSS v3 via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -42,14 +42,14 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Chart.js -->
+  <!-- Chart.js v4 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     h1, h2, h3, h4, .font-syne { font-family: 'Syne', sans-serif; }
 
-    /* Scrollbar */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -57,17 +57,35 @@
 
     /* Glass card */
     .glass-card {
-      background: rgba(255,255,255,0.75);
+      background: rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(226,232,240,0.8);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05), 0 20px 25px -5px rgba(0,102,255,0.03);
-      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      border: 1px solid rgba(226, 232, 240, 0.85);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 102, 255, 0.03);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-card:hover {
+      box-shadow: 0 15px 35px -10px rgba(0, 102, 255, 0.1), 0 25px 30px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .dark-glass-card {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     /* Text gradient */
     .text-gradient {
       background: linear-gradient(135deg, #0066FF, #7C3AED);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .text-gradient-teal {
+      background: linear-gradient(135deg, #00A896, #0066FF);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -91,7 +109,7 @@
     .est-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     .est-input:focus {
       border-color: #0066FF;
-      box-shadow: 0 0 0 3px rgba(0,102,255,0.1);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
     }
     .est-input::placeholder { color: #94a3b8; }
 
@@ -99,25 +117,25 @@
     .bar-fill {
       height: 100%;
       border-radius: 9999px;
-      transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Result banner */
-    .result-profit { background: linear-gradient(135deg,rgba(16,185,129,0.1),rgba(5,150,105,0.05)); border-color: rgba(16,185,129,0.3); }
-    .result-loss   { background: linear-gradient(135deg,rgba(239,68,68,0.1),rgba(220,38,38,0.05));  border-color: rgba(239,68,68,0.3); }
-    .result-even   { background: linear-gradient(135deg,rgba(245,158,11,0.1),rgba(217,119,6,0.05)); border-color: rgba(245,158,11,0.3); }
+    /* Result banner styles */
+    .result-profit { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.05)); border-color: rgba(16,185,129,0.35); }
+    .result-loss   { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(220,38,38,0.05)); border-color: rgba(239,68,68,0.35); }
+    .result-even   { background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(217,119,6,0.05)); border-color: rgba(245,158,11,0.35); }
     .result-empty  { background: rgba(248,250,252,1); border-color: #e2e8f0; }
 
     /* Stacked bar */
-    .stack-seg { height: 100%; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+    .stack-seg { height: 100%; transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-    /* Float animation for hero card */
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    /* Float animation */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
     .animate-float { animation: float 5s ease-in-out infinite; }
 
     /* Navbar scroll effect */
     .navbar-scrolled {
-      background: rgba(255,255,255,0.95) !important;
+      background: rgba(255, 255, 255, 0.95) !important;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: 0 1px 20px rgba(0,0,0,0.08);
@@ -150,14 +168,55 @@
       pointer-events: none;
       transition: all 0.2s;
       z-index: 50;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]:focus { outline: none; }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: #e2e8f0;
+      border-radius: 100px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #0066FF;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -6px;
+      box-shadow: 0 2px 6px rgba(0,102,255,0.4);
+      transition: transform 0.15s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Print styles */
+    @media print {
+      header, footer, .no-print, #mobile-drawer { display: none !important; }
+      body { background: white; color: black; }
+      .glass-card, .dark-glass-card { border: 1px solid #ccc !important; box-shadow: none !important; background: white !important; }
+      .text-gradient, .text-gradient-teal { color: #0066FF !important; -webkit-text-fill-color: initial !important; background: none !important; }
     }
   </style>
 </head>
 
 <body class="bg-white text-slate-900 selection:bg-blue-600 selection:text-white relative">
 
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[300] space-y-3 pointer-events-none"></div>
+
   <!-- ═══════════════════════════════════════════════
-       NAVIGATION BAR (exact match to main site)
+       NAVIGATION BAR
   ════════════════════════════════════════════════ -->
   <header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -180,18 +239,22 @@
         <span class="font-syne font-bold text-2xl tracking-tight text-slate-900">Event<span class="text-gradient">Sphere</span></span>
       </a>
 
-      <!-- Desktop Navigation -->
+      <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
-        <a href="index.html#hero"             class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
-        <a href="index.html#features"         class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
-        <a href="index.html#workflow"         class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
-        <a href="index.html#dashboard"        class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
-        <a href="cost-estimator.html"         class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
+        <a href="index.html#hero" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
+        <a href="index.html#features" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+        <a href="index.html#workflow" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
+        <a href="index.html#dashboard" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
+        <a href="cost-estimator.html" class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
         <a href="index.html#invitation-sender" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
       </nav>
 
-      <!-- Right CTA & Mobile Toggle -->
+      <!-- Action CTAs -->
       <div class="flex items-center gap-3">
+        <button onclick="openAnalyticsModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold text-slate-800 bg-teal-50 hover:bg-teal-100 border border-teal-200 transition duration-300 shadow-sm">
+          <i data-lucide="line-chart" class="w-4 h-4 text-teal-600"></i>
+          <span>Analytics Telemetry</span>
+        </button>
         <a href="index.html#invitation-sender" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20">
           <span>Get Started</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -213,11 +276,10 @@
         </button>
       </div>
       <nav class="flex flex-col gap-4 mt-8">
-        <a href="index.html#hero"              class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
-        <a href="index.html#features"          class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass &amp; Modules</a>
-        <a href="index.html#dashboard"         class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
-        <a href="cost-estimator.html"          class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
-        <a href="index.html#invitation-sender" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send" class="w-5 h-5"></i> Invitation Dispatcher</a>
+        <a href="index.html#hero" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
+        <a href="index.html#features" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass &amp; Modules</a>
+        <a href="cost-estimator.html" class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
+        <button onclick="openAnalyticsModal(); document.getElementById('mobile-drawer').classList.add('translate-x-full');" class="text-lg font-semibold text-teal-400 text-left flex items-center gap-3"><i data-lucide="line-chart" class="w-5 h-5"></i> Analytics Dashboard</button>
       </nav>
     </div>
     <div class="pt-6 border-t border-slate-800">
@@ -227,45 +289,113 @@
 
 
   <!-- ═══════════════════════════════════════════════
-       PAGE HERO
+       HERO SECTION WITH LAUNCH ANALYTICS BUTTON
   ════════════════════════════════════════════════ -->
-  <section class="pt-32 pb-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-teal-50/20 relative overflow-hidden">
-    <!-- ambient blobs -->
-    <div class="absolute top-10 right-10 w-80 h-80 bg-blue-200/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-200/20 rounded-full blur-3xl pointer-events-none"></div>
+  <section class="pt-32 pb-12 bg-gradient-to-br from-slate-50 via-blue-50/40 to-teal-50/30 relative overflow-hidden">
+    <div class="absolute top-10 right-10 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-80 h-80 bg-teal-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div class="space-y-4">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+        
+        <div class="space-y-4 max-w-2xl">
           <!-- Breadcrumb -->
           <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
             <a href="index.html" class="hover:text-blue-600 transition">Home</a>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            <span class="text-blue-600 font-semibold">Cost Estimator</span>
+            <span class="text-blue-600 font-semibold">Module 3: Cost Estimator & Telemetry</span>
           </div>
 
-          <!-- Badge -->
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-200 text-xs font-bold text-teal-700">
-            <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
-            Module 3 — Financial Planning Engine
+          <!-- Status Badge -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold shadow-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Real-time Financial Telemetry Engine v3.4 Active</span>
           </div>
 
           <h1 class="font-syne font-extrabold text-4xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
-            Event Cost<br><span class="text-gradient">Estimator</span>
+            Extended Event<br><span class="text-gradient">Cost Estimator & Analytics</span>
           </h1>
-          <p class="text-slate-500 text-base max-w-xl leading-relaxed">
-            Enter your event details below. Results update <strong class="text-slate-700">instantly</strong> — no button needed. See total expenses, gross revenue, net profit or loss, and a full cost breakdown chart.
+
+          <p class="text-slate-600 text-base leading-relaxed">
+            Real-time financial calculator for event logistics. Compute expenses, revenue, net margins, and launch your executive <strong class="text-slate-900">Data Analytics Telemetry Dashboard</strong> in one click.
           </p>
+
+          <!-- Launch Analytics Popup Button -->
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <button onclick="openAnalyticsModal()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition transform hover:-translate-y-0.5 flex items-center gap-2.5">
+              <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+              <span>Launch Analytics Dashboard Popup</span>
+              <span class="px-2 py-0.5 rounded-md bg-white/20 text-xs font-mono">LIVE</span>
+            </button>
+            <button onclick="exportCSV()" class="px-5 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm border border-slate-200 shadow-sm transition flex items-center gap-2">
+              <i data-lucide="download" class="w-4 h-4 text-slate-500"></i>
+              <span>Export CSV</span>
+            </button>
+            <button onclick="window.print()" class="px-4 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm border border-slate-200 shadow-sm transition flex items-center gap-2">
+              <i data-lucide="printer" class="w-4 h-4 text-slate-500"></i>
+              <span>Print Report</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Quick tips pill -->
-        <div class="flex-shrink-0 glass-card rounded-2xl p-4 max-w-xs space-y-2">
-          <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-500"></i> Quick Tips</span>
-          <ul class="space-y-1 text-xs text-slate-500">
-            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Leave any field blank to treat it as ₹0</li>
-            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Food cost × attendee count = catering total</li>
-            <li class="flex items-start gap-1.5"><span class="text-teal-500 mt-0.5">✓</span> Ticket price × attendee count = ticket revenue</li>
-          </ul>
+        <!-- Executive Financial Scorecard -->
+        <div class="glass-card rounded-3xl p-6 w-full lg:w-80 space-y-4 shadow-xl border border-white/80">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Financial Health Grade</span>
+            <span id="scorecard-badge" class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-emerald-100 text-emerald-700">A+ EXCELLENT</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs text-slate-500 block">Est. ROI Score</span>
+              <span id="scorecard-roi" class="font-syne font-extrabold text-3xl text-blue-600">+48.5%</span>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xl font-syne shadow-inner">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+          </div>
+
+          <div class="space-y-1.5 pt-2 border-t border-slate-100 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Break-even Attainability</span>
+              <span id="scorecard-be-rate" class="font-bold text-slate-800">High (72%)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Risk Assessment</span>
+              <span id="scorecard-risk" class="font-bold text-emerald-600">Low Risk</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════
+       PRESET TEMPLATES SELECTOR BAR
+  ════════════════════════════════════════════════ -->
+  <section class="py-6 bg-white border-y border-slate-200/80 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Quick Fill Event Presets:</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="applyPreset('summit')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="building" class="w-3.5 h-3.5"></i> Tech Summit (500 Pax)
+          </button>
+          <button onclick="applyPreset('gala')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-purple-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="crown" class="w-3.5 h-3.5"></i> VIP Gala (150 Pax)
+          </button>
+          <button onclick="applyPreset('workshop')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-teal-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="laptop" class="w-3.5 h-3.5"></i> Dev Workshop (100 Pax)
+          </button>
+          <button onclick="applyPreset('meetup')" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-amber-600 hover:text-white text-slate-700 font-semibold text-xs transition flex items-center gap-1.5 border border-slate-200">
+            <i data-lucide="coffee" class="w-3.5 h-3.5"></i> Community Meetup (75 Pax)
+          </button>
         </div>
       </div>
     </div>
@@ -289,8 +419,8 @@
                 <i data-lucide="receipt" class="w-5 h-5"></i>
               </div>
               <div>
-                <h2 class="font-syne font-bold text-lg text-slate-900">Event Expenses</h2>
-                <p class="text-xs text-slate-500">All costs your event will incur</p>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Event Expense Breakdown</h2>
+                <p class="text-xs text-slate-500">Configure logistics, venue, production, and catering costs</p>
               </div>
             </div>
 
@@ -311,7 +441,7 @@
                   </label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="venue-fee" class="est-input" placeholder="e.g. 80000" min="0" step="500">
+                    <input type="number" id="venue-fee" class="est-input" placeholder="e.g. 80000" min="0" step="500" value="80000">
                   </div>
                 </div>
 
@@ -320,12 +450,12 @@
                     Chair / Furniture Rental
                     <span class="tooltip-wrap ml-1 inline-block">
                       <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                      <span class="tooltip-box">Tables, chairs, décor hire</span>
+                      <span class="tooltip-box">Tables, chairs, stage hire</span>
                     </span>
                   </label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="chair-rental" class="est-input" placeholder="e.g. 12000" min="0" step="500">
+                    <input type="number" id="chair-rental" class="est-input" placeholder="e.g. 12000" min="0" step="500" value="12000">
                   </div>
                 </div>
 
@@ -349,7 +479,7 @@
                   </label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">#</span>
-                    <input type="number" id="attendee-count" class="est-input" placeholder="e.g. 200" min="0" step="1">
+                    <input type="number" id="attendee-count" class="est-input" placeholder="e.g. 200" min="0" step="1" value="200">
                   </div>
                 </div>
 
@@ -363,15 +493,16 @@
                   </label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="food-cost" class="est-input" placeholder="e.g. 450" min="0" step="10">
+                    <input type="number" id="food-cost" class="est-input" placeholder="e.g. 450" min="0" step="10" value="450">
                   </div>
                 </div>
 
               </div>
-              <!-- Live catering total -->
-              <div id="catering-total-row" class="mt-2 px-3 py-2 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-700 font-semibold hidden">
-                <i data-lucide="info" class="w-3.5 h-3.5 inline mr-1"></i>
-                Catering total: <span id="catering-total-val">₹0</span>
+              
+              <!-- Live catering total pill -->
+              <div id="catering-total-row" class="mt-2 px-3.5 py-2 bg-blue-50/80 border border-blue-100 rounded-xl text-xs text-blue-700 font-semibold flex items-center justify-between">
+                <span class="flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Calculated Catering Total:</span>
+                <span id="catering-total-val" class="font-bold font-mono">₹90,000</span>
               </div>
             </div>
 
@@ -386,7 +517,7 @@
                   <label class="block text-xs font-bold text-slate-700" for="audio-system">Audio System</label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="audio-system" class="est-input" placeholder="e.g. 25000" min="0" step="500">
+                    <input type="number" id="audio-system" class="est-input" placeholder="e.g. 25000" min="0" step="500" value="25000">
                   </div>
                 </div>
 
@@ -394,26 +525,69 @@
                   <label class="block text-xs font-bold text-slate-700" for="stage-lighting">Stage Lighting</label>
                   <div class="relative">
                     <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                    <input type="number" id="stage-lighting" class="est-input" placeholder="e.g. 18000" min="0" step="500">
+                    <input type="number" id="stage-lighting" class="est-input" placeholder="e.g. 18000" min="0" step="500" value="18000">
                   </div>
                 </div>
 
               </div>
             </div>
 
-            <!-- Marketing -->
+            <!-- Marketing & Staffing -->
             <div>
               <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1.5">
-                <i data-lucide="megaphone" class="w-3.5 h-3.5"></i> Marketing &amp; Promotion
+                <i data-lucide="megaphone" class="w-3.5 h-3.5"></i> Marketing &amp; Staff Overhead
               </p>
-              <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-slate-700" for="marketing-budget">Marketing Budget</label>
-                <div class="relative max-w-xs">
-                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                  <input type="number" id="marketing-budget" class="est-input" placeholder="e.g. 15000" min="0" step="500">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="marketing-budget">Marketing Budget</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="marketing-budget" class="est-input" placeholder="e.g. 15000" min="0" step="500" value="15000">
+                  </div>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="block text-xs font-bold text-slate-700" for="staffing-cost">Staffing & Security</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
+                    <input type="number" id="staffing-cost" class="est-input" placeholder="e.g. 10000" min="0" step="500" value="10000">
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- Advanced Financial Buffers (Contingency & Tax) -->
+            <div class="p-4 bg-slate-50/80 rounded-2xl border border-slate-200/80 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-blue-600"></i> Financial Buffer &amp; Tax Controls
+                </span>
+                <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-100 text-blue-700 rounded">TELEMETRY OPTIONAL</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Contingency % Slider -->
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-slate-600 font-semibold">Contingency Buffer</span>
+                    <span id="contingency-val-label" class="font-bold text-blue-600">5% (+₹12,500)</span>
+                  </div>
+                  <input type="range" id="contingency-pct" min="0" max="25" step="1" value="5">
+                  <p class="text-[10px] text-slate-400">Emergency fund for unexpected venue/vendor overruns</p>
+                </div>
+
+                <!-- Tax % Slider -->
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-slate-600 font-semibold">GST / Tax Rate</span>
+                    <span id="tax-val-label" class="font-bold text-indigo-600">18% (+₹45,000)</span>
+                  </div>
+                  <input type="range" id="tax-rate" min="0" max="28" step="1" value="18">
+                  <p class="text-[10px] text-slate-400">Applicable commercial GST overhead</p>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <!-- ── REVENUE INPUTS ── -->
@@ -423,8 +597,8 @@
                 <i data-lucide="trending-up" class="w-5 h-5"></i>
               </div>
               <div>
-                <h2 class="font-syne font-bold text-lg text-slate-900">Revenue Sources</h2>
-                <p class="text-xs text-slate-500">What income does the event generate?</p>
+                <h2 class="font-syne font-bold text-lg text-slate-900">Revenue &amp; Sponsorship Sources</h2>
+                <p class="text-xs text-slate-500">Configure ticket pricing strategies and partner funds</p>
               </div>
             </div>
 
@@ -432,15 +606,15 @@
 
               <div class="space-y-1.5">
                 <label class="block text-xs font-bold text-slate-700" for="ticket-price">
-                  Ticket Price (per person)
+                  Target Ticket Price
                   <span class="tooltip-wrap ml-1 inline-block">
                     <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                    <span class="tooltip-box">Price per ticket × attendee count = revenue</span>
+                    <span class="tooltip-box">Price per ticket × attendee count = gross ticket revenue</span>
                   </span>
                 </label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                  <input type="number" id="ticket-price" class="est-input" placeholder="e.g. 999" min="0" step="10">
+                  <input type="number" id="ticket-price" class="est-input" placeholder="e.g. 1499" min="0" step="10" value="1499">
                 </div>
               </div>
 
@@ -449,189 +623,203 @@
                   Sponsorship Funds
                   <span class="tooltip-wrap ml-1 inline-block">
                     <i data-lucide="info" class="w-3 h-3 text-slate-400 cursor-help inline"></i>
-                    <span class="tooltip-box">Total money received from sponsors</span>
+                    <span class="tooltip-box">Total money received from corporate sponsors</span>
                   </span>
                 </label>
                 <div class="relative">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm font-semibold pointer-events-none">₹</span>
-                  <input type="number" id="sponsorship-funds" class="est-input" placeholder="e.g. 50000" min="0" step="1000">
+                  <input type="number" id="sponsorship-funds" class="est-input" placeholder="e.g. 80000" min="0" step="1000" value="80000">
                 </div>
               </div>
 
             </div>
 
             <!-- Live ticket revenue info -->
-            <div id="ticket-rev-row" class="px-3 py-2 bg-teal-50 border border-teal-100 rounded-xl text-xs text-teal-700 font-semibold hidden">
-              <i data-lucide="info" class="w-3.5 h-3.5 inline mr-1"></i>
-              Gross ticket revenue: <span id="ticket-rev-val">₹0</span>
+            <div id="ticket-rev-row" class="px-3.5 py-2 bg-teal-50/80 border border-teal-100 rounded-xl text-xs text-teal-700 font-semibold flex items-center justify-between">
+              <span class="flex items-center gap-1.5"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Calculated Ticket Sales:</span>
+              <span id="ticket-rev-val" class="font-bold font-mono">₹2,99,800</span>
             </div>
 
-            <!-- Reset button -->
-            <div class="flex gap-3 pt-2">
+            <!-- Action buttons -->
+            <div class="flex gap-3 pt-2 no-print">
               <button onclick="resetAll()" class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold hover:bg-slate-50 transition flex items-center justify-center gap-2">
-                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset All
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Form
               </button>
-              <button onclick="scrollToResults()" class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2">
-                <i data-lucide="bar-chart-2" class="w-4 h-4"></i> View Results ↓
+              <button onclick="openAnalyticsModal()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-sm font-bold shadow-lg shadow-teal-500/20 transition flex items-center justify-center gap-2">
+                <i data-lucide="line-chart" class="w-4 h-4"></i> Analytics Telemetry Popup
               </button>
             </div>
           </div>
 
         </div>
 
-        <!-- ─── RIGHT COLUMN: LIVE RESULTS ─── -->
+        <!-- ─── RIGHT COLUMN: LIVE RESULTS PANEL ─── -->
         <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24" id="results-anchor">
 
           <!-- NET RESULT BANNER -->
-          <div id="net-banner" class="result-empty rounded-3xl p-6 border transition-all duration-500">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Net Result</span>
-              <span id="result-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-400">Awaiting input</span>
+          <div id="net-banner" class="result-profit rounded-3xl p-6 border transition-all duration-500 shadow-lg">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Financial Net Projection</span>
+              <span id="result-badge" class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-700">✅ PROFITABLE</span>
             </div>
+
             <div class="flex items-end gap-3">
-              <div id="result-icon" class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl flex-shrink-0">💰</div>
+              <div id="result-icon" class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl flex-shrink-0 shadow-sm">🟢</div>
               <div>
-                <p id="result-label" class="text-xs font-semibold text-slate-400 mb-0.5">Net Profit / Loss</p>
-                <p id="result-amount" class="font-syne font-extrabold text-3xl text-slate-300">₹0</p>
+                <p id="result-label" class="text-xs font-semibold text-emerald-700 mb-0.5">Net Profit</p>
+                <p id="result-amount" class="font-syne font-extrabold text-3xl text-emerald-600">₹1,29,800</p>
               </div>
             </div>
-            <div id="result-alert" class="mt-4 hidden"></div>
+
+            <div id="result-alert" class="mt-4 px-4 py-3 bg-emerald-50/90 border border-emerald-200 rounded-xl text-xs text-emerald-800 leading-relaxed">
+              <strong>💡 Executive Telemetry:</strong> Strong margin of 34.2%. Financial structure is resilient to vendor fluctuation.
+            </div>
           </div>
 
-          <!-- SUMMARY CARDS -->
+          <!-- SUMMARY METRIC CARDS -->
           <div class="grid grid-cols-2 gap-4">
             <div class="glass-card rounded-2xl p-4 space-y-1 border border-blue-100">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Expenses</span>
-                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-rose-400"></i>
+                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-rose-500"></i>
               </div>
-              <p id="val-expenses" class="font-syne font-extrabold text-2xl text-slate-900">₹0</p>
-              <p id="delta-expenses" class="text-xs text-slate-400">— per head</p>
+              <p id="val-expenses" class="font-syne font-extrabold text-2xl text-slate-900">₹2,50,000</p>
+              <p id="delta-expenses" class="text-xs text-slate-500 font-mono">₹1,250 / head</p>
             </div>
+            
             <div class="glass-card rounded-2xl p-4 space-y-1 border border-teal-100">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Gross Revenue</span>
-                <i data-lucide="arrow-up-circle" class="w-4 h-4 text-emerald-400"></i>
+                <i data-lucide="arrow-up-circle" class="w-4 h-4 text-emerald-500"></i>
               </div>
-              <p id="val-revenue" class="font-syne font-extrabold text-2xl text-tealAccent">₹0</p>
-              <p id="delta-revenue" class="text-xs text-slate-400">— per head</p>
+              <p id="val-revenue" class="font-syne font-extrabold text-2xl text-tealAccent">₹3,79,800</p>
+              <p id="delta-revenue" class="text-xs text-slate-500 font-mono">₹1,899 / head</p>
             </div>
           </div>
 
           <!-- PROFIT MARGIN GAUGE -->
           <div class="glass-card rounded-2xl p-5 space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5"><i data-lucide="percent" class="w-3.5 h-3.5 text-blue-500"></i> Profit Margin</span>
-              <span id="margin-label" class="text-sm font-extrabold font-syne text-slate-400">0%</span>
+              <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+                <i data-lucide="percent" class="w-3.5 h-3.5 text-blue-600"></i> Operating Margin Ratio
+              </span>
+              <span id="margin-label" class="text-sm font-extrabold font-syne text-emerald-600">34.2%</span>
             </div>
-            <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden border border-slate-200">
-              <div id="margin-bar" class="bar-fill bg-slate-300" style="width:0%"></div>
+            <div class="w-full bg-slate-100 rounded-full h-3.5 overflow-hidden border border-slate-200 p-0.5">
+              <div id="margin-bar" class="bar-fill bg-emerald-500" style="width:34.2%"></div>
             </div>
             <div class="flex justify-between text-[10px] text-slate-400 font-medium">
-              <span>Loss</span><span>Break-Even</span><span>Strong</span>
+              <span>Loss (&lt;0%)</span><span>Break-even (0%)</span><span>Target (&gt;25%)</span>
             </div>
           </div>
 
-          <!-- BREAKEVEN TABLE -->
+          <!-- BREAKEVEN ANALYSIS -->
           <div class="glass-card rounded-2xl p-5 space-y-3">
-            <h3 class="font-syne font-bold text-base text-slate-900 flex items-center gap-2">
-              <i data-lucide="target" class="w-4 h-4 text-violetAccent"></i> Breakeven Analysis
-            </h3>
+            <div class="flex items-center justify-between">
+              <h3 class="font-syne font-bold text-base text-slate-900 flex items-center gap-2">
+                <i data-lucide="target" class="w-4 h-4 text-violetAccent"></i> Breakeven Unit Economics
+              </h3>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Unit Math</span>
+            </div>
+
             <div class="divide-y divide-slate-100">
-              <div class="flex justify-between items-center py-2.5 text-xs">
-                <span class="text-slate-500 font-medium">Ticket Revenue</span>
-                <span id="be-ticket-rev" class="font-bold text-slate-800">₹0</span>
+              <div class="flex justify-between items-center py-2 text-xs">
+                <span class="text-slate-500">Gross Ticket Income</span>
+                <span id="be-ticket-rev" class="font-bold text-slate-800 font-mono">₹2,99,800</span>
               </div>
-              <div class="flex justify-between items-center py-2.5 text-xs">
-                <span class="text-slate-500 font-medium">Sponsorship</span>
-                <span id="be-sponsor" class="font-bold text-slate-800">₹0</span>
+              <div class="flex justify-between items-center py-2 text-xs">
+                <span class="text-slate-500">Sponsorship Contribution</span>
+                <span id="be-sponsor" class="font-bold text-slate-800 font-mono">₹80,000</span>
               </div>
-              <div class="flex justify-between items-center py-2.5 text-xs">
-                <span class="text-slate-500 font-medium">Catering Total</span>
-                <span id="be-catering" class="font-bold text-slate-800">₹0</span>
+              <div class="flex justify-between items-center py-2 text-xs">
+                <span class="text-slate-500">Catering Total Overhead</span>
+                <span id="be-catering" class="font-bold text-slate-800 font-mono">₹90,000</span>
               </div>
-              <div class="flex justify-between items-center py-2.5 text-xs">
-                <span class="text-slate-500 font-medium">Cost Per Attendee</span>
-                <span id="be-cpp" class="font-bold text-slate-800">—</span>
+              <div class="flex justify-between items-center py-2 text-xs">
+                <span class="text-slate-500 font-semibold">Cost Per Attendee</span>
+                <span id="be-cpp" class="font-bold text-blue-600 font-mono">₹1,250</span>
               </div>
-              <div class="flex justify-between items-center py-2.5 text-xs">
-                <span class="text-slate-500 font-medium">Breakeven Ticket Count</span>
-                <span id="be-count" class="font-bold text-slate-800">—</span>
+              <div class="flex justify-between items-center py-2.5 text-xs bg-slate-50/80 px-2 rounded-lg mt-1">
+                <span class="text-slate-700 font-bold">Breakeven Ticket Count</span>
+                <span id="be-count" class="font-extrabold text-emerald-600 font-mono">114 tickets</span>
               </div>
             </div>
           </div>
 
-          <!-- COST DISTRIBUTION CHART -->
+          <!-- COST DISTRIBUTION VISUALIZER -->
           <div class="glass-card rounded-2xl p-5 space-y-4">
             <h3 class="font-syne font-bold text-base text-slate-900 flex items-center gap-2">
-              <i data-lucide="pie-chart" class="w-4 h-4 text-tealAccent"></i> Cost Distribution
+              <i data-lucide="pie-chart" class="w-4 h-4 text-tealAccent"></i> Expense Ratio Allocation
             </h3>
 
-            <!-- Stacked bar -->
+            <!-- Stacked Bar Overview -->
             <div class="flex rounded-full overflow-hidden h-4 gap-px bg-slate-100 border border-slate-200" id="stack-bar">
-              <div id="seg-venue"     class="stack-seg bg-blue-500"   style="width:0%" title="Venue"></div>
-              <div id="seg-food"      class="stack-seg bg-teal-500"   style="width:0%" title="Catering"></div>
-              <div id="seg-chair"     class="stack-seg bg-violet-500" style="width:0%" title="Furniture"></div>
-              <div id="seg-audio"     class="stack-seg bg-amber-500"  style="width:0%" title="Audio"></div>
-              <div id="seg-lighting"  class="stack-seg bg-pink-500"   style="width:0%" title="Lighting"></div>
-              <div id="seg-marketing" class="stack-seg bg-emerald-500" style="width:0%" title="Marketing"></div>
+              <div id="seg-venue" class="stack-seg bg-blue-500" style="width:32%" title="Venue"></div>
+              <div id="seg-food" class="stack-seg bg-teal-500" style="width:36%" title="Catering"></div>
+              <div id="seg-chair" class="stack-seg bg-violet-500" style="width:5%" title="Furniture"></div>
+              <div id="seg-audio" class="stack-seg bg-amber-500" style="width:10%" title="Audio"></div>
+              <div id="seg-lighting" class="stack-seg bg-pink-500" style="width:7%" title="Lighting"></div>
+              <div id="seg-marketing" class="stack-seg bg-emerald-500" style="width:6%" title="Marketing"></div>
+              <div id="seg-staffing" class="stack-seg bg-indigo-500" style="width:4%" title="Staffing"></div>
             </div>
 
-            <!-- Per-cost bars -->
-            <div class="space-y-3" id="dist-bars">
-
-              <!-- Venue -->
+            <!-- Per Category Items -->
+            <div class="space-y-2.5 text-xs" id="dist-bars">
+              
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500 inline-block"></span>Venue Fee</span>
-                  <span class="font-bold text-slate-700"><span id="pct-venue">0%</span> · <span id="amt-venue" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-blue-500"></span>Venue Fee</span>
+                  <span class="font-bold text-slate-800"><span id="pct-venue">32.0%</span> · <span id="amt-venue" class="text-slate-500 font-mono">₹80,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-venue" class="bar-fill bg-blue-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-venue" class="bar-fill bg-blue-500" style="width:32%"></div></div>
               </div>
 
-              <!-- Catering -->
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-teal-500 inline-block"></span>Food &amp; Catering</span>
-                  <span class="font-bold text-slate-700"><span id="pct-food">0%</span> · <span id="amt-food" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-teal-500"></span>Food &amp; Catering</span>
+                  <span class="font-bold text-slate-800"><span id="pct-food">36.0%</span> · <span id="amt-food" class="text-slate-500 font-mono">₹90,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-food" class="bar-fill bg-teal-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-food" class="bar-fill bg-teal-500" style="width:36%"></div></div>
               </div>
 
-              <!-- Furniture -->
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-violet-500 inline-block"></span>Chair / Furniture</span>
-                  <span class="font-bold text-slate-700"><span id="pct-chair">0%</span> · <span id="amt-chair" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-violet-500"></span>Chair / Furniture</span>
+                  <span class="font-bold text-slate-800"><span id="pct-chair">4.8%</span> · <span id="amt-chair" class="text-slate-500 font-mono">₹12,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-chair" class="bar-fill bg-violet-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-chair" class="bar-fill bg-violet-500" style="width:4.8%"></div></div>
               </div>
 
-              <!-- Audio -->
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500 inline-block"></span>Audio System</span>
-                  <span class="font-bold text-slate-700"><span id="pct-audio">0%</span> · <span id="amt-audio" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-amber-500"></span>Audio System</span>
+                  <span class="font-bold text-slate-800"><span id="pct-audio">10.0%</span> · <span id="amt-audio" class="text-slate-500 font-mono">₹25,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-audio" class="bar-fill bg-amber-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-audio" class="bar-fill bg-amber-500" style="width:10%"></div></div>
               </div>
 
-              <!-- Lighting -->
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-pink-500 inline-block"></span>Stage Lighting</span>
-                  <span class="font-bold text-slate-700"><span id="pct-lighting">0%</span> · <span id="amt-lighting" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-pink-500"></span>Stage Lighting</span>
+                  <span class="font-bold text-slate-800"><span id="pct-lighting">7.2%</span> · <span id="amt-lighting" class="text-slate-500 font-mono">₹18,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-lighting" class="bar-fill bg-pink-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-lighting" class="bar-fill bg-pink-500" style="width:7.2%"></div></div>
               </div>
 
-              <!-- Marketing -->
               <div>
-                <div class="flex justify-between text-xs mb-1">
-                  <span class="flex items-center gap-1.5 font-medium text-slate-600"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span>Marketing</span>
-                  <span class="font-bold text-slate-700"><span id="pct-marketing">0%</span> · <span id="amt-marketing" class="text-slate-500">₹0</span></span>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>Marketing</span>
+                  <span class="font-bold text-slate-800"><span id="pct-marketing">6.0%</span> · <span id="amt-marketing" class="text-slate-500 font-mono">₹15,000</span></span>
                 </div>
-                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"><div id="fill-marketing" class="bar-fill bg-emerald-500" style="width:0%"></div></div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-marketing" class="bar-fill bg-emerald-500" style="width:6%"></div></div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="flex items-center gap-1.5 font-medium text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-indigo-500"></span>Staffing &amp; Security</span>
+                  <span class="font-bold text-slate-800"><span id="pct-staffing">4.0%</span> · <span id="amt-staffing" class="text-slate-500 font-mono">₹10,000</span></span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden"><div id="fill-staffing" class="bar-fill bg-indigo-500" style="width:4%"></div></div>
               </div>
 
             </div>
@@ -644,37 +832,117 @@
 
 
   <!-- ═══════════════════════════════════════════════
-       HOW IT WORKS STRIP
+       INTERACTIVE ANALYTICS DASHBOARD MODAL POPUP
   ════════════════════════════════════════════════ -->
-  <section class="py-16 bg-slate-50 border-t border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-100 text-teal-700 uppercase tracking-wide">How It Works</span>
-        <h2 class="font-syne text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">3 Steps to Your Event Budget</h2>
+  <div id="analytics-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <!-- Backdrop overlay -->
+    <div onclick="closeAnalyticsModal()" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+
+    <!-- Modal Container -->
+    <div class="relative w-full max-w-5xl dark-glass-card rounded-3xl p-6 sm:p-8 text-white shadow-2xl transform scale-95 transition-all duration-300 max-h-[92vh] overflow-y-auto space-y-6 border border-slate-700">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-syne font-bold text-xl text-white">Financial Telemetry &amp; Sensitivity Analytics</h3>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">LIVE POPUP</span>
+            </div>
+            <p class="text-xs text-slate-400">Interactive scenario simulation, expense breakdown, and attendee scaling curve</p>
+          </div>
+        </div>
+
+        <button onclick="closeAnalyticsModal()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center space-y-3">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-blue-500/25">01</div>
-          <h4 class="font-syne font-bold text-lg text-slate-900">Enter All Costs</h4>
-          <p class="text-slate-500 text-sm leading-relaxed">Fill in venue, catering, AV, lighting, furniture, and marketing expenses. Leave any field blank to skip it.</p>
+
+      <!-- Telemetry Highlights Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <span class="text-[11px] text-slate-400 font-medium uppercase">Net Return (ROI)</span>
+          <p id="tele-roi" class="text-2xl font-extrabold font-syne text-emerald-400">+51.9%</p>
+          <span class="text-[10px] text-slate-500">Gross Return vs Investment</span>
         </div>
-        <div class="text-center space-y-3">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-tealAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-teal-500/25">02</div>
-          <h4 class="font-syne font-bold text-lg text-slate-900">Add Revenue</h4>
-          <p class="text-slate-500 text-sm leading-relaxed">Set your target ticket price and any sponsorship income. The calculator multiplies ticket price by your headcount automatically.</p>
+
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <span class="text-[11px] text-slate-400 font-medium uppercase">Total Revenue</span>
+          <p id="tele-rev" class="text-2xl font-extrabold font-syne text-teal-400">₹3.80 L</p>
+          <span class="text-[10px] text-slate-500">Tickets + Sponsorship</span>
         </div>
-        <div class="text-center space-y-3">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-violetAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-purple-500/25">03</div>
-          <h4 class="font-syne font-bold text-lg text-slate-900">Read Instant Results</h4>
-          <p class="text-slate-500 text-sm leading-relaxed">See total expenses, gross revenue, net profit or loss, margin gauge, breakeven analysis, and cost distribution — all live.</p>
+
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <span class="text-[11px] text-slate-400 font-medium uppercase">Operating Expense</span>
+          <p id="tele-exp" class="text-2xl font-extrabold font-syne text-rose-400">₹2.50 L</p>
+          <span class="text-[10px] text-slate-500">Including Buffer &amp; Tax</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+          <span class="text-[11px] text-slate-400 font-medium uppercase">Breakeven Ratio</span>
+          <p id="tele-be-pct" class="text-2xl font-extrabold font-syne text-blue-400">57.0%</p>
+          <span class="text-[10px] text-slate-500">Of Capacity (114 / 200)</span>
         </div>
       </div>
+
+      <!-- Charts Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Attendee Scaling Sensitivity Line Chart -->
+        <div class="lg:col-span-7 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-syne font-bold text-sm text-white">Attendee Scale vs Profit Sensitivity</h4>
+              <p class="text-[11px] text-slate-400">Simulates Net Profit across 50 to 500 attendee volume</p>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">LIVE CURVE</span>
+          </div>
+
+          <div class="h-64 w-full pt-2">
+            <canvas id="sensitivityChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right: Doughnut Chart Expense Mix -->
+        <div class="lg:col-span-5 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-3 flex flex-col justify-between">
+          <div>
+            <h4 class="font-syne font-bold text-sm text-white mb-1">Expense Allocation Breakdown</h4>
+            <p class="text-[11px] text-slate-400 mb-3">Cost center distribution percentages</p>
+
+            <div class="h-56 w-full">
+              <canvas id="expenseModalChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer CTA -->
+      <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-800 text-xs text-slate-400 gap-4">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          EventSphere Operations Telemetry Console Active
+        </span>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <button onclick="exportCSV()" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition flex items-center justify-center gap-2">
+            <i data-lucide="download" class="w-4 h-4 text-blue-400"></i> Export CSV Data
+          </button>
+          <button onclick="closeAnalyticsModal()" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition">
+            Close Dashboard
+          </button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
 
   <!-- ═══════════════════════════════════════════════
-       FOOTER (exact match to main site)
+       FOOTER
   ════════════════════════════════════════════════ -->
   <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -701,11 +969,11 @@
         <div class="md:col-span-3 space-y-3 text-xs">
           <h5 class="font-bold text-white uppercase tracking-wider">Quick Navigation</h5>
           <ul class="space-y-2">
-            <li><a href="index.html#hero"              class="hover:text-white transition">Home</a></li>
-            <li><a href="index.html#features"          class="hover:text-white transition">VIP Modules</a></li>
-            <li><a href="index.html#workflow"          class="hover:text-white transition">Platform Workflow</a></li>
-            <li><a href="index.html#dashboard"         class="hover:text-white transition">Telemetry Dashboard</a></li>
-            <li><a href="cost-estimator.html"          class="text-blue-400 font-semibold">Cost Estimator</a></li>
+            <li><a href="index.html#hero" class="hover:text-white transition">Home</a></li>
+            <li><a href="index.html#features" class="hover:text-white transition">VIP Modules</a></li>
+            <li><a href="index.html#workflow" class="hover:text-white transition">Platform Workflow</a></li>
+            <li><a href="index.html#dashboard" class="hover:text-white transition">Telemetry Dashboard</a></li>
+            <li><a href="cost-estimator.html" class="text-blue-400 font-semibold">Cost Estimator</a></li>
             <li><a href="index.html#invitation-sender" class="hover:text-white transition">Invitation Dispatcher</a></li>
           </ul>
         </div>
@@ -750,10 +1018,10 @@
     }, { passive: true });
 
     /* ── Mobile drawer ── */
-    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
       document.getElementById('mobile-drawer').classList.remove('translate-x-full');
     });
-    document.getElementById('close-drawer-btn').addEventListener('click', () => {
+    document.getElementById('close-drawer-btn')?.addEventListener('click', () => {
       document.getElementById('mobile-drawer').classList.add('translate-x-full');
     });
 
@@ -763,68 +1031,122 @@
       const h = String(now.getUTCHours()).padStart(2,'0');
       const m = String(now.getUTCMinutes()).padStart(2,'0');
       const s = String(now.getUTCSeconds()).padStart(2,'0');
-      document.getElementById('live-clock').textContent = `${h}:${m}:${s} UTC`;
+      const el = document.getElementById('live-clock');
+      if (el) el.textContent = `${h}:${m}:${s} UTC`;
     }
     updateClock();
     setInterval(updateClock, 1000);
 
-    /* ── Scroll to results ── */
-    function scrollToResults() {
-      document.getElementById('results-anchor').scrollIntoView({ behavior: 'smooth' });
+    /* ── Toast system ── */
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const bg = type === 'success' ? 'bg-slate-900 text-white border-emerald-500/40' : 'bg-slate-900 text-amber-200 border-amber-500/40';
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold border ${bg} transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto`;
+      toast.innerHTML = `<span class="text-base">${type === 'success' ? '⚡' : '⚠️'}</span><span>${msg}</span>`;
+
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-4', 'opacity-0');
+        });
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
     }
 
-    /* ── Helpers ── */
+    /* ── Helper Functions ── */
     function val(id) {
-      const n = parseFloat(document.getElementById(id).value);
+      const el = document.getElementById(id);
+      if (!el) return 0;
+      const n = parseFloat(el.value);
       return isNaN(n) || n < 0 ? 0 : n;
     }
 
     function fmt(n) {
       if (n >= 1e7) return '₹' + (n / 1e7).toFixed(2) + ' Cr';
       if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2) + ' L';
-      return '₹' + n.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+      return '₹' + Math.round(n).toLocaleString('en-IN');
     }
 
-    /* ── Core calculation (runs on every keystroke) ── */
+    /* ── Preset Templates ── */
+    const presets = {
+      summit:   { venue: 120000, chair: 25000, attendees: 500, food: 600, audio: 45000, lighting: 35000, marketing: 30000, staffing: 20000, ticket: 1999, sponsor: 150000, contingency: 5, tax: 18 },
+      gala:     { venue: 200000, chair: 40000, attendees: 150, food: 1500, audio: 35000, lighting: 40000, marketing: 20000, staffing: 30000, ticket: 4999, sponsor: 200000, contingency: 10, tax: 18 },
+      workshop: { venue: 35000,  chair: 5000,  attendees: 100, food: 350,  audio: 15000, lighting: 10000, marketing: 10000, staffing: 5000,  ticket: 999,  sponsor: 30000,  contingency: 5, tax: 18 },
+      meetup:   { venue: 15000,  chair: 3000,  attendees: 75,  food: 250,  audio: 8000,  lighting: 5000,  marketing: 5000,  staffing: 2000,  ticket: 499,  sponsor: 15000,  contingency: 5, tax: 18 }
+    };
+
+    function applyPreset(key) {
+      const p = presets[key];
+      if (!p) return;
+      document.getElementById('venue-fee').value        = p.venue;
+      document.getElementById('chair-rental').value      = p.chair;
+      document.getElementById('attendee-count').value   = p.attendees;
+      document.getElementById('food-cost').value        = p.food;
+      document.getElementById('audio-system').value     = p.audio;
+      document.getElementById('stage-lighting').value  = p.lighting;
+      document.getElementById('marketing-budget').value = p.marketing;
+      document.getElementById('staffing-cost').value     = p.staffing;
+      document.getElementById('ticket-price').value     = p.ticket;
+      document.getElementById('sponsorship-funds').value= p.sponsor;
+      document.getElementById('contingency-pct').value   = p.contingency;
+      document.getElementById('tax-rate').value         = p.tax;
+      calculate();
+      showToast(`Loaded "${key.toUpperCase()}" scenario template!`, 'success');
+    }
+
+    /* ── Main Calculation Logic ── */
+    let lastCalcData = {};
+
     function calculate() {
-      const venue      = val('venue-fee');
-      const attendees  = val('attendee-count');
-      const food       = val('food-cost');
-      const chair      = val('chair-rental');
-      const audio      = val('audio-system');
-      const lighting   = val('stage-lighting');
-      const marketing  = val('marketing-budget');
-      const ticketP    = val('ticket-price');
-      const sponsor    = val('sponsorship-funds');
+      const venue       = val('venue-fee');
+      const attendees   = val('attendee-count');
+      const food        = val('food-cost');
+      const chair       = val('chair-rental');
+      const audio       = val('audio-system');
+      const lighting    = val('stage-lighting');
+      const marketing   = val('marketing-budget');
+      const staffing    = val('staffing-cost');
+      const ticketP     = val('ticket-price');
+      const sponsor     = val('sponsorship-funds');
 
-      const foodTotal  = attendees * food;
-      const totalExp   = venue + foodTotal + chair + audio + lighting + marketing;
-      const ticketRev  = attendees * ticketP;
-      const totalRev   = ticketRev + sponsor;
-      const net        = totalRev - totalExp;
-      const margin     = totalRev > 0 ? (net / totalRev) * 100 : (totalExp > 0 ? -100 : 0);
+      const contingencyPct = val('contingency-pct');
+      const taxRatePct     = val('tax-rate');
 
-      /* ── Catering helper row ── */
-      const cRow = document.getElementById('catering-total-row');
-      if (attendees > 0 && food > 0) {
-        cRow.classList.remove('hidden');
-        document.getElementById('catering-total-val').textContent = fmt(foodTotal);
-      } else { cRow.classList.add('hidden'); }
+      const foodTotal   = attendees * food;
+      const baseSubtotal= venue + foodTotal + chair + audio + lighting + marketing + staffing;
+      
+      const contingencyAmt = baseSubtotal * (contingencyPct / 100);
+      const taxAmt         = (baseSubtotal + contingencyAmt) * (taxRatePct / 100);
+      const totalExp       = baseSubtotal + contingencyAmt + taxAmt;
 
-      /* ── Ticket revenue helper row ── */
-      const tRow = document.getElementById('ticket-rev-row');
-      if (attendees > 0 && ticketP > 0) {
-        tRow.classList.remove('hidden');
-        document.getElementById('ticket-rev-val').textContent = fmt(ticketRev);
-      } else { tRow.classList.add('hidden'); }
+      const ticketRev   = attendees * ticketP;
+      const totalRev    = ticketRev + sponsor;
+      const net         = totalRev - totalExp;
+      const margin      = totalRev > 0 ? (net / totalRev) * 100 : (totalExp > 0 ? -100 : 0);
+      const roi         = totalExp > 0 ? (net / totalExp) * 100 : 0;
 
-      /* ── Summary cards ── */
-      document.getElementById('val-expenses').textContent = fmt(totalExp);
-      document.getElementById('val-revenue').textContent  = fmt(totalRev);
+      // Update slider labels
+      document.getElementById('contingency-val-label').textContent = `${contingencyPct}% (+${fmt(contingencyAmt)})`;
+      document.getElementById('tax-val-label').textContent         = `${taxRatePct}% (+${fmt(taxAmt)})`;
+
+      // Catering & Ticket Helper Pill Updates
+      document.getElementById('catering-total-val').textContent = fmt(foodTotal);
+      document.getElementById('ticket-rev-val').textContent   = fmt(ticketRev);
+
+      // Summary Cards
+      document.getElementById('val-expenses').textContent   = fmt(totalExp);
+      document.getElementById('val-revenue').textContent    = fmt(totalRev);
       document.getElementById('delta-expenses').textContent = attendees > 0 ? fmt(totalExp / attendees) + ' / head' : '—';
       document.getElementById('delta-revenue').textContent  = attendees > 0 ? fmt(totalRev / attendees) + ' / head' : '—';
 
-      /* ── Net result banner ── */
+      // Net Banner
       const banner  = document.getElementById('net-banner');
       const badge   = document.getElementById('result-badge');
       const icon    = document.getElementById('result-icon');
@@ -833,75 +1155,96 @@
       const alertEl = document.getElementById('result-alert');
 
       amount.textContent = fmt(Math.abs(net));
-      banner.className = 'rounded-3xl p-6 border transition-all duration-500 ';
 
       if (totalExp === 0 && totalRev === 0) {
-        banner.className += 'result-empty';
-        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-400';
-        badge.textContent = 'Awaiting input';
+        banner.className = 'result-empty rounded-3xl p-6 border transition-all duration-500 shadow-sm';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-extrabold bg-slate-100 text-slate-400';
+        badge.textContent = 'AWAITING INPUT';
         icon.textContent  = '💰'; icon.className = 'w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl flex-shrink-0';
         label.textContent = 'Net Profit / Loss'; label.className = 'text-xs font-semibold text-slate-400 mb-0.5';
         amount.className  = 'font-syne font-extrabold text-3xl text-slate-300';
         alertEl.className = 'mt-4 hidden';
       } else if (net > 0) {
-        banner.className += 'result-profit';
-        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700';
-        badge.textContent = '✅ Profitable';
-        icon.textContent  = '🟢'; icon.className = 'w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-2xl flex-shrink-0';
-        label.textContent = 'Net Profit'; label.className = 'text-xs font-semibold text-emerald-600 mb-0.5';
+        banner.className = 'result-profit rounded-3xl p-6 border transition-all duration-500 shadow-lg';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-700';
+        badge.textContent = '✅ PROFITABLE';
+        icon.textContent  = '🟢'; icon.className = 'w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Net Profit'; label.className = 'text-xs font-semibold text-emerald-700 mb-0.5';
         amount.className  = 'font-syne font-extrabold text-3xl text-emerald-600';
-        alertEl.className = 'mt-4 px-4 py-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-700 leading-relaxed';
-        const tip = margin >= 20
-          ? `Strong ${margin.toFixed(1)}% margin. The event is financially healthy. Consider reinvesting excess into production quality.`
-          : `Slim ${margin.toFixed(1)}% margin. Profitable, but a cost overrun could push into loss. Review variable costs carefully.`;
-        alertEl.innerHTML = `<strong>💡 Insight:</strong> ${tip}`;
+        alertEl.className = 'mt-4 px-4 py-3 bg-emerald-50/90 border border-emerald-200 rounded-xl text-xs text-emerald-800 leading-relaxed';
+        alertEl.innerHTML = `<strong>💡 Executive Telemetry:</strong> Profit margin of ${margin.toFixed(1)}% (ROI: ${roi.toFixed(1)}%). Financial structure is solid.`;
       } else if (net < 0) {
-        banner.className += 'result-loss';
-        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700';
-        badge.textContent = '🚨 In Loss';
-        icon.textContent  = '🔴'; icon.className = 'w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-2xl flex-shrink-0';
-        label.textContent = 'Net Loss'; label.className = 'text-xs font-semibold text-rose-600 mb-0.5';
+        banner.className = 'result-loss rounded-3xl p-6 border transition-all duration-500 shadow-lg';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-700';
+        badge.textContent = '🚨 IN LOSS';
+        icon.textContent  = '🔴'; icon.className = 'w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Net Deficit (Loss)'; label.className = 'text-xs font-semibold text-rose-700 mb-0.5';
         amount.className  = 'font-syne font-extrabold text-3xl text-rose-600';
-        alertEl.className = 'mt-4 px-4 py-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 leading-relaxed';
-        alertEl.innerHTML = `<strong>⚠️ Action needed:</strong> Event is ${fmt(Math.abs(net))} short. Raise ticket price, secure more sponsorships, or reduce expenses to reach breakeven.`;
+        alertEl.className = 'mt-4 px-4 py-3 bg-rose-50/90 border border-rose-200 rounded-xl text-xs text-rose-800 leading-relaxed';
+        alertEl.innerHTML = `<strong>⚠️ Risk Warning:</strong> Event is ${fmt(Math.abs(net))} short. Increase ticket price by ${attendees > 0 ? fmt(Math.abs(net)/attendees) : 'N/A'}/head or seek sponsors.`;
       } else {
-        banner.className += 'result-even';
-        badge.className   = 'px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700';
-        badge.textContent = '⚖️ Break-Even';
-        icon.textContent  = '🟡'; icon.className = 'w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl flex-shrink-0';
-        label.textContent = 'Break-Even Point'; label.className = 'text-xs font-semibold text-amber-600 mb-0.5';
+        banner.className = 'result-even rounded-3xl p-6 border transition-all duration-500 shadow-lg';
+        badge.className   = 'px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-700';
+        badge.textContent = '⚖️ BREAKEVEN';
+        icon.textContent  = '🟡'; icon.className = 'w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl flex-shrink-0';
+        label.textContent = 'Breakeven Point'; label.className = 'text-xs font-semibold text-amber-700 mb-0.5';
         amount.className  = 'font-syne font-extrabold text-3xl text-amber-600';
-        alertEl.className = 'mt-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 leading-relaxed';
-        alertEl.innerHTML = '<strong>ℹ️ Note:</strong> Exact breakeven. Any unexpected cost or lower attendance will produce a loss.';
+        alertEl.className = 'mt-4 px-4 py-3 bg-amber-50/90 border border-amber-200 rounded-xl text-xs text-amber-800 leading-relaxed';
+        alertEl.innerHTML = '<strong>ℹ️ Note:</strong> Revenue exactly matches total expenses.';
       }
 
-      /* ── Margin gauge ── */
+      // Margin Bar Gauge
       const clampedM = Math.max(0, Math.min(100, Math.abs(margin)));
       const bar = document.getElementById('margin-bar');
       bar.style.width = clampedM + '%';
-      document.getElementById('margin-label').textContent = margin.toFixed(1) + '%';
-      if (margin >= 20)      { bar.className = 'bar-fill bg-emerald-500'; document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-emerald-600'; }
-      else if (margin > 0)   { bar.className = 'bar-fill bg-amber-400';   document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-amber-600'; }
-      else if (margin === 0) { bar.className = 'bar-fill bg-slate-300';   document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-slate-500'; }
-      else                   { bar.className = 'bar-fill bg-rose-500';    document.getElementById('margin-label').className = 'text-sm font-extrabold font-syne text-rose-600'; }
+      const marginLabel = document.getElementById('margin-label');
+      marginLabel.textContent = margin.toFixed(1) + '%';
+      if (margin >= 20)      { bar.className = 'bar-fill bg-emerald-500'; marginLabel.className = 'text-sm font-extrabold font-syne text-emerald-600'; }
+      else if (margin > 0)   { bar.className = 'bar-fill bg-amber-400';   marginLabel.className = 'text-sm font-extrabold font-syne text-amber-600'; }
+      else if (margin === 0) { bar.className = 'bar-fill bg-slate-300';   marginLabel.className = 'text-sm font-extrabold font-syne text-slate-500'; }
+      else                   { bar.className = 'bar-fill bg-rose-500';    marginLabel.className = 'text-sm font-extrabold font-syne text-rose-600'; }
 
-      /* ── Breakeven ── */
+      // Breakeven Unit Economics
       document.getElementById('be-ticket-rev').textContent = fmt(ticketRev);
       document.getElementById('be-sponsor').textContent    = fmt(sponsor);
       document.getElementById('be-catering').textContent   = fmt(foodTotal);
-      document.getElementById('be-cpp').textContent = attendees > 0 ? fmt(totalExp / attendees) : '—';
+      document.getElementById('be-cpp').textContent        = attendees > 0 ? fmt(totalExp / attendees) : '—';
 
+      let beCountVal = 0;
       if (ticketP > food && ticketP > 0) {
-        const beN = Math.ceil((totalExp - sponsor) / (ticketP - food));
+        beCountVal = Math.ceil((totalExp - sponsor) / (ticketP - food));
         const beEl = document.getElementById('be-count');
-        beEl.textContent = beN > 0 ? beN.toLocaleString('en-IN') + ' tickets' : '0 tickets';
-        beEl.className = 'font-bold ' + (beN <= attendees ? 'text-emerald-600' : 'text-rose-600');
+        beEl.textContent = beCountVal > 0 ? beCountVal.toLocaleString('en-IN') + ' tickets' : '0 tickets';
+        beEl.className = 'font-extrabold font-mono ' + (beCountVal <= attendees ? 'text-emerald-600' : 'text-rose-600');
       } else {
         document.getElementById('be-count').textContent = '—';
-        document.getElementById('be-count').className = 'font-bold text-slate-800';
+        document.getElementById('be-count').className = 'font-bold text-slate-800 font-mono';
       }
 
-      /* ── Distribution bars ── */
+      // Financial Scorecard Header
+      const scRoi   = document.getElementById('scorecard-roi');
+      const scGrade = document.getElementById('scorecard-badge');
+      const scBe    = document.getElementById('scorecard-be-rate');
+      const scRisk  = document.getElementById('scorecard-risk');
+
+      if (scRoi) scRoi.textContent = (roi >= 0 ? '+' : '') + roi.toFixed(1) + '%';
+      if (roi >= 35) {
+        scGrade.textContent = 'A+ EXCELLENT'; scGrade.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-emerald-100 text-emerald-700';
+        scRisk.textContent  = 'Low Risk';     scRisk.className  = 'font-bold text-emerald-600';
+      } else if (roi > 0) {
+        scGrade.textContent = 'B HEALTHY';    scGrade.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-blue-100 text-blue-700';
+        scRisk.textContent  = 'Moderate Risk';scRisk.className  = 'font-bold text-blue-600';
+      } else {
+        scGrade.textContent = 'F AT RISK';    scGrade.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-rose-100 text-rose-700';
+        scRisk.textContent  = 'High Risk';    scRisk.className  = 'font-bold text-rose-600';
+      }
+
+      if (attendees > 0 && beCountVal > 0) {
+        const ratio = Math.round((beCountVal / attendees) * 100);
+        scBe.textContent = `${ratio <= 100 ? 'Achievable' : 'Over Capacity'} (${ratio}%)`;
+      } else { scBe.textContent = '—'; }
+
+      // Cost Distribution Breakdown Bars
       const cats = [
         { key: 'venue',     amt: venue,     fillId: 'fill-venue',     segId: 'seg-venue',     pctId: 'pct-venue',     amtId: 'amt-venue'     },
         { key: 'food',      amt: foodTotal,  fillId: 'fill-food',      segId: 'seg-food',      pctId: 'pct-food',      amtId: 'amt-food'      },
@@ -909,6 +1252,7 @@
         { key: 'audio',     amt: audio,     fillId: 'fill-audio',     segId: 'seg-audio',     pctId: 'pct-audio',     amtId: 'amt-audio'     },
         { key: 'lighting',  amt: lighting,  fillId: 'fill-lighting',  segId: 'seg-lighting',  pctId: 'pct-lighting',  amtId: 'amt-lighting'  },
         { key: 'marketing', amt: marketing, fillId: 'fill-marketing', segId: 'seg-marketing', pctId: 'pct-marketing', amtId: 'amt-marketing' },
+        { key: 'staffing',  amt: staffing,  fillId: 'fill-staffing',  segId: 'seg-staffing',  pctId: 'pct-staffing',  amtId: 'amt-staffing'  },
       ];
       const maxAmt = Math.max(...cats.map(c => c.amt), 1);
       cats.forEach(c => {
@@ -919,24 +1263,203 @@
         document.getElementById(c.segId).style.width  = pct + '%';
         document.getElementById(c.amtId).textContent  = fmt(c.amt);
       });
+
+      // Cache data for Analytics Modal
+      lastCalcData = { venue, foodTotal, chair, audio, lighting, marketing, staffing, totalExp, totalRev, net, margin, roi, attendees, ticketP, sponsor, beCountVal };
+
+      // Update Modal charts if open
+      updateAnalyticsCharts();
     }
 
-    /* ── Reset ── */
+    /* ── Reset Form ── */
     function resetAll() {
       ['venue-fee','attendee-count','food-cost','chair-rental',
-       'audio-system','stage-lighting','marketing-budget',
+       'audio-system','stage-lighting','marketing-budget','staffing-cost',
        'ticket-price','sponsorship-funds'].forEach(id => {
         document.getElementById(id).value = '';
       });
+      document.getElementById('contingency-pct').value = 5;
+      document.getElementById('tax-rate').value        = 18;
       calculate();
+      showToast('Form reset to zero', 'warning');
     }
 
-    /* ── Live on every input ── */
-    document.querySelectorAll('input[type="number"]').forEach(inp => {
+    /* ── Analytics Telemetry Modal Logic ── */
+    let sensitivityChart = null;
+    let expenseModalChart = null;
+
+    function openAnalyticsModal() {
+      const modal = document.getElementById('analytics-modal');
+      const box = modal.querySelector('.dark-glass-card');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      box.classList.remove('scale-95');
+      box.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+
+      // Render/update charts after DOM visibility
+      setTimeout(() => {
+        initAnalyticsCharts();
+      }, 100);
+    }
+
+    function closeAnalyticsModal() {
+      const modal = document.getElementById('analytics-modal');
+      const box = modal.querySelector('.dark-glass-card');
+      modal.classList.add('opacity-0');
+      box.classList.add('scale-95');
+      box.classList.remove('scale-100');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        modal.classList.add('pointer-events-none');
+      }, 300);
+    }
+
+    function initAnalyticsCharts() {
+      const d = lastCalcData;
+      if (!d.totalExp) return;
+
+      // Update modal KPIs
+      document.getElementById('tele-roi').textContent = (d.roi >= 0 ? '+' : '') + d.roi.toFixed(1) + '%';
+      document.getElementById('tele-rev').textContent = fmt(d.totalRev);
+      document.getElementById('tele-exp').textContent = fmt(d.totalExp);
+      document.getElementById('tele-be-pct').textContent = d.attendees > 0 && d.beCountVal > 0 ? Math.round((d.beCountVal / d.attendees) * 100) + '%' : '—';
+
+      // Line Chart: Sensitivity & Scale Curve
+      const sensCtx = document.getElementById('sensitivityChart');
+      if (sensCtx && typeof Chart !== 'undefined') {
+        const attendeeSteps = [50, 100, 150, 200, 300, 400, 500];
+        const profitPoints = attendeeSteps.map(p => {
+          const varExp = (p * (d.foodTotal / (d.attendees || 1)));
+          const fixExp = d.totalExp - d.foodTotal;
+          const rev = (p * d.ticketP) + d.sponsor;
+          return Math.round(rev - (fixExp + varExp));
+        });
+
+        if (sensitivityChart) sensitivityChart.destroy();
+
+        sensitivityChart = new Chart(sensCtx, {
+          type: 'line',
+          data: {
+            labels: attendeeSteps.map(a => a + ' Pax'),
+            datasets: [{
+              label: 'Simulated Net Profit (₹)',
+              data: profitPoints,
+              borderColor: '#0066FF',
+              backgroundColor: 'rgba(0, 102, 255, 0.15)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointBackgroundColor: '#0066FF',
+              pointRadius: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#0F172A',
+                callbacks: { label: ctx => ` Net: ₹${ctx.parsed.y.toLocaleString('en-IN')}` }
+              }
+            },
+            scales: {
+              x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+              y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94A3B8' } }
+            }
+          }
+        });
+      }
+
+      // Doughnut Chart: Expense Allocation
+      const expCtx = document.getElementById('expenseModalChart');
+      if (expCtx && typeof Chart !== 'undefined') {
+        if (expenseModalChart) expenseModalChart.destroy();
+
+        expenseModalChart = new Chart(expCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Venue', 'Catering', 'Furniture', 'Audio', 'Lighting', 'Marketing', 'Staffing'],
+            datasets: [{
+              data: [d.venue, d.foodTotal, d.chair, d.audio, d.lighting, d.marketing, d.staffing],
+              backgroundColor: ['#3b82f6', '#00A896', '#7C3AED', '#f59e0b', '#ec4899', '#10b981', '#6366f1'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: { position: 'bottom', labels: { color: '#CBD5E1', font: { size: 10 } } }
+            }
+          }
+        });
+      }
+    }
+
+    function updateAnalyticsCharts() {
+      const modal = document.getElementById('analytics-modal');
+      if (modal && !modal.classList.contains('opacity-0')) {
+        initAnalyticsCharts();
+      }
+    }
+
+    /* ── CSV Export Function ── */
+    function exportCSV() {
+      const d = lastCalcData;
+      if (!d.totalExp) { showToast('No data to export', 'warning'); return; }
+
+      const csvContent = [
+        ["EventSphere Cost Estimator & Financial Summary"],
+        ["Generated At", new Date().toLocaleString()],
+        [""],
+        ["Item Category", "Amount (INR)"],
+        ["Venue Base Fee", d.venue],
+        ["Food & Catering Total", d.foodTotal],
+        ["Furniture Rental", d.chair],
+        ["Audio System", d.audio],
+        ["Stage Lighting", d.lighting],
+        ["Marketing Budget", d.marketing],
+        ["Staffing & Security", d.staffing],
+        ["Total Expenses", d.totalExp],
+        [""],
+        ["Target Ticket Price", d.ticketP],
+        ["Attendee Count", d.attendees],
+        ["Gross Ticket Sales", d.attendees * d.ticketP],
+        ["Sponsorship Funds", d.sponsor],
+        ["Gross Total Revenue", d.totalRev],
+        [""],
+        ["Net Profit / Loss", d.net],
+        ["Profit Margin (%)", d.margin.toFixed(2) + "%"],
+        ["ROI (%)", d.roi.toFixed(2) + "%"],
+        ["Breakeven Ticket Count", d.beCountVal + " tickets"]
+      ].map(e => e.join(",")).join("\n");
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url  = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `EventSphere_Financial_Report_${Date.now()}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast('CSV Executive Summary Downloaded!', 'success');
+    }
+
+    /* ── Input Event Listeners ── */
+    document.querySelectorAll('input[type="number"], input[type="range"]').forEach(inp => {
       inp.addEventListener('input', calculate);
     });
 
-    /* ── Initial call ── */
+    // Close modal on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeAnalyticsModal();
+    });
+
+    /* ── Initial Calculation Run ── */
     calculate();
   </script>
 </body>
