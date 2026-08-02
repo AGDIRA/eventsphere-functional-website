@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Event Cost Estimator & Analytics — EventSphere Operations Platform</title>
-  <meta name="description" content="Real-time event financial calculator & executive telemetry dashboard. Estimate venue, catering, AV, lighting, marketing costs with itemized unit quantities, multi-perspective sensitivity analysis, and ROI telemetry.">
+  <meta name="description" content="Real-time event financial calculator & executive telemetry dashboard. Estimate venue, catering, AV, lighting, marketing costs with multi-perspective charts, risk radar, and sensitivity telemetry.">
 
   <!-- Tailwind CSS v3 via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -69,11 +69,11 @@
     }
 
     .dark-glass-card {
-      background: rgba(15, 23, 42, 0.94);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     }
 
     /* Text gradient */
@@ -281,29 +281,29 @@
           <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
             <a href="index.html" class="hover:text-blue-600 transition">Home</a>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-            <span class="text-blue-600 font-semibold">Module 3: Itemized Cost Estimator</span>
+            <span class="text-blue-600 font-semibold">Module 3: Extended Financial Suite</span>
           </div>
 
           <!-- Status Badge -->
           <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 text-white text-xs font-bold shadow-md">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Multi-Perspective Financial Analytics Active</span>
+            <span>Multi-Graph Telemetry &amp; Risk Dashboard Active</span>
           </div>
 
           <h1 class="font-syne font-extrabold text-4xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
-            Extended Event<br><span class="text-gradient">Cost Estimator &amp; Multi-Analytics</span>
+            Extended Event<br><span class="text-gradient">Cost Estimator &amp; Telemetry Suite</span>
           </h1>
 
           <p class="text-slate-600 text-base leading-relaxed">
-            Real-time financial calculator with <strong class="text-slate-900">Unit Rate × Quantity Requirements</strong>. Launch the Executive Analytics Popup to switch between Attendee Scale Sensitivity, Revenue vs Expenses, Fixed vs Variable Costs, and Per-Head Unit Economics!
+            Real-time financial calculator with <strong class="text-slate-900">Unit Rate × Quantity Requirements</strong>. Launch the Executive Popup to view <strong class="text-slate-900">6 interactive charts, risk radar matrices, and pricing engines</strong>.
           </p>
 
           <!-- Launch Analytics Popup Button -->
           <div class="pt-2 flex flex-wrap items-center gap-3">
-            <button onclick="openAnalyticsModal()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition transform hover:-translate-y-0.5 flex items-center gap-2.5">
+            <button onclick="openAnalyticsModal()" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-sm shadow-xl shadow-blue-500/25 transition transform hover:-translate-y-0.5 flex items-center gap-2.5">
               <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-              <span>Launch Analytics Dashboard Popup</span>
-              <span class="px-2 py-0.5 rounded-md bg-white/20 text-xs font-mono">LIVE</span>
+              <span>Launch Multi-Graph Analytics Telemetry Popup</span>
+              <span class="px-2 py-0.5 rounded-md bg-white/20 text-xs font-mono">6 CHARTS</span>
             </button>
             <button onclick="exportCSV()" class="px-5 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-sm border border-slate-200 shadow-sm transition flex items-center gap-2">
               <i data-lucide="download" class="w-4 h-4 text-slate-500"></i>
@@ -688,7 +688,7 @@
                 <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset Form
               </button>
               <button onclick="openAnalyticsModal()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white text-sm font-bold shadow-lg shadow-teal-500/20 transition flex items-center justify-center gap-2">
-                <i data-lucide="line-chart" class="w-4 h-4"></i> Analytics Telemetry Popup
+                <i data-lucide="line-chart" class="w-4 h-4"></i> Multi-Graph Popup Modal
               </button>
             </div>
           </div>
@@ -874,27 +874,27 @@
 
 
   <!-- ═══════════════════════════════════════════════
-       INTERACTIVE MULTI-ANALYTICS DASHBOARD MODAL POPUP
+       INTERACTIVE MULTI-GRAPH EXECUTIVE DASHBOARD MODAL POPUP
   ════════════════════════════════════════════════ -->
   <div id="analytics-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
     <!-- Backdrop overlay -->
-    <div onclick="closeAnalyticsModal()" class="absolute inset-0 bg-slate-950/80 backdrop-blur-md"></div>
+    <div onclick="closeAnalyticsModal()" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md"></div>
 
     <!-- Modal Container -->
-    <div class="relative w-full max-w-5xl dark-glass-card rounded-3xl p-6 sm:p-8 text-white shadow-2xl transform scale-95 transition-all duration-300 max-h-[92vh] overflow-y-auto space-y-6 border border-slate-700">
+    <div class="relative w-full max-w-6xl dark-glass-card rounded-3xl p-6 sm:p-8 text-white shadow-2xl transform scale-95 transition-all duration-300 max-h-[94vh] overflow-y-auto space-y-6 border border-slate-700">
       
       <!-- Modal Header -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="font-syne font-bold text-xl text-white">Financial Telemetry &amp; Multi-Analytics</h3>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">MULTI-VIEW DASHBOARD</span>
+              <h3 class="font-syne font-bold text-xl text-white">Executive Multi-Graph Financial Telemetry Suite</h3>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">6 CHARTS &amp; RADAR</span>
             </div>
-            <p class="text-xs text-slate-400">Switch perspectives: Scale Sensitivity, Revenue vs Expenses, Fixed/Variable Costs, or Expense Mix</p>
+            <p class="text-xs text-slate-400">Multi-perspective charts: Sensitivity, Financial Flow, Fixed/Var, Unit Economics, Expense Doughnut &amp; Risk Radar Matrix</p>
           </div>
         </div>
 
@@ -933,30 +933,30 @@
       <!-- MULTI-CHART VIEW TAB SWITCHER -->
       <div class="bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 flex flex-wrap gap-2 text-xs font-semibold">
         <button id="tab-btn-scale" onclick="switchAnalyticsTab('scale')" class="px-4 py-2 rounded-xl transition chart-tab-active flex items-center gap-1.5">
-          <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Attendee Scale Sensitivity
+          <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 1. Scale Sensitivity Line Chart
         </button>
         <button id="tab-btn-revvsexp" onclick="switchAnalyticsTab('revvsexp')" class="px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-400 hover:text-white flex items-center gap-1.5">
-          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i> Revenue vs Expenses
+          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5"></i> 2. Revenue vs Expenses Bar
         </button>
         <button id="tab-btn-fixedvar" onclick="switchAnalyticsTab('fixedvar')" class="px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-400 hover:text-white flex items-center gap-1.5">
-          <i data-lucide="layers" class="w-3.5 h-3.5"></i> Fixed vs Variable Costs
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i> 3. Fixed vs Variable Stacked Bar
         </button>
         <button id="tab-btn-unitecon" onclick="switchAnalyticsTab('unitecon')" class="px-4 py-2 rounded-xl transition bg-slate-800/80 text-slate-400 hover:text-white flex items-center gap-1.5">
-          <i data-lucide="user-check" class="w-3.5 h-3.5"></i> Per-Head Unit Economics
+          <i data-lucide="user-check" class="w-3.5 h-3.5"></i> 4. Per-Head Unit Economics Bar
         </button>
       </div>
 
-      <!-- Main Dynamic Chart Container Layout -->
+      <!-- Main Dynamic Dual Chart Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Left Dynamic Interactive Chart Canvas -->
+        <!-- Left Main Dynamic Interactive Chart Canvas -->
         <div class="lg:col-span-7 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-3">
           <div class="flex justify-between items-center">
             <div>
-              <h4 id="chart-main-title" class="font-syne font-bold text-sm text-white">Attendee Scale vs Profit Sensitivity</h4>
+              <h4 id="chart-main-title" class="font-syne font-bold text-sm text-white">Attendee Scale vs Profit Sensitivity Curve</h4>
               <p id="chart-main-sub" class="text-[11px] text-slate-400">Simulates Net Profit across 50 to 500 attendee volume</p>
             </div>
-            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">DYNAMIC TELEMETRY</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded">LIVE INTERACTIVE</span>
           </div>
 
           <div class="h-64 w-full pt-2">
@@ -964,11 +964,11 @@
           </div>
         </div>
 
-        <!-- Right: Doughnut Chart Expense Mix -->
+        <!-- Right: Expense Doughnut Chart -->
         <div class="lg:col-span-5 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-3 flex flex-col justify-between">
           <div>
             <h4 class="font-syne font-bold text-sm text-white mb-1">Expense Allocation Breakdown</h4>
-            <p class="text-[11px] text-slate-400 mb-3">Cost center distribution percentages</p>
+            <p class="text-[11px] text-slate-400 mb-2">Cost center distribution percentages</p>
 
             <div class="h-56 w-full">
               <canvas id="expenseModalChart"></canvas>
@@ -978,11 +978,76 @@
 
       </div>
 
+      <!-- SECONDARY MULTI-GRAPH ROW: RADAR RISK MATRIX & PRICING RECOMMENDER -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2">
+
+        <!-- Left: Financial Risk & Viability Radar Chart -->
+        <div class="lg:col-span-6 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-3">
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-syne font-bold text-sm text-white flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i> Financial Risk &amp; Viability Radar Matrix
+              </h4>
+              <p class="text-[11px] text-slate-400">Multi-axis index: ROI, Margin, Safety, Breakeven &amp; Efficiency</p>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded">RADAR MATRIX</span>
+          </div>
+
+          <div class="h-60 w-full pt-1">
+            <canvas id="riskRadarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right: Executive Optimal Pricing Recommender Widget -->
+        <div class="lg:col-span-6 bg-slate-900/80 rounded-2xl p-5 border border-slate-800 space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+              <h4 class="font-syne font-bold text-sm text-white flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i> Smart Pricing &amp; Target Margin Engine
+              </h4>
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/20 text-amber-300 rounded">AI ADVISOR</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 pt-3">
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                <span class="text-[11px] text-slate-400 block">Recommended Ticket Price</span>
+                <p id="rec-ticket-price" class="font-syne font-extrabold text-xl text-teal-400">₹1,650</p>
+                <span class="text-[9px] text-slate-500">To achieve target 30% margin</span>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                <span class="text-[11px] text-slate-400 block">Safety Attendance Buffer</span>
+                <p id="rec-safety-buffer" class="font-syne font-extrabold text-xl text-blue-400">+86 Seats</p>
+                <span class="text-[9px] text-slate-500">Capacity above breakeven</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Simulation Controls inside Popup -->
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs">
+            <span class="text-slate-300 font-semibold block flex items-center justify-between">
+              <span>What-If Scenario Quick Simulation:</span>
+              <span class="text-[10px] text-slate-500">Real-time update</span>
+            </span>
+            <div class="flex gap-2">
+              <button onclick="simulateSurge(1.2)" class="flex-1 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-[11px] font-bold border border-emerald-500/30 transition">
+                +20% Attendance Surge
+              </button>
+              <button onclick="simulateSurge(0.8)" class="flex-1 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-[11px] font-bold border border-rose-500/30 transition">
+                -20% Low Attendance
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
       <!-- Modal Footer CTA -->
       <div class="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-slate-800 text-xs text-slate-400 gap-4">
         <span class="flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          EventSphere Multi-Analytics Console Active
+          EventSphere Multi-Graph Telemetry Suite Active
         </span>
 
         <div class="flex items-center gap-3 w-full sm:w-auto">
@@ -1358,8 +1423,20 @@
         document.getElementById(c.amtId).textContent  = fmt(c.amt);
       });
 
+      // Recommender Engine Math inside Popup
+      const recTicket = attendees > 0 ? Math.ceil(((totalExp * 1.30) - sponsor) / attendees) : 0;
+      const recPriceEl = document.getElementById('rec-ticket-price');
+      if (recPriceEl) recPriceEl.textContent = fmt(Math.max(recTicket, 0));
+
+      const safetyBuff = attendees - beCountVal;
+      const recBufEl = document.getElementById('rec-safety-buffer');
+      if (recBufEl) {
+        recBufEl.textContent = (safetyBuff >= 0 ? '+' : '') + safetyBuff + ' Seats';
+        recBufEl.className = 'font-syne font-extrabold text-xl ' + (safetyBuff >= 0 ? 'text-blue-400' : 'text-rose-400');
+      }
+
       // Cache data for Analytics Modal
-      lastCalcData = { venue, foodTotal, chair, audio, lighting, marketing, staffing, totalExp, totalRev, net, margin, roi, attendees, ticketP, sponsor, beCountVal, ticketRev };
+      lastCalcData = { venue, foodTotal, chair, audio, lighting, marketing, staffing, totalExp, totalRev, net, margin, roi, attendees, ticketP, sponsor, beCountVal, ticketRev, foodRate };
 
       // Update Modal charts if open
       updateAnalyticsCharts();
@@ -1379,9 +1456,19 @@
       showToast('Form reset to zero', 'warning');
     }
 
-    /* ── Analytics Telemetry Modal Logic (Multi-Chart View Tabs) ── */
+    /* ── Quick Scenario Simulation Trigger inside Popup ── */
+    function simulateSurge(multiplier) {
+      const el = document.getElementById('attendee-count');
+      if (!el) return;
+      el.value = Math.round((parseFloat(el.value) || 100) * multiplier);
+      calculate();
+      showToast(`Simulated ${multiplier > 1 ? '+' : ''}${Math.round((multiplier - 1)*100)}% attendance surge!`, 'success');
+    }
+
+    /* ── Analytics Telemetry Modal Logic (Multi-Chart Suite) ── */
     let mainAnalyticsChart = null;
     let expenseModalChart  = null;
+    let riskRadarChart     = null;
     let activeAnalyticsTab = 'scale'; // 'scale', 'revvsexp', 'fixedvar', 'unitecon'
 
     function openAnalyticsModal() {
@@ -1546,7 +1633,7 @@
 
       } else if (activeAnalyticsTab === 'unitecon') {
         titleEl.textContent = 'Per-Attendee Unit Economics Breakdown';
-        subEl.textContent   = 'Per-head Revenue (₹1,899) vs Per-head Expense Cost (₹1,250)';
+        subEl.textContent   = 'Per-head Revenue vs Per-head Expense Cost vs Profit Margin per Head';
 
         const cpp = d.attendees > 0 ? Math.round(d.totalExp / d.attendees) : 0;
         const rpp = d.attendees > 0 ? Math.round(d.totalRev / d.attendees) : 0;
@@ -1579,6 +1666,52 @@
       }
     }
 
+    function renderRiskRadarChart() {
+      const d = lastCalcData;
+      const radarCtx = document.getElementById('riskRadarChart');
+      if (!radarCtx || typeof Chart === 'undefined' || !d.totalExp) return;
+
+      if (riskRadarChart) riskRadarChart.destroy();
+
+      const roiScore = Math.max(0, Math.min(100, d.roi));
+      const marginScore = Math.max(0, Math.min(100, d.margin));
+      const safetyScore = d.attendees > 0 && d.beCountVal > 0 ? Math.max(0, Math.min(100, Math.round(((d.attendees - d.beCountVal) / d.attendees) * 100))) : 50;
+      const sponsorRatio = d.totalRev > 0 ? Math.round((d.sponsor / d.totalRev) * 100) : 0;
+      const efficiencyScore = d.totalExp > 0 ? Math.round((1 - (d.venue / d.totalExp)) * 100) : 50;
+
+      riskRadarChart = new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+          labels: ['ROI Score', 'Margin Index', 'Safety Buffer', 'Sponsorship Coverage', 'Cost Efficiency'],
+          datasets: [{
+            label: 'Event Telemetry Index',
+            data: [roiScore, marginScore, safetyScore, sponsorRatio, efficiencyScore],
+            backgroundColor: 'rgba(124, 58, 237, 0.25)',
+            borderColor: '#7C3AED',
+            borderWidth: 2,
+            pointBackgroundColor: '#7C3AED'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            r: {
+              angleLines: { color: 'rgba(255,255,255,0.1)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
+              pointLabels: { color: '#94A3B8', font: { size: 10 } },
+              ticks: { display: false },
+              suggestedMin: 0,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+    }
+
     function initAnalyticsCharts() {
       const d = lastCalcData;
       if (!d.totalExp) return;
@@ -1589,8 +1722,9 @@
       document.getElementById('tele-exp').textContent = fmt(d.totalExp);
       document.getElementById('tele-be-pct').textContent = d.attendees > 0 && d.beCountVal > 0 ? Math.round((d.beCountVal / d.attendees) * 100) + '%' : '—';
 
-      // Render Active Tab Chart
+      // Render Dynamic Main Chart + Radar Matrix
       renderMainAnalyticsChart();
+      renderRiskRadarChart();
 
       // Doughnut Chart: Expense Allocation
       const expCtx = document.getElementById('expenseModalChart');
