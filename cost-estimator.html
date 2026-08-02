@@ -1488,12 +1488,21 @@
     function closeAnalyticsModal() {
       const modal = document.getElementById('analytics-modal');
       const box = modal.querySelector('.dark-glass-card');
+      // Animate out
+      modal.classList.remove('opacity-100');
       modal.classList.add('opacity-0');
       box.classList.add('scale-95');
       box.classList.remove('scale-100');
+      // Restore scrolling immediately
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      // Disable interaction after animation completes
       setTimeout(() => {
         modal.classList.add('pointer-events-none');
+        // Destroy charts to free memory for next open
+        if (mainAnalyticsChart) { mainAnalyticsChart.destroy(); mainAnalyticsChart = null; }
+        if (expenseModalChart)  { expenseModalChart.destroy();  expenseModalChart  = null; }
+        if (riskRadarChart)     { riskRadarChart.destroy();     riskRadarChart     = null; }
       }, 300);
     }
 
