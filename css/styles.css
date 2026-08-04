@@ -79,6 +79,13 @@ h1, h2, h3, h4, .font-syne {
   border-bottom: 1px solid rgba(226, 232, 240, 0.7);
 }
 
+/* Active nav link */
+.nav-active {
+  background: #ffffff !important;
+  color: #0066FF !important;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06) !important;
+}
+
 /* Glow Effects */
 .glow-accent {
   position: relative;
