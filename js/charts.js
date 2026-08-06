@@ -168,4 +168,89 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // 3. Donut & Line Charts for Module 5 Bulk Invitation Sender Page
+  const statusCtx = document.getElementById('dispatchStatusChart');
+  const velocityCtx = document.getElementById('dispatchVelocityChart');
+
+  let statusChart = null;
+  let velocityChart = null;
+
+  if (statusCtx) {
+    statusChart = new Chart(statusCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Delivered (Success)', 'Pending Queue', 'Failed / Retried'],
+        datasets: [{
+          data: [0, 5, 0],
+          backgroundColor: ['#00A896', '#0066FF', '#FF6B6B'],
+          borderWidth: 2,
+          borderColor: '#ffffff',
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+            titleFont: { family: 'Syne', size: 13 },
+            padding: 10,
+            cornerRadius: 8
+          }
+        }
+      }
+    });
+  }
+
+  if (velocityCtx) {
+    const vGrad = velocityCtx.getContext('2d').createLinearGradient(0, 0, 0, 200);
+    vGrad.addColorStop(0, 'rgba(0, 168, 150, 0.35)');
+    vGrad.addColorStop(1, 'rgba(0, 168, 150, 0.0)');
+
+    velocityChart = new Chart(velocityCtx, {
+      type: 'line',
+      data: {
+        labels: ['Batch Start', '0.5s', '1.0s', '1.5s', '2.0s', '2.5s', 'Current'],
+        datasets: [{
+          label: 'Delivery Speed (ms/email)',
+          data: [0, 420, 380, 510, 450, 410, 390],
+          borderColor: '#00A896',
+          borderWidth: 2.5,
+          backgroundColor: vGrad,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { grid: { color: 'rgba(226, 232, 240, 0.6)' }, ticks: { color: '#94a3b8', font: { size: 10 } } }
+        }
+      }
+    });
+  }
+
+  // Helper window function to update telemetry charts live from email.js
+  window.updateDispatchTelemetryCharts = function(successCount, pendingCount, failedCount) {
+    if (statusChart) {
+      statusChart.data.datasets[0].data = [successCount, pendingCount, failedCount];
+      statusChart.update();
+    }
+    const chartDel = document.getElementById('chart-stat-delivered');
+    const chartPen = document.getElementById('chart-stat-pending');
+    const chartFai = document.getElementById('chart-stat-failed');
+
+    if (chartDel) chartDel.textContent = successCount;
+    if (chartPen) chartPen.textContent = pendingCount;
+    if (chartFai) chartFai.textContent = failedCount;
+  };
 });
+
