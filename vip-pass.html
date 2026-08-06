@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventSphere - VIP Pass Generator</title>
+    <!-- Tailwind CSS v3 via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#0066FF',
+                            700: '#0052cc',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        syne: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8faff;
+            background-image: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.05), transparent 25%),
+                              radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+            color: #334155;
+            min-height: 100vh;
+            padding: 8rem 2rem 2rem 2rem;
+        }
+    </style>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/vip-pass.css">
+</head>
+
+<body>
+    <!-- SECTION 1: Sticky Navigation Bar -->
+    <header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-3 group" style="text-decoration:none;">
+                <div
+                    class="relative w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shadow-md group-hover:border-blue-500 transition duration-300">
+                    <svg class="w-6 h-6 text-blue-500 group-hover:rotate-45 transition-transform duration-500"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.3" />
+                        <circle cx="12" cy="12" r="4" fill="currentColor" />
+                        <path d="M12 2A10 10 0 0 1 22 12" stroke="url(#logo-grad)" stroke-width="3.5"
+                            stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#0066FF" />
+                                <stop offset="100%" stop-color="#7C3AED" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="font-syne font-bold text-2xl tracking-tight text-slate-900">Event<span
+                        class="text-gradient">Sphere</span></span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav
+                class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
+                <a href="index.html"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
+                <a href="#"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+                <a href="index.html#workflow"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
+                <a href="index.html#dashboard"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+                    Dashboard</a>
+                <a href="index.html#invitation-sender"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
+                <a href="index.html#why-us"
+                    class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"
+                    style="text-decoration:none;"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Why Us</a>
+            </nav>
+
+            <!-- Right CTA -->
+            <div class="flex items-center gap-3">
+                <a href="index.html#invitation-sender"
+                    class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20"
+                    style="text-decoration:none;">
+                    <span>Get Started</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-wrapper mx-auto mt-10 lg:mt-0">
+        <!-- Hero-like Top Section -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 shadow-sm text-xs font-semibold text-blue-700 mb-4">
+                <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span>VIP Pass Generator Active</span>
+            </div>
+            <h1 class="font-syne font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
+                Generate Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">Exclusive Access</span>
+            </h1>
+            <p class="text-slate-600 text-sm sm:text-base max-w-md mx-auto font-normal leading-relaxed">
+                Create an official, verified VIP pass for high-stakes corporate summits. Enter the details below to instantly generate your secure credential.
+            </p>
+        </div>
+
+        <!-- Registration Form Container -->
+        <section class="form-section">
+            <div class="form-header">
+                <div class="icon-container">
+                    <i data-lucide="user"></i>
+                </div>
+                <div class="header-text">
+                    <h2>Guest Information</h2>
+                    <p>Complete all details to generate official VIP badge</p>
+                </div>
+            </div>
+
+            <form id="vip-form">
+                <div class="form-group">
+                    <label for="fullName"><i data-lucide="user" class="label-icon"></i> FULL NAME <span
+                            class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="Enter full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="designation"><i data-lucide="briefcase" class="label-icon"></i> DESIGNATION /
+                        ROLE</label>
+                    <input type="text" id="designation" name="designation" placeholder="Enter designation">
+                </div>
+
+                <div class="form-group">
+                    <label for="company"><i data-lucide="building" class="label-icon"></i> COMPANY /
+                        ORGANIZATION</label>
+                    <input type="text" id="company" name="company" placeholder="Enter company">
+                </div>
+
+                <div class="form-group">
+                    <label for="accessTier"><i data-lucide="shield" class="label-icon"></i> ACCESS LEVEL TIER</label>
+                    <div class="select-wrapper">
+                        <select id="accessTier" name="accessTier">
+                            <option value="VIP">⭐ VIP — All Access</option>
+                            <option value="Speaker">🎤 Speaker</option>
+                            <option value="Sponsor">💎 Sponsor</option>
+                            <option value="Exhibitor">🏪 Exhibitor</option>
+                            <option value="Media">📸 Media &amp; Press</option>
+                            <option value="Staff">🎫 Staff</option>
+                            <option value="Standard">👤 Standard</option>
+                            <option value="Government">🏛️ Government / Diplomat</option>
+                            <option value="Partner">🤝 Partner</option>
+                            <option value="Investor">📈 Investor</option>
+                            <option value="Student">🎓 Student / Delegate</option>
+                        </select>
+                        <i data-lucide="chevron-down" class="select-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-generate">
+                        <i data-lucide="zap"></i> Generate Pass
+                    </button>
+                    <button type="reset" class="btn-reset">
+                        <i data-lucide="rotate-ccw"></i> Reset
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Modal for Generated VIP Pass -->
+    <div id="pass-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <div class="badge-icon">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <div>
+                        <h3 class="modal-title">Your VIP Pass is Ready</h3>
+                        <p class="modal-subtitle">Official Obsidian Gold Credential</p>
+                    </div>
+                </div>
+                <button id="close-modal" class="btn-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="pass-frame">
+                    <div class="lanyard">
+                        <div class="lanyard-strap">EVENTSPHERE</div>
+                        <div class="lanyard-clip"></div>
+                    </div>
+                    <div class="pass-card">
+                        <div class="pass-header">
+                            <div class="logo-area">
+                                <div class="logo-icon"><i data-lucide="hexagon"></i></div>
+                                <div class="logo-text">
+                                    <span class="brand-name">EVENTSPHERE</span>
+                                    <span class="brand-sub">GLOBAL SUMMIT 2026</span>
+                                </div>
+                            </div>
+                            <div class="watermark"><i data-lucide="fingerprint"></i></div>
+                        </div>
+
+                    <div class="pass-body">
+                        <div class="access-label">★ OFFICIAL VIP ACCESS ★</div>
+                        <div class="guest-name" id="display-name">JOHN DOE</div>
+                        <div class="guest-role" id="display-role">CEO</div>
+                        <div class="guest-company" id="display-company">ACME CORP</div>
+                        <div class="tier-badge">
+                            <i data-lucide="star"></i> VIP
+                        </div>
+                    </div>
+
+                    <div class="pass-footer">
+                        <div class="pass-details">
+                            <div class="detail-group">
+                                <label>PASS ID</label>
+                                <div class="value highlight" id="display-id">EVT-2026-0000</div>
+                            </div>
+                            <div class="detail-group">
+                                <label>DATE ISSUED</label>
+                                <div class="value" id="display-date">01 Jan 2026</div>
+                            </div>
+                        </div>
+                        <div class="qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EventSphere+VIP"
+                                alt="QR Code" id="display-qr">
+                            <span class="qr-label">SCAN & VERIFY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="modal-actions">
+                <button class="btn-print" onclick="window.print()">
+                    <i data-lucide="printer"></i> Print VIP Pass
+                </button>
+                <button class="btn-close-action" id="close-modal-btn">
+                    <i data-lucide="x"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vip-pass.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
