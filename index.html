@@ -78,7 +78,11 @@
         <a href="#hero" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
         <a href="vip-pass.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
         <a href="#workflow" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
+        <a href="#hero" class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
+        <a href="#features" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+        <a href="guest-registry.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
         <a href="#dashboard" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
+        <a href="cost-estimator.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
         <a href="#invitation-sender" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
         <a href="#why-us" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Why Us</a>
       </nav>
@@ -109,8 +113,10 @@
       <nav class="flex flex-col gap-4 mt-8">
         <a href="#hero" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
         <a href="#features" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass & Modules</a>
+        <a href="guest-registry.html" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="users" class="w-5 h-5"></i> Guest Registry</a>
         <a href="#workflow" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="git-commit" class="w-5 h-5"></i> Platform Workflow</a>
         <a href="#dashboard" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
+        <a href="cost-estimator.html" class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
         <a href="#invitation-sender" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send" class="w-5 h-5"></i> Invitation Dispatcher</a>
         <a href="#why-us" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5"></i> Why EventSphere</a>
       </nav>
@@ -153,6 +159,10 @@
           <a href="#dashboard" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
             <span>Launch Dashboard</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="cost-estimator.html" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg shadow-teal-500/25 transition flex items-center justify-center gap-2 group">
+            <i data-lucide="calculator" class="w-4 h-4"></i>
+            <span>Cost Estimator</span>
           </a>
           <a href="#features" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-200 transition flex items-center justify-center gap-2">
             <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
@@ -293,7 +303,7 @@
         </div>
 
         <!-- Card 2: Guest Registry -->
-        <div onclick="openFeatureDemo('schedule-planner')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
+        <div onclick="window.location.href='guest-registry.html'" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
           <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-md shadow-blue-500/20 group-hover:scale-110 transition">
             <i data-lucide="users" class="w-6 h-6"></i>
           </div>
@@ -307,20 +317,21 @@
           </span>
         </div>
 
-        <!-- Card 3: Event Cost Estimator -->
-        <div onclick="openFeatureDemo('cost-estimator')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
-          <div class="w-12 h-12 rounded-xl bg-tealAccent text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
+        <!-- Card 3: Event Cost Estimator → links to real page -->
+        <a href="cost-estimator.html" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-teal-200 hover:border-teal-400 hover:shadow-teal-200/40 hover:shadow-xl relative overflow-hidden">
+          <span class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-teal-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live Page</span>
+          <div class="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
             <i data-lucide="calculator" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">💰 Cost Estimator</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Dynamic budget math engine. Calculate venue, catering, AV equipment, and staff overheads in real time with precision.
+            Dynamic budget math engine with Rate × Quantity inputs, multi-chart analytics telemetry, risk radar, and CSV export.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-tealAccent group-hover:gap-2.5 transition-all">
-            <span>Launch Math Calculator</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 group-hover:gap-2.5 transition-all">
+            <span>Open Cost Estimator</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </span>
-        </div>
+        </a>
 
         <!-- Card 4: Schedule Planner -->
         <div onclick="openFeatureDemo('schedule-planner')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
@@ -613,104 +624,322 @@
   </section>
 
 
-  <!-- SECTION 9: Invitation Sender Section (EmailJS Form) -->
+  <!-- SECTION 9: Module 5 - Bulk Invitation Sender & Dispatch Console -->
   <section id="invitation-sender" class="py-24 bg-slate-50 relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-rose-100 text-rose-700 uppercase">Live Integration</span>
-        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">VIP Invitation Sender</h2>
-        <p class="text-slate-600 text-base">Direct email dispatch powered by EmailJS SDK with live pass preview card.</p>
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4">
+
+        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Bulk Invitation Dispatch Console</h2>
+        <p class="text-slate-600 text-base">Client-side automated email dispatch engine with real-time delivery telemetry, multi-recipient parsing, and live VIP ticket preview.</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Left: Form -->
-        <div class="lg:col-span-7 glass-card rounded-3xl p-8 space-y-6">
-          <form id="invitation-form" class="space-y-4">
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Guest Full Name *</label>
-                <input type="text" id="guest-name" required placeholder="e.g. Alex Vance" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition">
+        <!-- Left Column: Form Inputs & Config (7 cols) -->
+        <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          
+          <div class="flex items-center justify-between pb-4 border-b border-slate-200/80">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-600/10 text-blue-600 flex items-center justify-center font-bold">
+                <i data-lucide="edit-3" class="w-4 h-4"></i>
               </div>
-
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Guest Email Address *</label>
-                <input type="email" id="guest-email" required placeholder="alex.vance@techcorp.io" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition">
+                <h3 class="font-syne font-bold text-lg text-slate-900">Event Details & Dispatch Setup</h3>
+                <p class="text-xs text-slate-500">Configure event metadata and batch recipient list</p>
               </div>
             </div>
+            <span class="px-2.5 py-1 text-[11px] font-semibold bg-blue-50 text-blue-700 rounded-md border border-blue-200">ES6 Dispatch Engine</span>
+          </div>
 
+          <form id="bulk-invitation-form" class="space-y-5">
+            
+            <!-- Event Title & VIP Tier -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">VIP Access Tier</label>
+                <label for="event-title" class="block text-xs font-bold text-slate-700 mb-1">Event Title *</label>
+                <input type="text" id="event-title" required value="Global Tech Summit 2026" placeholder="e.g. Annual Executive Summit 2026" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
+              </div>
+
+              <div>
+                <label for="pass-tier" class="block text-xs font-bold text-slate-700 mb-1">VIP Access Tier</label>
                 <select id="pass-tier" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white">
-                  <option value="VIP All-Access">VIP All-Access Pass</option>
-                  <option value="Tech Keynote">Tech Keynote Pass</option>
-                  <option value="Executive Gala">Executive Dinner Pass</option>
+                  <option value="VIP All-Access Pass" selected>VIP All-Access Pass</option>
+                  <option value="Executive Dinner Pass">Executive Dinner Pass</option>
+                  <option value="Tech Keynote Delegate">Tech Keynote Delegate</option>
+                  <option value="General Admission">General Admission</option>
                 </select>
               </div>
+            </div>
+
+            <!-- Date & Venue Address -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="event-date" class="block text-xs font-bold text-slate-700 mb-1">Event Date & Time *</label>
+                <input type="text" id="event-date" required value="Oct 24, 2026 • 09:00 AM PST" placeholder="e.g. Oct 24, 2026 • 09:00 AM" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
+              </div>
 
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">RSVP Deadline</label>
-                <input type="date" id="rsvp-date" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition">
+                <label for="event-venue" class="block text-xs font-bold text-slate-700 mb-1">Venue Address *</label>
+                <input type="text" id="event-venue" required value="Grand Ballroom, Cyber City Convention Center, SF" placeholder="e.g. 500 Tech Plaza, San Francisco, CA" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
               </div>
             </div>
 
+            <!-- Multi-Recipient Field accepting comma-separated email addresses -->
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Custom Message / Note</label>
-              <textarea id="custom-message" rows="3" placeholder="Add a personal welcome message to include inside the email..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition"></textarea>
-            </div>
+              <div class="flex justify-between items-center mb-1">
+                <label for="recipient-emails" class="block text-xs font-bold text-slate-700">
+                  Recipient Email Addresses (Comma or line separated) *
+                </label>
+                <div class="flex items-center gap-2">
+                  <span id="recipient-count-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">0 emails detected</span>
+                </div>
+              </div>
 
-            <!-- EmailJS Keys Config Accordion / Inputs -->
-            <div class="p-4 bg-slate-100/70 rounded-2xl border border-slate-200 space-y-3">
-              <span class="text-xs font-bold text-slate-700 block flex items-center gap-1.5"><i data-lucide="key" class="w-3.5 h-3.5 text-blue-600"></i> EmailJS API Credentials (Optional)</span>
-              <p class="text-[11px] text-slate-500">Leave blank to test using instant simulation mode.</p>
-              <div class="grid grid-cols-3 gap-2">
-                <input type="text" id="emailjs-service-id" placeholder="Service ID" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white">
-                <input type="text" id="emailjs-template-id" placeholder="Template ID" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white">
-                <input type="text" id="emailjs-public-key" placeholder="Public Key" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white">
+              <textarea id="recipient-emails" rows="4" required placeholder="alex.vance@techcorp.io, sophia.kim@innovate.org, marcus.chen@nexus.net..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 font-mono transition bg-white/80 text-slate-800 leading-relaxed"></textarea>
+              
+              <!-- Quick Preset Helpers & File Import -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" id="btn-preset-sample" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i> Load 5 VIP Emails
+                  </button>
+                  <button type="button" id="btn-preset-large" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-blue-600"></i> Load 10 Delegates
+                  </button>
+                </div>
+                
+                <div class="flex items-center gap-2">
+                  <label for="file-import-csv" class="cursor-pointer px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200 transition flex items-center gap-1.5 text-xs">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Import CSV/TXT
+                  </label>
+                  <input type="file" id="file-import-csv" accept=".csv, .txt" class="hidden">
+                  <button type="button" id="btn-clear-emails" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 font-medium transition">
+                    Clear
+                  </button>
+                </div>
               </div>
             </div>
 
-            <button type="submit" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2">
-              <i data-lucide="send" class="w-4 h-4"></i>
-              <span>Dispatch VIP Invitation</span>
-            </button>
+            <!-- Custom Message Body -->
+            <div>
+              <label for="custom-message" class="block text-xs font-bold text-slate-700 mb-1">Custom Message Body</label>
+              <textarea id="custom-message" rows="3" placeholder="You are cordially invited to join us as an honored VIP guest for keynote presentations, executive networking, and gala reception..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">We are thrilled to welcome you as a distinguished guest to the EventSphere Global Tech Summit 2026. Please find your digital access credentials attached.</textarea>
+            </div>
+
+            <!-- Email Service Integration Mode (Simulation vs EmailJS) Accordion -->
+            <div class="p-4 bg-slate-100/80 rounded-2xl border border-slate-200 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-800 flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i> Delivery Service Integration Mode
+                </span>
+                <div class="flex items-center gap-2 bg-white p-1 rounded-lg border border-slate-200 text-xs font-semibold">
+                  <label class="cursor-pointer px-2.5 py-1 rounded-md transition" id="label-sim-mode">
+                    <input type="radio" name="dispatch-mode" value="simulated" class="hidden"> Simulated Dispatch API
+                  </label>
+                  <label class="cursor-pointer px-2.5 py-1 rounded-md transition" id="label-emailjs-mode">
+                    <input type="radio" name="dispatch-mode" value="emailjs" checked class="hidden"> EmailJS Live SDK
+                  </label>
+                </div>
+              </div>
+
+              <!-- EmailJS credentials input box (shown when emailjs mode selected) -->
+              <div id="emailjs-credentials-box" class="hidden space-y-2 pt-2 border-t border-slate-200/80">
+                <p class="text-[11px] text-slate-500">Provide your free EmailJS account credentials to deliver real emails to recipients' inboxes.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <input type="text" id="emailjs-service-id" placeholder="Service ID (e.g. service_xyz)" value="service_p5op216" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                  <input type="text" id="emailjs-template-id" placeholder="Template ID (e.g. template_abc)" value="template_1ljpjhi" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                  <input type="text" id="emailjs-public-key" placeholder="Public Key (e.g. user_123)" value="XTi7N9hNrw0iyuVjT" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+              <button type="submit" id="btn-dispatch-bulk" class="flex-1 py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
+                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+                <span>Dispatch Bulk Invitations</span>
+              </button>
+
+              <button type="button" id="btn-pause-dispatch" disabled class="py-4 px-5 rounded-xl bg-slate-200 text-slate-400 font-bold text-sm transition flex items-center justify-center gap-1.5 cursor-not-allowed">
+                <i data-lucide="pause-circle" class="w-4 h-4"></i>
+                <span>Pause Batch</span>
+              </button>
+            </div>
 
           </form>
+
         </div>
 
-        <!-- Right: Real-time VIP Ticket Live Preview -->
+        <!-- Right Column: Live Invitation Pass Preview Card (5 cols) -->
         <div class="lg:col-span-5 space-y-4">
-          <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Live VIP Ticket Preview</span>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block flex items-center gap-1.5">
+              <i data-lucide="eye" class="w-4 h-4 text-blue-600"></i> Live Ticket Preview
+            </span>
+            <span class="text-[11px] font-semibold text-slate-400">Updates live as you type</span>
+          </div>
           
-          <div class="vip-pass-card rounded-3xl p-6 text-white space-y-6 relative overflow-hidden">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-4">
-              <span class="font-syne font-bold text-lg text-white">Event<span class="text-blue-400">Sphere</span></span>
-              <span id="preview-pass-tier" class="px-3 py-1 text-xs font-bold bg-purple-500/20 text-purple-300 rounded-full border border-purple-400/30">VIP All-Access</span>
-            </div>
-
-            <div class="space-y-1">
-              <span class="text-[11px] text-slate-400 uppercase font-semibold">Guest Attendee</span>
-              <h3 id="preview-guest-name" class="font-syne text-2xl font-extrabold text-white">Alex Vance</h3>
-              <p id="preview-guest-email" class="text-xs text-blue-300 font-mono">alex.vance@techcorp.io</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-700 text-xs">
+          <!-- VIP Ticket Card Mockup -->
+          <div class="vip-pass-card rounded-3xl p-6 sm:p-7 text-white space-y-6 relative overflow-hidden shadow-2xl">
+            
+            <!-- Top Header -->
+            <div class="flex justify-between items-start border-b border-slate-700/80 pb-4">
               <div>
-                <span class="block text-slate-400">Venue Zone</span>
-                <span class="font-bold text-white">Stage Alpha • Row A</span>
+                <span class="font-syne font-extrabold text-xl text-white block">Event<span class="text-gradient">Sphere</span></span>
+                <span class="text-[10px] text-slate-400 font-mono">INTERNAL DISPATCH #EVT-2026-VIP</span>
+              </div>
+              <span id="preview-pass-tier" class="px-3 py-1 text-xs font-bold bg-purple-500/20 text-purple-300 rounded-full border border-purple-400/30">
+                VIP All-Access Pass
+              </span>
+            </div>
+
+            <!-- Event Title & Date Preview -->
+            <div class="space-y-2">
+              <span class="text-[10px] uppercase font-bold text-blue-400 tracking-wider">Invitation For</span>
+              <h3 id="preview-event-title" class="font-syne text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                Global Tech Summit 2026
+              </h3>
+              
+              <div class="space-y-1 pt-1 text-xs text-slate-300">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+                  <span id="preview-event-date">Oct 24, 2026 • 09:00 AM PST</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5 text-tealAccent shrink-0"></i>
+                  <span id="preview-event-venue" class="truncate">Grand Ballroom, Cyber City Convention Center, SF</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Message Quote Snippet -->
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-700/60 text-xs text-slate-300 space-y-1">
+              <span class="text-[10px] font-bold text-slate-400 block uppercase">Personal Note Snippet</span>
+              <p id="preview-message-body" class="italic line-clamp-3 leading-relaxed">
+                "We are thrilled to welcome you as a distinguished guest to the EventSphere Global Tech Summit 2026..."
+              </p>
+            </div>
+
+            <!-- Recipient Badge Sample View -->
+            <div class="grid grid-cols-2 gap-4 pt-3 border-t border-slate-700/80 text-xs">
+              <div>
+                <span class="block text-slate-400 text-[11px]">Primary Recipient</span>
+                <span id="preview-primary-email" class="font-mono text-blue-300 font-bold text-xs truncate block">
+                  alex.vance@techcorp.io
+                </span>
               </div>
               <div>
-                <span class="block text-slate-400">Verification Code</span>
-                <span class="font-mono text-emerald-400 font-bold">#ES-88942-VIP</span>
+                <span class="block text-slate-400 text-[11px]">Target Audience</span>
+                <span id="preview-recipient-count" class="font-bold text-emerald-400">
+                  1 Recipient Selected
+                </span>
               </div>
             </div>
 
-            <!-- Holographic Pass Footer -->
-            <div class="h-8 rounded-xl vip-hologram flex items-center justify-center text-[10px] font-bold text-slate-900 tracking-widest uppercase">
-              ★ OFFICIAL DIGITAL VIP PASS ★
+            <!-- Holographic Security Seal Strip -->
+            <div class="h-9 rounded-xl vip-hologram flex items-center justify-between px-4 text-[10px] font-bold text-slate-950 tracking-widest uppercase">
+              <span>★ OFFICIAL VIP DISPATCH PASS ★</span>
+              <span class="font-mono">VERIFIED</span>
+            </div>
+
+          </div>
+
+          <!-- Feature Note -->
+          <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-200/80 text-xs text-slate-600 space-y-1">
+            <span class="font-bold text-blue-800 flex items-center gap-1.5"><i data-lucide="info" class="w-3.5 h-3.5"></i> Multi-Recipient Formatting Note</span>
+            <p>Paste multiple email addresses separated by commas or line breaks. The engine validates each address and tracks delivery success per recipient in real time below.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Live Status Console Feed Section (Full Width) -->
+      <div id="live-console-section" class="dark-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+        
+        <!-- Console Title & Telemetry Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+            <div>
+              <h3 class="font-syne font-bold text-xl text-white flex items-center gap-2">
+                <i data-lucide="terminal" class="w-5 h-5 text-emerald-400"></i> Dispatch Live Status Console Feed
+              </h3>
+              <p class="text-xs text-slate-400">Real-time status feed per recipient with delivery verification logs</p>
+            </div>
+          </div>
+
+          <!-- KPI Mini Cards -->
+          <div class="flex flex-wrap items-center gap-3 text-xs">
+            <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="block text-slate-400 text-[10px]">TOTAL DISPATCHED</span>
+              <span id="stat-total-sent" class="font-syne font-bold text-base text-white">0</span>
+            </div>
+            <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="block text-slate-400 text-[10px]">DELIVERED (SUCCESS)</span>
+              <span id="stat-success-sent" class="font-syne font-bold text-base text-emerald-400">0</span>
+            </div>
+            <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="block text-slate-400 text-[10px]">FAILED</span>
+              <span id="stat-failed-sent" class="font-syne font-bold text-base text-rose-400">0</span>
+            </div>
+            <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-center">
+              <span class="block text-slate-400 text-[10px]">SUCCESS RATE</span>
+              <span id="stat-rate-sent" class="font-syne font-bold text-base text-blue-400">100%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar Bar & Batch Status -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span id="progress-status-text" class="text-slate-300 font-semibold flex items-center gap-2">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i> Dispatch Status: Ready
+            </span>
+            <span id="progress-percentage-text" class="font-mono text-emerald-400 font-bold">0% Completed (0 / 0)</span>
+          </div>
+
+          <!-- Progress Bar Container -->
+          <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 relative">
+            <div id="dispatch-progress-bar" class="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-500 rounded-full transition-all duration-300 w-0 progress-bar-shimmer"></div>
+          </div>
+        </div>
+
+        <!-- Console Log Feed Filters & Search Controls -->
+        <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 pt-2">
+          
+          <!-- Filter Tabs -->
+          <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
+            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition bg-blue-600 text-white" data-filter="all">All Logs (<span id="count-filter-all">0</span>)</button>
+            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="success">Delivered (<span id="count-filter-success">0</span>)</button>
+            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="failed">Failed (<span id="count-filter-failed">0</span>)</button>
+            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="pending">Pending (<span id="count-filter-pending">0</span>)</button>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-2 text-xs">
+            <button type="button" id="btn-export-csv" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition flex items-center gap-1.5">
+              <i data-lucide="download" class="w-3.5 h-3.5 text-blue-400"></i> Export CSV
+            </button>
+            <button type="button" id="btn-retry-failed" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold border border-amber-500/30 transition flex items-center gap-1.5">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Retry Failed
+            </button>
+            <button type="button" id="btn-clear-console" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-rose-950/50 text-slate-400 hover:text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1.5">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Feed
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Terminal Console Log Window -->
+        <div class="console-log-container bg-slate-950 rounded-2xl border border-slate-800/80 p-4 space-y-2 shadow-inner">
+          <div id="console-feed-list" class="space-y-2">
+            <!-- Default Empty Console State -->
+            <div id="console-empty-state" class="py-12 text-center text-slate-500 text-xs space-y-2">
+              <i data-lucide="terminal" class="w-8 h-8 mx-auto text-slate-700"></i>
+              <p>Console standby. Enter recipient email addresses above and click <strong>"Dispatch Bulk Invitations"</strong> to start live status feed.</p>
             </div>
           </div>
         </div>
@@ -719,6 +948,7 @@
 
     </div>
   </section>
+
 
 
   <!-- SECTION 10: Footer -->

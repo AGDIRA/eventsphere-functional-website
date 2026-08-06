@@ -79,6 +79,13 @@ h1, h2, h3, h4, .font-syne {
   border-bottom: 1px solid rgba(226, 232, 240, 0.7);
 }
 
+/* Active nav link */
+.nav-active {
+  background: #ffffff !important;
+  color: #0066FF !important;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06) !important;
+}
+
 /* Glow Effects */
 .glow-accent {
   position: relative;
@@ -167,3 +174,46 @@ h1, h2, h3, h4, .font-syne {
   right: 24px;
   z-index: 9999;
 }
+
+/* Module 5 Terminal Console & Dispatch Logger */
+.console-log-container {
+  max-height: 380px;
+  overflow-y: auto;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.console-log-container::-webkit-scrollbar {
+  width: 6px;
+}
+.console-log-container::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+.console-log-container::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 3px;
+}
+.console-log-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 1);
+}
+
+/* Progress bar shimmer */
+.progress-bar-shimmer {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+  animation: progress-shimmer 1s linear infinite;
+}
+
+@keyframes progress-shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 1rem 0; }
+}
+
