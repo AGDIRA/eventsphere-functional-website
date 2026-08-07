@@ -118,109 +118,15 @@
   <main class="pt-32 pb-20 min-h-screen">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Admin Controls -->
-      <div class="flex justify-end mb-6">
-        <button id="adminLoginBtn" class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-          <i data-lucide="lock" class="w-4 h-4"></i> Admin Login
-        </button>
-        <button id="adminLogoutBtn" class="hidden flex items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold rounded-full shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-          <i data-lucide="log-out" class="w-4 h-4"></i> Admin Logout
-        </button>
-      </div>
-
-      <!-- Public Guest Registration View -->
-      <div id="guestView" class="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden mb-10 transition-all duration-500">
-        <div class="bg-gradient-to-r from-blue-600 to-violet-600 p-8 text-center">
-          <h2 class="font-syne text-3xl font-bold text-white mb-2">Guest Registration</h2>
-          <p class="text-blue-100">Please fill out the form below to secure your spot.</p>
-        </div>
-        <form id="publicGuestForm" class="p-8">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-            <div class="space-y-4">
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
-                <input type="text" id="pName" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Email ID</label>
-                <input type="email" id="pEmail" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number</label>
-                <input type="text" id="pPhone" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Company / Organization</label>
-                <input type="text" id="pCompany" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Designation</label>
-                <input type="text" id="pDesignation" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Department</label>
-                <input type="text" id="pDepartment" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-            </div>
-            
-            <div class="space-y-4">
-              <div class="grid grid-cols-3 gap-3">
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">City</label>
-                  <input type="text" id="pCity" class="w-full px-3 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">State</label>
-                  <input type="text" id="pState" class="w-full px-3 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Country</label>
-                  <input type="text" id="pCountry" class="w-full px-3 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                </div>
-              </div>
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Event Name</label>
-                <input type="text" id="pEventName" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Food Preference</label>
-                <select id="pFoodPref" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                  <option value="None">None</option>
-                  <option value="Vegetarian">Vegetarian</option>
-                  <option value="Vegan">Vegan</option>
-                  <option value="Gluten-Free">Gluten-Free</option>
-                  <option value="Halal">Halal</option>
-                </select>
-              </div>
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Person</label>
-                  <input type="text" id="pEmergencyPerson" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Number</label>
-                  <input type="text" id="pEmergencyPhone" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-slate-50 focus:bg-white">
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="text-center">
-            <button type="submit" class="px-10 py-4 rounded-full bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto">Submit Registration</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Admin Dashboard (Hidden by Default) -->
-      <div id="adminDashboard" class="hidden transition-all duration-500">
+      <!-- Guest Register Dashboard -->
+      <div id="adminDashboard" class="transition-all duration-500">
         <!-- Page Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-        <div>
-          <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 uppercase tracking-wide">Live Operations</span>
-          <h1 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Guest Registry</h1>
-          <p class="text-slate-600 mt-2">Manage attendee list, check-in statuses, and VIP tiers.</p>
-        </div>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 uppercase tracking-wide">Guest Directory</span>
+            <h1 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Guest Registry</h1>
+            <p class="text-slate-600 mt-2">Manage attendee list, check-in statuses, and registrations.</p>
+          </div>
         
         <div class="flex gap-3">
           <div class="relative">
@@ -420,52 +326,6 @@
           <button type="submit" class="px-6 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 shadow-md transition">Save Guest</button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- Admin Login Modal -->
-  <div id="loginModal" class="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-    <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden transform scale-95 transition-transform duration-300">
-      <div class="p-6 text-center relative">
-        <button id="closeLoginBtn" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-        <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 mt-2">
-          <i data-lucide="shield" class="w-8 h-8"></i>
-        </div>
-        <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">Administrator Login</h3>
-        <p class="text-sm text-slate-500 mb-6 px-2">Please enter the administrator password to access the Guest Management Dashboard.</p>
-        
-        <form id="loginForm">
-          <!-- Password Input -->
-          <div class="relative mb-6">
-            <i data-lucide="lock" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="password" id="adminPassword" placeholder="Enter password" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition font-mono tracking-widest bg-slate-50 focus:bg-white">
-          </div>
-
-          <!-- Generate OTP Button -->
-          <button type="button" id="generateOtpBtn" class="w-full py-3 mb-4 rounded-xl bg-slate-800 text-white font-bold text-sm hover:bg-slate-900 shadow-md transition-all duration-300">Generate OTP</button>
-
-          <!-- OTP Section (Hidden Initially) -->
-          <div id="otpSection" class="hidden text-left bg-slate-50 p-4 rounded-xl border border-slate-200">
-            <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-200">
-              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Generated OTP</span>
-              <span id="demoOtpDisplay" class="font-mono text-lg font-bold text-emerald-600">----</span>
-            </div>
-            
-            <label class="flex justify-between items-center text-xs font-bold text-slate-700 mb-2">
-              <span>Enter OTP</span>
-              <span id="otpTimerDisplay" class="text-rose-500 font-mono text-[10px] px-2 py-0.5 bg-rose-50 rounded-md border border-rose-100">02:00</span>
-            </label>
-            <div class="relative mb-4">
-              <i data-lucide="key" class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-              <input type="text" id="adminOtp" maxlength="4" placeholder="_ _ _ _" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition font-mono tracking-widest bg-white">
-            </div>
-            
-            <button type="submit" id="verifyOtpBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold text-sm hover:from-blue-700 hover:to-violet-700 shadow-lg hover:shadow-xl transition-all duration-300">Verify OTP</button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 
