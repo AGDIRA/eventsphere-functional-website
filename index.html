@@ -76,7 +76,7 @@
       <!-- Desktop Navigation Links -->
       <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
         <a href="#hero" class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
-        <a href="#features" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+        <a href="vip-pass.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
         <a href="guest-registry.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
         <a href="#dashboard" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
         <a href="cost-estimator.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
@@ -109,7 +109,7 @@
       </div>
       <nav class="flex flex-col gap-4 mt-8">
         <a href="#hero" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
-        <a href="#features" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass & Modules</a>
+        <a href="vip-pass.html" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass & Modules</a>
         <a href="guest-registry.html" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="users" class="w-5 h-5"></i> Guest Registry</a>
         <a href="#workflow" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="git-commit" class="w-5 h-5"></i> Platform Workflow</a>
         <a href="#dashboard" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
@@ -285,7 +285,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
         <!-- Card 1: VIP Pass Generator -->
-        <div onclick="openFeatureDemo('vip-pass')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
+        <a href="vip-pass.html" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-purple-200 hover:border-purple-400 hover:shadow-purple-200/40 hover:shadow-xl relative overflow-hidden">
+          <span class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-purple-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live Page</span>
           <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-6 shadow-md shadow-purple-500/20 group-hover:scale-110 transition">
             <i data-lucide="award" class="w-6 h-6"></i>
           </div>
@@ -294,10 +295,10 @@
             Instant digital ticket & NFC pass generation with holographic security seals, QR codes, and custom branding templates.
           </p>
           <span class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 group-hover:gap-2.5 transition-all">
-            <span>Test VIP Pass Engine</span>
-            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            <span>Open VIP Pass Generator</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </span>
-        </div>
+        </a>
 
         <!-- Card 2: Guest Registry -->
         <div onclick="window.location.href='guest-registry.html'" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
