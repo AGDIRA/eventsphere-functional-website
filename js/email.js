@@ -398,58 +398,125 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Execute Dispatch for One Recipient
   async function executeSingleDispatch(email, logEntry) {
-    const selectedMode = Array.from(modeRadios).find(r => r.checked)?.value || 'simulated';
-    const serviceId  = document.getElementById('emailjs-service-id')?.value.trim();
-    const templateId = document.getElementById('emailjs-template-id')?.value.trim();
-    const publicKey  = document.getElementById('emailjs-public-key')?.value.trim();
+    const selectedMode = Array.from(modeRadios).find(r => r.checked)?.value || 'emailjs';
+    const serviceId  = document.getElementById('emailjs-service-id')?.value.trim() || 'service_p5op216';
+    const templateId = document.getElementById('emailjs-template-id')?.value.trim() || 'template_1ljpjhi';
+    const publicKey  = document.getElementById('emailjs-public-key')?.value.trim() || 'GMRXKs3IuQbvLP-of';
 
     logEntry.status  = 'sending';
     logEntry.details = 'Dispatching message headers...';
     renderConsoleLogs();
 
+    const recipientName = email.split('@')[0].replace(/[._-]/g, ' ');
+    const eventTitle = inputTitle ? inputTitle.value : 'Global Tech Summit 2026';
+    const eventDate = inputDate ? inputDate.value : 'Oct 24, 2026';
+    const eventVenue = inputVenue ? inputVenue.value : 'Grand Ballroom';
+    const passTier = selectTier ? selectTier.value : 'VIP All-Access Pass';
+    const customMsg = inputMessage ? inputMessage.value : 'We are thrilled to welcome you as a distinguished guest.';
+
+    const templateParams = {
+      // Comprehensive recipient email & name aliases for EmailJS template matching
+      to_email:        email,
+      email:           email,
+      recipient_email: email,
+      user_email:      email,
+      reply_to:        email,
+
+      to_name:         recipientName,
+      name:            recipientName,
+      user_name:       recipientName,
+
+      event_title:     eventTitle,
+      event_date:      eventDate,
+      event_venue:     eventVenue,
+      pass_tier:       passTier,
+
+      message:         `You are cordially invited!\n\nEvent: ${eventTitle}\nDate: ${eventDate}\nVenue: ${eventVenue}\nPass: ${passTier}\n\n${customMsg}`,
+      time:            new Date().toLocaleString()
+    };
+
     if (selectedMode === 'emailjs' && serviceId && templateId && publicKey) {
-      // ── EmailJS: Direct REST API (no SDK) ──
-      try {
-        const templateParams = {
-          email:   email,                                                    // {{email}}   → To Email field in template
-          name:    email.split('@')[0].replace(/[._-]/g, ' '),               // {{name}}    → recipient name
-          message: 'You are cordially invited!\n\n' +
-                   `Event  : ${inputTitle  ? inputTitle.value  : 'Global Tech Summit 2026'}\n` +
-                   `Date   : ${inputDate   ? inputDate.value   : 'Oct 24, 2026'}\n` +
-                   `Venue  : ${inputVenue  ? inputVenue.value  : 'Grand Ballroom'}\n` +
-                   `Pass   : ${selectTier  ? selectTier.value  : 'VIP All-Access Pass'}\n\n` +
-                   (inputMessage ? inputMessage.value : 'We look forward to seeing you there.'),
-          time:    new Date().toLocaleString()
-        };
+      let success = false;
 
-        console.log('[EventSphere] Sending via EmailJS REST API →', email, templateParams);
-
-        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({
-            service_id:      serviceId,
-            template_id:     templateId,
-            user_id:         publicKey,
-            template_params: templateParams
-          })
-        });
-
-        if (response.ok) {
-          logEntry.status  = 'delivered';
-          logEntry.details = '200 OK — Delivered via EmailJS';
-          console.log('[EventSphere] ✅ Delivered to', email);
-        } else {
-          const errText = await response.text();
-          logEntry.status  = 'failed';
-          logEntry.details = `EmailJS error (${response.status}): ${errText}`;
-          console.error('[EventSphere] ❌ Failed for', email, '→', errText);
+      // ── Strategy A: Try EmailJS Browser SDK (if loaded) ──
+      if (typeof emailjs !== 'undefined' && typeof emailjs.send === 'function') {
+        try {
+          console.log('[EventSphere] Dispatching via EmailJS SDK →', email, templateParams);
+          const res = await emailjs.send(serviceId, templateId, templateParams, publicKey);
+          if (res.status === 200 || res.text === 'OK') {
+            logEntry.status  = 'delivered';
+            logEntry.details = '200 OK — Delivered via EmailJS SDK';
+            console.log('[EventSphere] ✅ Delivered to', email);
+            success = true;
+          }
+        } catch (sdkErr) {
+          console.warn('[EventSphere] EmailJS SDK failed, trying REST API fallback...', sdkErr);
         }
+      }
 
-      } catch (err) {
-        logEntry.status  = 'failed';
-        logEntry.details = `Network error: ${err.message}`;
-        console.error('[EventSphere] Network error →', err);
+      // ── Strategy B: Direct REST API fetch ──
+      if (!success) {
+        try {
+          console.log('[EventSphere] Dispatching via EmailJS REST API →', email);
+          const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+              service_id:      serviceId,
+              template_id:     templateId,
+              user_id:         publicKey,
+              template_params: templateParams
+            })
+          });
+
+          if (response.ok) {
+            logEntry.status  = 'delivered';
+            logEntry.details = '200 OK — Delivered via EmailJS API';
+            console.log('[EventSphere] ✅ Delivered via EmailJS REST API to', email);
+            success = true;
+          } else {
+            const errText = await response.text();
+            console.error('[EventSphere] ❌ EmailJS REST API failed for', email, '→', errText);
+            logEntry.details = `EmailJS error (${response.status}): ${errText}`;
+          }
+        } catch (err) {
+          console.error('[EventSphere] Network error calling EmailJS REST API:', err);
+          logEntry.details = `Network error: ${err.message}`;
+        }
+      }
+
+      // ── Strategy C: Local Server API Fallback ──
+      if (!success) {
+        try {
+          console.log('[EventSphere] Attempting fallback to local server /api/send for', email);
+          const localRes = await fetch('/api/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to_email: email,
+              event_title: eventTitle,
+              event_date: eventDate,
+              event_venue: eventVenue,
+              pass_tier: passTier,
+              message: customMsg
+            })
+          });
+          if (localRes.ok) {
+            const data = await localRes.json();
+            if (data.status === 'delivered') {
+              logEntry.status = 'delivered';
+              logEntry.details = '200 OK — Delivered via Server Backend';
+              console.log('[EventSphere] ✅ Delivered via Server Backend to', email);
+              success = true;
+            }
+          }
+        } catch (localErr) {
+          console.warn('[EventSphere] Local server fallback unavailable:', localErr);
+        }
+      }
+
+      if (!success && logEntry.status !== 'delivered') {
+        logEntry.status = 'failed';
       }
 
     } else {
