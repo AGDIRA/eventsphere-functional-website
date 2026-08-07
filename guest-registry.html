@@ -189,7 +189,7 @@
                 <th class="px-6 py-4">Mobile Number</th>
                 <th class="px-6 py-4">Company</th>
                 <th class="px-6 py-4">Designation</th>
-                <th class="px-6 py-4">Designation</th>
+                <th class="px-6 py-4">Department</th>
                 <th class="px-6 py-4">Registration Date</th>
                 <th class="px-6 py-4">Check-In Date</th>
                 <th class="px-6 py-4 text-center">Status</th>
@@ -229,94 +229,105 @@
       <form id="guestForm" class="p-6">
         <input type="hidden" id="guestId">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-          <!-- Column 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Column 1: Personal & Contact Info -->
           <div class="space-y-4">
+            <h4 class="text-xs font-bold text-blue-600 uppercase tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3.5 h-3.5"></i> Personal & Contact Info
+            </h4>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
-              <input type="text" id="gName" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Full Name <span class="text-rose-500">*</span></label>
+              <input type="text" id="gName" required placeholder="e.g. Sarah Connor" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Email ID</label>
-              <input type="email" id="gEmail" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <label class="block text-xs font-bold text-slate-700 mb-1">Email ID <span class="text-rose-500">*</span></label>
+              <input type="email" id="gEmail" required placeholder="sarah@example.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number</label>
-              <input type="text" id="gPhone" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <input type="text" id="gPhone" placeholder="+1 (555) 000-0000" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Company / Organization</label>
-              <input type="text" id="gCompany" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <input type="text" id="gCompany" placeholder="Cyberdyne Systems" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
             </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Designation</label>
-              <input type="text" id="gDesignation" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Department</label>
-              <input type="text" id="gDepartment" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Designation</label>
+                <input type="text" id="gDesignation" placeholder="Lead Engineer" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Department</label>
+                <input type="text" id="gDepartment" placeholder="R&D" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              </div>
             </div>
             <div class="grid grid-cols-3 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">City</label>
-                <input type="text" id="gCity" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="text" id="gCity" placeholder="San Francisco" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">State</label>
-                <input type="text" id="gState" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="text" id="gState" placeholder="CA" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Country</label>
-                <input type="text" id="gCountry" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="text" id="gCountry" placeholder="USA" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
               </div>
-            </div>
             </div>
           </div>
           
-          <!-- Column 2 -->
+          <!-- Column 2: Event Details & Logistics -->
           <div class="space-y-4">
+            <h4 class="text-xs font-bold text-blue-600 uppercase tracking-wider pb-2 border-b border-slate-100 flex items-center gap-1.5">
+              <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Event Details & Status
+            </h4>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Event Name</label>
-              <input type="text" id="gEventName" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              <input type="text" id="gEventName" placeholder="Global Tech Summit 2026" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Registration Date</label>
-                <input type="date" id="gRegDate" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="date" id="gRegDate" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
               </div>
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Check-In Date</label>
-                <input type="date" id="gCheckInDate" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+                <input type="date" id="gCheckInDate" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Food Preference</label>
+                <select id="gFoodPref" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
+                  <option value="None">None</option>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Vegan">Vegan</option>
+                  <option value="Gluten-Free">Gluten-Free</option>
+                  <option value="Halal">Halal</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Status</label>
+                <select id="gStatus" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white font-semibold">
+                  <option value="Pending">Pending</option>
+                  <option value="Checked In">Checked In</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Person</label>
+                <input type="text" id="gEmergencyPerson" placeholder="John Connor" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Number</label>
+                <input type="text" id="gEmergencyPhone" placeholder="+1 (555) 999-8888" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
               </div>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Food Preference</label>
-              <select id="gFoodPref" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
-                <option value="None">None</option>
-                <option value="Vegetarian">Vegetarian</option>
-                <option value="Vegan">Vegan</option>
-                <option value="Gluten-Free">Gluten-Free</option>
-                <option value="Halal">Halal</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Contact Person</label>
-              <input type="text" id="gEmergencyPerson" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Emergency Contact Number</label>
-              <input type="text" id="gEmergencyPhone" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Notes</label>
-              <textarea id="gNotes" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"></textarea>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Status</label>
-              <select id="gStatus" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition bg-white">
-                <option value="Pending">Pending</option>
-                <option value="Checked In">Checked In</option>
-              </select>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Notes / Remarks</label>
+              <textarea id="gNotes" rows="2" placeholder="Special requirements, VIP seating, etc." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"></textarea>
             </div>
           </div>
         </div>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EventSphere — Premium Event Operations & Guest Management Platform</title>
-  <meta name="description" content="Manage every event and impress every guest with EventSphere. The ultimate glassmorphic SaaS platform for VIP passes, guest registries, cost estimation, and invitation dispatch.">
+  <meta name="description"
+    content="Manage every event and impress every guest with EventSphere. The ultimate glassmorphic SaaS platform for VIP passes, guest registries, cost estimation, and invitation dispatch.">
 
   <!-- Tailwind CSS v3 via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -46,6 +48,7 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body class="bg-white text-slate-900 selection:bg-blue-600 selection:text-white relative">
 
   <!-- Toast Notification Container -->
@@ -54,43 +57,62 @@
   <!-- SECTION 1: Sticky Navigation Bar -->
   <header id="main-navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-transparent">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-      
+
       <!-- Brand Logo -->
       <a href="#" class="flex items-center gap-3 group">
-        <div class="relative w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shadow-md group-hover:border-blue-500 transition duration-300">
-          <svg class="w-6 h-6 text-blue-500 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.3"/>
-            <circle cx="12" cy="12" r="4" fill="currentColor"/>
-            <path d="M12 2A10 10 0 0 1 22 12" stroke="url(#logo-grad)" stroke-width="3.5" stroke-linecap="round"/>
+        <div
+          class="relative w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shadow-md group-hover:border-blue-500 transition duration-300">
+          <svg class="w-6 h-6 text-blue-500 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity="0.3" />
+            <circle cx="12" cy="12" r="4" fill="currentColor" />
+            <path d="M12 2A10 10 0 0 1 22 12" stroke="url(#logo-grad)" stroke-width="3.5" stroke-linecap="round" />
             <defs>
               <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#0066FF"/>
-                <stop offset="100%" stop-color="#7C3AED"/>
+                <stop offset="0%" stop-color="#0066FF" />
+                <stop offset="100%" stop-color="#7C3AED" />
               </linearGradient>
             </defs>
           </svg>
         </div>
-        <span class="font-syne font-bold text-2xl tracking-tight text-slate-900">Event<span class="text-gradient">Sphere</span></span>
+        <span class="font-syne font-bold text-2xl tracking-tight text-slate-900">Event<span
+            class="text-gradient">Sphere</span></span>
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
-        <a href="#hero" class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
-        <a href="vip-pass.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
-        <a href="guest-registry.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
-        <a href="#dashboard" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
-        <a href="cost-estimator.html" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
-        <a href="#invitation-sender" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
-        <a href="#why-us" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Why Us</a>
+      <nav
+        class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200/80 backdrop-blur-md">
+        <a href="#hero" class="px-4 py-2 text-xs font-semibold rounded-full nav-active flex items-center gap-1.5"><i
+            data-lucide="home" class="w-3.5 h-3.5"></i> Home</a>
+        <a href="vip-pass.html"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="award" class="w-3.5 h-3.5"></i> VIP Pass</a>
+        <a href="guest-registry.html"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="users" class="w-3.5 h-3.5"></i> Registry</a>
+        <a href="#dashboard"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard</a>
+        <a href="cost-estimator.html"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
+        <a href="#invitation-sender"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
+        <a href="#why-us"
+          class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
+            data-lucide="shield-check" class="w-3.5 h-3.5"></i> Why Us</a>
       </nav>
 
       <!-- Right CTA & Mobile Toggle -->
       <div class="flex items-center gap-3">
-        <a href="#invitation-sender" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20">
+        <a href="#invitation-sender"
+          class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20">
           <span>Get Started</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
-        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100">
+        <button id="mobile-menu-btn"
+          class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
@@ -99,7 +121,8 @@
   </header>
 
   <!-- Mobile Drawer Overlay -->
-  <div id="mobile-drawer" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-xl translate-x-full transition-transform duration-300 flex flex-col justify-between p-6 md:hidden">
+  <div id="mobile-drawer"
+    class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-xl translate-x-full transition-transform duration-300 flex flex-col justify-between p-6 md:hidden">
     <div>
       <div class="flex justify-between items-center pb-6 border-b border-slate-800">
         <span class="font-syne font-bold text-xl text-white">Event<span class="text-gradient">Sphere</span></span>
@@ -108,60 +131,80 @@
         </button>
       </div>
       <nav class="flex flex-col gap-4 mt-8">
-        <a href="#hero" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="home" class="w-5 h-5"></i> Home</a>
-        <a href="vip-pass.html" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="award" class="w-5 h-5"></i> VIP Pass & Modules</a>
-        <a href="guest-registry.html" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="users" class="w-5 h-5"></i> Guest Registry</a>
-        <a href="#workflow" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="git-commit" class="w-5 h-5"></i> Platform Workflow</a>
-        <a href="#dashboard" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
-        <a href="cost-estimator.html" class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
-        <a href="#invitation-sender" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send" class="w-5 h-5"></i> Invitation Dispatcher</a>
-        <a href="#why-us" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5"></i> Why EventSphere</a>
+        <a href="#hero" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="home" class="w-5 h-5"></i> Home</a>
+        <a href="vip-pass.html"
+          class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="award" class="w-5 h-5"></i> VIP Pass & Modules</a>
+        <a href="guest-registry.html"
+          class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="users" class="w-5 h-5"></i> Guest Registry</a>
+        <a href="#workflow" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="git-commit" class="w-5 h-5"></i> Platform Workflow</a>
+        <a href="#dashboard" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
+        <a href="cost-estimator.html" class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i
+            data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
+        <a href="#invitation-sender"
+          class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send"
+            class="w-5 h-5"></i> Invitation Dispatcher</a>
+        <a href="#why-us" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
+            data-lucide="sparkles" class="w-5 h-5"></i> Why EventSphere</a>
       </nav>
     </div>
     <div class="pt-6 border-t border-slate-800">
-      <a href="#invitation-sender" class="w-full block text-center py-3 rounded-xl bg-blue-600 text-white font-bold">Launch Access Portal</a>
+      <a href="#invitation-sender"
+        class="w-full block text-center py-3 rounded-xl bg-blue-600 text-white font-bold">Launch Access Portal</a>
     </div>
   </div>
 
 
   <!-- SECTION 2: Hero Section (Full Viewport) -->
-  <section id="hero" class="relative min-h-screen pt-32 pb-20 flex items-center justify-center hero-gradient-bg overflow-hidden">
-    
+  <section id="hero"
+    class="relative min-h-screen pt-32 pb-20 flex items-center justify-center hero-gradient-bg overflow-hidden">
+
     <!-- Floating Particle Canvas Background -->
     <canvas id="particles-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
       <!-- Left Column: Copywriting & CTAs -->
       <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
-        
+
         <!-- Status Pill -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 border border-slate-200 shadow-sm text-xs font-semibold text-slate-700 backdrop-blur-md">
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 border border-slate-200 shadow-sm text-xs font-semibold text-slate-700 backdrop-blur-md">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span>EventSphere Operations Engine v4.8 Active</span>
           <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
         </div>
 
-        <h1 class="font-syne font-extrabold text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.15]">
+        <h1
+          class="font-syne font-extrabold text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.15]">
           Manage Every Event.<br>
           <span class="text-gradient">Impress Every Guest.</span>
         </h1>
 
         <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
-          The glassmorphic operations console engineered for high-stakes corporate summits, VIP galas, and developer keynotes. Real-time guest telemetry, NFC pass generation, and automated budget estimation.
+          The glassmorphic operations console engineered for high-stakes corporate summits, VIP galas, and developer
+          keynotes. Real-time guest telemetry, NFC pass generation, and automated budget estimation.
         </p>
 
         <!-- CTA Action Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-          <a href="#dashboard" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
+          <a href="#dashboard"
+            class="w-full sm:w-auto px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
             <span>Launch Dashboard</span>
             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
           </a>
-          <a href="cost-estimator.html" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg shadow-teal-500/25 transition flex items-center justify-center gap-2 group">
+          <a href="cost-estimator.html"
+            class="w-full sm:w-auto px-7 py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-lg shadow-teal-500/25 transition flex items-center justify-center gap-2 group">
             <i data-lucide="calculator" class="w-4 h-4"></i>
             <span>Cost Estimator</span>
           </a>
-          <a href="#features" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-200 transition flex items-center justify-center gap-2">
+          <a href="#features"
+            class="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-200 transition flex items-center justify-center gap-2">
             <i data-lucide="compass" class="w-4 h-4 text-blue-600"></i>
             <span>Explore Features</span>
           </a>
@@ -189,10 +232,10 @@
 
       <!-- Right Column: Floating Glassmorphic Dashboard Illustration -->
       <div class="lg:col-span-6 relative">
-        
+
         <!-- Main Floating Glass Container -->
         <div class="glass-card rounded-3xl p-6 relative z-10 shadow-2xl border border-white/80 animate-float">
-          
+
           <!-- Mockup Header Bar -->
           <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
             <div class="flex items-center gap-2">
@@ -201,32 +244,37 @@
               <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
               <span class="text-xs font-mono font-semibold text-slate-400 ml-2">global-summit-2026.eventsphere.io</span>
             </div>
-            <span class="px-2.5 py-1 text-[10px] font-bold bg-emerald-100 text-emerald-700 rounded-md">LIVE MONITOR</span>
+            <span class="px-2.5 py-1 text-[10px] font-bold bg-emerald-100 text-emerald-700 rounded-md">LIVE
+              MONITOR</span>
           </div>
 
           <!-- Mini Dashboard Widgets Layout -->
           <div class="grid grid-cols-2 gap-4 mb-4">
-            
+
             <!-- Widget A: Live Check-in Velocity -->
             <div class="p-4 rounded-2xl bg-slate-900 text-white space-y-2">
               <div class="flex justify-between items-center">
                 <span class="text-xs text-slate-400 font-medium">Check-in Velocity</span>
                 <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
               </div>
-              <div class="text-2xl font-bold font-syne">142 <span class="text-xs text-emerald-400 font-normal">/ min</span></div>
+              <div class="text-2xl font-bold font-syne">142 <span class="text-xs text-emerald-400 font-normal">/
+                  min</span></div>
               <div class="w-full bg-slate-800 rounded-full h-1.5">
                 <div class="bg-blue-500 h-1.5 rounded-full w-4/5"></div>
               </div>
             </div>
 
             <!-- Widget B: Active VIP Tier -->
-            <div class="p-4 rounded-2xl bg-gradient-to-br from-purple-900 to-slate-900 text-white space-y-2 border border-purple-500/30">
+            <div
+              class="p-4 rounded-2xl bg-gradient-to-br from-purple-900 to-slate-900 text-white space-y-2 border border-purple-500/30">
               <div class="flex justify-between items-center">
                 <span class="text-xs text-purple-300 font-medium">VIP All-Access</span>
                 <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i>
               </div>
               <div class="text-2xl font-bold font-syne">88 Passes</div>
-              <span class="inline-block text-[10px] px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded border border-purple-400/30">NFC Verified</span>
+              <span
+                class="inline-block text-[10px] px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded border border-purple-400/30">NFC
+                Verified</span>
             </div>
 
           </div>
@@ -234,10 +282,11 @@
           <!-- Mini Guest List Activity Feed -->
           <div class="space-y-2">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Recent Gate Activity</span>
-            
+
             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
               <div class="flex items-center gap-3">
-                <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">AV</div>
+                <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">AV
+                </div>
                 <div>
                   <span class="font-bold text-slate-800 block">Alex Vance</span>
                   <span class="text-[10px] text-slate-500">Executive Speaker • Main Stage</span>
@@ -248,7 +297,8 @@
 
             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
               <div class="flex items-center gap-3">
-                <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">SK</div>
+                <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">SK
+                </div>
                 <div>
                   <span class="font-bold text-slate-800 block">Sophia Kim</span>
                   <span class="text-[10px] text-slate-500">Tech Delegate • Stage B</span>
@@ -261,8 +311,10 @@
         </div>
 
         <!-- Decorative Ambient Glow Background Blobs -->
-        <div class="absolute -top-10 -right-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -top-10 -right-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl pointer-events-none">
+        </div>
 
       </div>
 
@@ -273,89 +325,116 @@
   <!-- SECTION 3: Feature Modules Grid (5 Cards) -->
   <section id="features" class="py-24 bg-slate-50 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 tracking-wide uppercase">Engineered Capabilities</span>
-        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Five Modules. One Unified Platform.</h2>
-        <p class="text-slate-600 text-base">Click any card to launch an interactive live demonstration modal directly inside your browser.</p>
+        <span
+          class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 tracking-wide uppercase">Engineered
+          Capabilities</span>
+        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Five Modules. One Unified Platform.
+        </h2>
+        <p class="text-slate-600 text-base">Click any card to launch an interactive live demonstration modal directly
+          inside your browser.</p>
       </div>
 
       <!-- Grid Layout: 5 Modules -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
+
         <!-- Card 1: VIP Pass Generator -->
-        <a href="vip-pass.html" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-purple-200 hover:border-purple-400 hover:shadow-purple-200/40 hover:shadow-xl relative overflow-hidden">
-          <span class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-purple-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live Page</span>
-          <div class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-6 shadow-md shadow-purple-500/20 group-hover:scale-110 transition">
+        <a href="vip-pass.html"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-purple-200 hover:border-purple-400 hover:shadow-purple-200/40 hover:shadow-xl relative overflow-hidden">
+          <span
+            class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-purple-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live
+            Page</span>
+          <div
+            class="w-12 h-12 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-6 shadow-md shadow-purple-500/20 group-hover:scale-110 transition">
             <i data-lucide="award" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">🎟 VIP Pass Generator</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Instant digital ticket & NFC pass generation with holographic security seals, QR codes, and custom branding templates.
+            Instant digital ticket & NFC pass generation with holographic security seals, QR codes, and custom branding
+            templates.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 group-hover:gap-2.5 transition-all">
+          <span
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 group-hover:gap-2.5 transition-all">
             <span>Open VIP Pass Generator</span>
             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </span>
         </a>
 
         <!-- Card 2: Guest Registry -->
-        <div onclick="window.location.href='guest-registry.html'" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
-          <div class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-md shadow-blue-500/20 group-hover:scale-110 transition">
+        <div onclick="window.location.href='guest-registry.html'"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
+          <div
+            class="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-6 shadow-md shadow-blue-500/20 group-hover:scale-110 transition">
             <i data-lucide="users" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">👥 Guest Registry</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Real-time attendee filtering, seating arrangements, dietary constraint flags, and rapid check-in verification console.
+            Real-time attendee filtering, seating arrangements, dietary constraint flags, and rapid check-in
+            verification console.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 group-hover:gap-2.5 transition-all">
+          <span
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 group-hover:gap-2.5 transition-all">
             <span>View Guest Filters</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </span>
         </div>
 
         <!-- Card 3: Event Cost Estimator → links to real page -->
-        <a href="cost-estimator.html" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-teal-200 hover:border-teal-400 hover:shadow-teal-200/40 hover:shadow-xl relative overflow-hidden">
-          <span class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-teal-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live Page</span>
-          <div class="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
+        <a href="cost-estimator.html"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 block no-underline border-2 border-teal-200 hover:border-teal-400 hover:shadow-teal-200/40 hover:shadow-xl relative overflow-hidden">
+          <span
+            class="absolute top-4 right-4 px-2 py-0.5 rounded-md bg-teal-600 text-white text-[10px] font-bold uppercase tracking-wide shadow">Live
+            Page</span>
+          <div
+            class="w-12 h-12 rounded-xl bg-teal-600 text-white flex items-center justify-center mb-6 shadow-md shadow-teal-500/20 group-hover:scale-110 transition">
             <i data-lucide="calculator" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">💰 Cost Estimator</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Dynamic budget math engine with Rate × Quantity inputs, multi-chart analytics telemetry, risk radar, and CSV export.
+            Dynamic budget math engine with Rate × Quantity inputs, multi-chart analytics telemetry, risk radar, and CSV
+            export.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 group-hover:gap-2.5 transition-all">
+          <span
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 group-hover:gap-2.5 transition-all">
             <span>Open Cost Estimator</span>
             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           </span>
         </a>
 
         <!-- Card 4: Schedule Planner -->
-        <div onclick="openFeatureDemo('schedule-planner')" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
-          <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center mb-6 shadow-md shadow-amber-500/20 group-hover:scale-110 transition">
+        <div onclick="openFeatureDemo('schedule-planner')"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300">
+          <div
+            class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center mb-6 shadow-md shadow-amber-500/20 group-hover:scale-110 transition">
             <i data-lucide="calendar" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">🎬 Schedule Planner</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
             Multi-track timeline manager for keynotes, panel sessions, speaker slots, and catered networking breaks.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 group-hover:gap-2.5 transition-all">
+          <span
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 group-hover:gap-2.5 transition-all">
             <span>Inspect Schedule</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </span>
         </div>
 
         <!-- Card 5: Invitation Sender -->
-        <div href="#invitation-sender" onclick="document.getElementById('invitation-sender').scrollIntoView()" class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 md:col-span-2 lg:col-span-1">
-          <div class="w-12 h-12 rounded-xl bg-rose-500 text-white flex items-center justify-center mb-6 shadow-md shadow-rose-500/20 group-hover:scale-110 transition">
+        <div href="#invitation-sender" onclick="document.getElementById('invitation-sender').scrollIntoView()"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 md:col-span-2 lg:col-span-1">
+          <div
+            class="w-12 h-12 rounded-xl bg-rose-500 text-white flex items-center justify-center mb-6 shadow-md shadow-rose-500/20 group-hover:scale-110 transition">
             <i data-lucide="send" class="w-6 h-6"></i>
           </div>
           <h3 class="font-syne font-bold text-xl text-slate-900 mb-2">✉ Invitation Sender</h3>
           <p class="text-slate-600 text-sm leading-relaxed mb-4">
-            Full EmailJS SDK integration for direct RSVP dispatches, personalized messaging, and automatic confirmation delivery.
+            Full EmailJS SDK integration for direct RSVP dispatches, personalized messaging, and automatic confirmation
+            delivery.
           </p>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 group-hover:gap-2.5 transition-all">
+          <span
+            class="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 group-hover:gap-2.5 transition-all">
             <span>Jump to Sender Form</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </span>
@@ -370,29 +449,35 @@
   <!-- SECTION 4: Platform Workflow Timeline -->
   <section id="workflow" class="py-24 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 uppercase tracking-wide">Seamless Execution</span>
+        <span
+          class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 uppercase tracking-wide">Seamless
+          Execution</span>
         <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Five Steps to Event Perfection</h2>
-        <p class="text-slate-600 text-base">Connected operational workflow from initial guest import to final door verification.</p>
+        <p class="text-slate-600 text-base">Connected operational workflow from initial guest import to final door
+          verification.</p>
       </div>
 
       <!-- Connected Horizontal Steps Grid -->
       <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
-        
+
         <!-- Step 1 -->
         <div class="text-center space-y-4 relative group">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition duration-300">
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-blue-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition duration-300">
             01
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Register Guests</h4>
-          <p class="text-slate-500 text-xs leading-relaxed">Import spreadsheets or sync attendee lists automatically.</p>
+          <p class="text-slate-500 text-xs leading-relaxed">Import spreadsheets or sync attendee lists automatically.
+          </p>
         </div>
 
         <!-- Step 2 -->
         <div class="text-center space-y-4 relative group">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-purple-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-110 transition duration-300">
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-purple-600 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-110 transition duration-300">
             02
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Create VIP Passes</h4>
@@ -401,7 +486,8 @@
 
         <!-- Step 3 -->
         <div class="text-center space-y-4 relative group">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-tealAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-teal-500/25 group-hover:scale-110 transition duration-300">
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-tealAccent text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-teal-500/25 group-hover:scale-110 transition duration-300">
             03
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Estimate Budget</h4>
@@ -410,7 +496,8 @@
 
         <!-- Step 4 -->
         <div class="text-center space-y-4 relative group">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-500 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition duration-300">
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-amber-500 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition duration-300">
             04
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Plan Schedule</h4>
@@ -419,7 +506,8 @@
 
         <!-- Step 5 -->
         <div class="text-center space-y-4 relative group">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-rose-500 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-110 transition duration-300">
+          <div
+            class="w-14 h-14 mx-auto rounded-2xl bg-rose-500 text-white font-syne font-extrabold text-xl flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-110 transition duration-300">
             05
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Send Invitations</h4>
@@ -434,27 +522,34 @@
 
   <!-- SECTION 5: Dashboard Preview Section (Chart.js Integration) -->
   <section id="dashboard" class="py-24 bg-slate-900 text-white relative overflow-hidden">
-    
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      
+
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
         <div>
-          <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">Telemetry Control Console</span>
+          <span
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30 uppercase">Telemetry
+            Control Console</span>
           <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-white mt-3">Live Event Operations Dashboard</h2>
         </div>
 
         <!-- Timeframe Selector -->
         <div class="flex items-center gap-2 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700">
-          <button class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-blue-600 text-white" data-period="24h">24 Hours</button>
-          <button class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-slate-700/50 text-slate-400 hover:text-white" data-period="7d">7 Days</button>
-          <button class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-slate-700/50 text-slate-400 hover:text-white" data-period="30d">30 Days</button>
+          <button class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-blue-600 text-white"
+            data-period="24h">24 Hours</button>
+          <button
+            class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-slate-700/50 text-slate-400 hover:text-white"
+            data-period="7d">7 Days</button>
+          <button
+            class="timeframe-btn px-4 py-2 text-xs font-semibold rounded-lg transition bg-slate-700/50 text-slate-400 hover:text-white"
+            data-period="30d">30 Days</button>
         </div>
       </div>
 
       <!-- Dashboard Mockup Frame -->
       <div class="dark-glass-card rounded-3xl p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
+
         <!-- Left: Line Chart Component (Attendee Velocity) -->
         <div class="lg:col-span-8 space-y-4">
           <div class="flex justify-between items-center">
@@ -462,7 +557,8 @@
               <h4 class="font-syne font-bold text-lg text-white">Attendee Check-in Velocity</h4>
               <p class="text-xs text-slate-400">Real-time gate check-ins vs pre-registrations</p>
             </div>
-            <span class="flex items-center gap-2 text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+            <span
+              class="flex items-center gap-2 text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Stream Active
             </span>
           </div>
@@ -475,7 +571,7 @@
 
         <!-- Right: Doughnut Chart & Gate Telemetry -->
         <div class="lg:col-span-4 space-y-6 flex flex-col justify-between">
-          
+
           <div>
             <h4 class="font-syne font-bold text-lg text-white mb-1">Ticket Sales Mix</h4>
             <p class="text-xs text-slate-400 mb-4">Tier allocation breakdown</p>
@@ -508,13 +604,14 @@
   <section id="stats-section" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        
+
         <!-- KPI 1 -->
         <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
           <div class="w-10 h-10 mx-auto rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-2">
             <i data-lucide="users" class="w-5 h-5"></i>
           </div>
-          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900" data-target="250" data-suffix="+">0</span>
+          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900"
+            data-target="250" data-suffix="+">0</span>
           <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Guests</span>
         </div>
 
@@ -523,7 +620,8 @@
           <div class="w-10 h-10 mx-auto rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-2">
             <i data-lucide="calendar" class="w-5 h-5"></i>
           </div>
-          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900" data-target="18">0</span>
+          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900"
+            data-target="18">0</span>
           <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Upcoming Events</span>
         </div>
 
@@ -532,7 +630,8 @@
           <div class="w-10 h-10 mx-auto rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-2">
             <i data-lucide="send" class="w-5 h-5"></i>
           </div>
-          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900" data-target="500" data-suffix="+">0</span>
+          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900"
+            data-target="500" data-suffix="+">0</span>
           <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Invitations Sent</span>
         </div>
 
@@ -541,7 +640,8 @@
           <div class="w-10 h-10 mx-auto rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-2">
             <i data-lucide="dollar-sign" class="w-5 h-5"></i>
           </div>
-          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900" data-target="85" data-prefix="$" data-suffix="K">0</span>
+          <span class="stat-counter block text-3xl sm:text-4xl font-extrabold font-syne text-slate-900" data-target="85"
+            data-prefix="$" data-suffix="K">0</span>
           <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Estimated Revenue</span>
         </div>
 
@@ -553,21 +653,25 @@
   <!-- SECTION 7: Why EventSphere (4 Advantage Cards) -->
   <section id="why-us" class="py-24 bg-slate-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
+
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 uppercase">Architecture Highlights</span>
-        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Why Modern Organizers Choose EventSphere</h2>
+        <span
+          class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 uppercase">Architecture
+          Highlights</span>
+        <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Why Modern Organizers Choose
+          EventSphere</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        
+
         <!-- Advantage 1 -->
         <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-3">
           <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
             <i data-lucide="zap" class="w-5 h-5"></i>
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Lightning Fast</h4>
-          <p class="text-slate-600 text-xs leading-relaxed">Pure ES6 JavaScript architecture delivering zero-latency UI responses under 16ms frame budgets.</p>
+          <p class="text-slate-600 text-xs leading-relaxed">Pure ES6 JavaScript architecture delivering zero-latency UI
+            responses under 16ms frame budgets.</p>
         </div>
 
         <!-- Advantage 2 -->
@@ -576,7 +680,8 @@
             <i data-lucide="smartphone" class="w-5 h-5"></i>
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Responsive Layout</h4>
-          <p class="text-slate-600 text-xs leading-relaxed">Fluid glassmorphic components designed for 4K desktop monitors down to mobile check-in tablets.</p>
+          <p class="text-slate-600 text-xs leading-relaxed">Fluid glassmorphic components designed for 4K desktop
+            monitors down to mobile check-in tablets.</p>
         </div>
 
         <!-- Advantage 3 -->
@@ -585,7 +690,8 @@
             <i data-lucide="lock" class="w-5 h-5"></i>
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">Secure Client-side</h4>
-          <p class="text-slate-600 text-xs leading-relaxed">Zero external database vulnerabilities. All guest data stays local in memory or encrypted browser storage.</p>
+          <p class="text-slate-600 text-xs leading-relaxed">Zero external database vulnerabilities. All guest data stays
+            local in memory or encrypted browser storage.</p>
         </div>
 
         <!-- Advantage 4 -->
@@ -594,7 +700,8 @@
             <i data-lucide="globe" class="w-5 h-5"></i>
           </div>
           <h4 class="font-syne font-bold text-lg text-slate-900">GitHub Pages Ready</h4>
-          <p class="text-slate-600 text-xs leading-relaxed">Pure static bundle with relative paths ready to publish directly via GitHub Pages in one click.</p>
+          <p class="text-slate-600 text-xs leading-relaxed">Pure static bundle with relative paths ready to publish
+            directly via GitHub Pages in one click.</p>
         </div>
 
       </div>
@@ -606,13 +713,15 @@
   <!-- SECTION 8: Call to Action Banner -->
   <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl p-10 sm:p-16 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white text-center space-y-6 shadow-2xl relative overflow-hidden">
+      <div
+        class="rounded-3xl p-10 sm:p-16 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white text-center space-y-6 shadow-2xl relative overflow-hidden">
         <h2 class="font-syne text-3xl sm:text-5xl font-extrabold relative z-10">Plan Smarter. Execute Better.</h2>
         <p class="text-blue-100 text-base max-w-xl mx-auto relative z-10">
           Transform your next tech summit or VIP gala into an unforgettable guest experience with EventSphere.
         </p>
         <div class="pt-2 relative z-10">
-          <a href="#invitation-sender" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-blue-600 font-bold text-sm hover:bg-slate-100 transition shadow-lg">
+          <a href="#invitation-sender"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-blue-600 font-bold text-sm hover:bg-slate-100 transition shadow-lg">
             <span>Open EventSphere Form</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
@@ -625,19 +734,20 @@
   <!-- SECTION 9: Module 5 - Bulk Invitation Sender & Dispatch Console -->
   <section id="invitation-sender" class="py-24 bg-slate-50 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
+
       <!-- Section Header -->
       <div class="text-center max-w-3xl mx-auto space-y-4">
 
         <h2 class="font-syne text-3xl sm:text-4xl font-extrabold text-slate-900">Bulk Invitation Dispatch Console</h2>
-        <p class="text-slate-600 text-base">Client-side automated email dispatch engine with real-time delivery telemetry, multi-recipient parsing, and live VIP ticket preview.</p>
+        <p class="text-slate-600 text-base">Client-side automated email dispatch engine with real-time delivery
+          telemetry, multi-recipient parsing, and live VIP ticket preview.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         <!-- Left Column: Form Inputs & Config (7 cols) -->
         <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-6">
-          
+
           <div class="flex items-center justify-between pb-4 border-b border-slate-200/80">
             <div class="flex items-center gap-2">
               <div class="w-8 h-8 rounded-lg bg-blue-600/10 text-blue-600 flex items-center justify-center font-bold">
@@ -648,21 +758,26 @@
                 <p class="text-xs text-slate-500">Configure event metadata and batch recipient list</p>
               </div>
             </div>
-            <span class="px-2.5 py-1 text-[11px] font-semibold bg-blue-50 text-blue-700 rounded-md border border-blue-200">ES6 Dispatch Engine</span>
+            <span
+              class="px-2.5 py-1 text-[11px] font-semibold bg-blue-50 text-blue-700 rounded-md border border-blue-200">ES6
+              Dispatch Engine</span>
           </div>
 
           <form id="bulk-invitation-form" class="space-y-5">
-            
+
             <!-- Event Title & VIP Tier -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="event-title" class="block text-xs font-bold text-slate-700 mb-1">Event Title *</label>
-                <input type="text" id="event-title" required value="Global Tech Summit 2026" placeholder="e.g. Annual Executive Summit 2026" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
+                <input type="text" id="event-title" required value="Global Tech Summit 2026"
+                  placeholder="e.g. Annual Executive Summit 2026"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
               </div>
 
               <div>
                 <label for="pass-tier" class="block text-xs font-bold text-slate-700 mb-1">VIP Access Tier</label>
-                <select id="pass-tier" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white">
+                <select id="pass-tier"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white">
                   <option value="VIP All-Access Pass" selected>VIP All-Access Pass</option>
                   <option value="Executive Dinner Pass">Executive Dinner Pass</option>
                   <option value="Tech Keynote Delegate">Tech Keynote Delegate</option>
@@ -675,12 +790,16 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label for="event-date" class="block text-xs font-bold text-slate-700 mb-1">Event Date & Time *</label>
-                <input type="text" id="event-date" required value="Oct 24, 2026 • 09:00 AM PST" placeholder="e.g. Oct 24, 2026 • 09:00 AM" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
+                <input type="text" id="event-date" required value="Oct 24, 2026 • 09:00 AM PST"
+                  placeholder="e.g. Oct 24, 2026 • 09:00 AM"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
               </div>
 
               <div>
                 <label for="event-venue" class="block text-xs font-bold text-slate-700 mb-1">Venue Address *</label>
-                <input type="text" id="event-venue" required value="Grand Ballroom, Cyber City Convention Center, SF" placeholder="e.g. 500 Tech Plaza, San Francisco, CA" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
+                <input type="text" id="event-venue" required value="Grand Ballroom, Cyber City Convention Center, SF"
+                  placeholder="e.g. 500 Tech Plaza, San Francisco, CA"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">
               </div>
             </div>
 
@@ -691,29 +810,36 @@
                   Recipient Email Addresses (Comma or line separated) *
                 </label>
                 <div class="flex items-center gap-2">
-                  <span id="recipient-count-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">0 emails detected</span>
+                  <span id="recipient-count-badge"
+                    class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700">0 emails detected</span>
                 </div>
               </div>
 
-              <textarea id="recipient-emails" rows="4" required placeholder="alex.vance@techcorp.io, sophia.kim@innovate.org, marcus.chen@nexus.net..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 font-mono transition bg-white/80 text-slate-800 leading-relaxed"></textarea>
-              
+              <textarea id="recipient-emails" rows="4" required
+                placeholder="alex.vance@techcorp.io, sophia.kim@innovate.org, marcus.chen@nexus.net..."
+                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 font-mono transition bg-white/80 text-slate-800 leading-relaxed"></textarea>
+
               <!-- Quick Preset Helpers & File Import -->
               <div class="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
                 <div class="flex flex-wrap gap-1.5">
-                  <button type="button" id="btn-preset-sample" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
+                  <button type="button" id="btn-preset-sample"
+                    class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
                     <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i> Load 5 VIP Emails
                   </button>
-                  <button type="button" id="btn-preset-large" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
+                  <button type="button" id="btn-preset-large"
+                    class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition flex items-center gap-1">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-blue-600"></i> Load 10 Delegates
                   </button>
                 </div>
-                
+
                 <div class="flex items-center gap-2">
-                  <label for="file-import-csv" class="cursor-pointer px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200 transition flex items-center gap-1.5 text-xs">
+                  <label for="file-import-csv"
+                    class="cursor-pointer px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold border border-emerald-200 transition flex items-center gap-1.5 text-xs">
                     <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Import CSV/TXT
                   </label>
                   <input type="file" id="file-import-csv" accept=".csv, .txt" class="hidden">
-                  <button type="button" id="btn-clear-emails" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 font-medium transition">
+                  <button type="button" id="btn-clear-emails"
+                    class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-500 hover:text-rose-600 font-medium transition">
                     Clear
                   </button>
                 </div>
@@ -722,8 +848,11 @@
 
             <!-- Custom Message Body -->
             <div>
-              <label for="custom-message" class="block text-xs font-bold text-slate-700 mb-1">Custom Message Body</label>
-              <textarea id="custom-message" rows="3" placeholder="You are cordially invited to join us as an honored VIP guest for keynote presentations, executive networking, and gala reception..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">We are thrilled to welcome you as a distinguished guest to the EventSphere Global Tech Summit 2026. Please find your digital access credentials attached.</textarea>
+              <label for="custom-message" class="block text-xs font-bold text-slate-700 mb-1">Custom Message
+                Body</label>
+              <textarea id="custom-message" rows="3"
+                placeholder="You are cordially invited to join us as an honored VIP guest for keynote presentations, executive networking, and gala reception..."
+                class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-600 transition bg-white/80">We are thrilled to welcome you as a distinguished guest to the EventSphere Global Tech Summit 2026. Please find your digital access credentials attached.</textarea>
             </div>
 
             <!-- Email Service Integration Mode (Simulation vs EmailJS) Accordion -->
@@ -732,7 +861,8 @@
                 <span class="text-xs font-bold text-slate-800 flex items-center gap-2">
                   <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i> Delivery Service Integration Mode
                 </span>
-                <div class="flex items-center gap-2 bg-white p-1 rounded-lg border border-slate-200 text-xs font-semibold">
+                <div
+                  class="flex items-center gap-2 bg-white p-1 rounded-lg border border-slate-200 text-xs font-semibold">
                   <label class="cursor-pointer px-2.5 py-1 rounded-md transition" id="label-sim-mode">
                     <input type="radio" name="dispatch-mode" value="simulated" class="hidden"> Simulated Dispatch API
                   </label>
@@ -744,23 +874,32 @@
 
               <!-- EmailJS credentials input box (shown when emailjs mode selected) -->
               <div id="emailjs-credentials-box" class="hidden space-y-2 pt-2 border-t border-slate-200/80">
-                <p class="text-[11px] text-slate-500">Provide your free EmailJS account credentials to deliver real emails to recipients' inboxes.</p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <input type="text" id="emailjs-service-id" placeholder="Service ID (e.g. service_xyz)" value="service_p5op216" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
-                  <input type="text" id="emailjs-template-id" placeholder="Template ID (e.g. template_abc)" value="template_1ljpjhi" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
-                  <input type="text" id="emailjs-public-key" placeholder="Public Key (e.g. user_123)" value="XTi7N9hNrw0iyuVjT" class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                <p class="text-[11px] text-slate-500">Provide your free EmailJS account credentials to deliver real
+                  emails to recipients' inboxes.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gaphttp://localhost:3000/index.html-2">
+                  <input type="text" id="emailjs-service-id" placeholder="Service ID (e.g. service_xyz)"
+                    value="service_p5op216"
+                    class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                  <input type="text" id="emailjs-template-id" placeholder="Template ID (e.g. template_abc)"
+                    value="template_1ljpjhi"
+                    class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
+                  <input type="text" id="emailjs-public-key" placeholder="Public Key (e.g. user_123)"
+                    value="GMRXKs3IuQbvLP-of"
+                    class="px-3 py-2 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-600">
                 </div>
               </div>
             </div>
 
             <!-- Submit Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-3 pt-2">
-              <button type="submit" id="btn-dispatch-bulk" class="flex-1 py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
+              <button type="submit" id="btn-dispatch-bulk"
+                class="flex-1 py-4 px-6 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition flex items-center justify-center gap-2 group">
                 <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                 <span>Dispatch Bulk Invitations</span>
               </button>
 
-              <button type="button" id="btn-pause-dispatch" disabled class="py-4 px-5 rounded-xl bg-slate-200 text-slate-400 font-bold text-sm transition flex items-center justify-center gap-1.5 cursor-not-allowed">
+              <button type="button" id="btn-pause-dispatch" disabled
+                class="py-4 px-5 rounded-xl bg-slate-200 text-slate-400 font-bold text-sm transition flex items-center justify-center gap-1.5 cursor-not-allowed">
                 <i data-lucide="pause-circle" class="w-4 h-4"></i>
                 <span>Pause Batch</span>
               </button>
@@ -778,17 +917,19 @@
             </span>
             <span class="text-[11px] font-semibold text-slate-400">Updates live as you type</span>
           </div>
-          
+
           <!-- VIP Ticket Card Mockup -->
           <div class="vip-pass-card rounded-3xl p-6 sm:p-7 text-white space-y-6 relative overflow-hidden shadow-2xl">
-            
+
             <!-- Top Header -->
             <div class="flex justify-between items-start border-b border-slate-700/80 pb-4">
               <div>
-                <span class="font-syne font-extrabold text-xl text-white block">Event<span class="text-gradient">Sphere</span></span>
+                <span class="font-syne font-extrabold text-xl text-white block">Event<span
+                    class="text-gradient">Sphere</span></span>
                 <span class="text-[10px] text-slate-400 font-mono">INTERNAL DISPATCH #EVT-2026-VIP</span>
               </div>
-              <span id="preview-pass-tier" class="px-3 py-1 text-xs font-bold bg-purple-500/20 text-purple-300 rounded-full border border-purple-400/30">
+              <span id="preview-pass-tier"
+                class="px-3 py-1 text-xs font-bold bg-purple-500/20 text-purple-300 rounded-full border border-purple-400/30">
                 VIP All-Access Pass
               </span>
             </div>
@@ -796,10 +937,11 @@
             <!-- Event Title & Date Preview -->
             <div class="space-y-2">
               <span class="text-[10px] uppercase font-bold text-blue-400 tracking-wider">Invitation For</span>
-              <h3 id="preview-event-title" class="font-syne text-xl sm:text-2xl font-extrabold text-white leading-tight">
+              <h3 id="preview-event-title"
+                class="font-syne text-xl sm:text-2xl font-extrabold text-white leading-tight">
                 Global Tech Summit 2026
               </h3>
-              
+
               <div class="space-y-1 pt-1 text-xs text-slate-300">
                 <div class="flex items-center gap-2">
                   <i data-lucide="calendar" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
@@ -807,7 +949,8 @@
                 </div>
                 <div class="flex items-center gap-2">
                   <i data-lucide="map-pin" class="w-3.5 h-3.5 text-tealAccent shrink-0"></i>
-                  <span id="preview-event-venue" class="truncate">Grand Ballroom, Cyber City Convention Center, SF</span>
+                  <span id="preview-event-venue" class="truncate">Grand Ballroom, Cyber City Convention Center,
+                    SF</span>
                 </div>
               </div>
             </div>
@@ -837,7 +980,8 @@
             </div>
 
             <!-- Holographic Security Seal Strip -->
-            <div class="h-9 rounded-xl vip-hologram flex items-center justify-between px-4 text-[10px] font-bold text-slate-950 tracking-widest uppercase">
+            <div
+              class="h-9 rounded-xl vip-hologram flex items-center justify-between px-4 text-[10px] font-bold text-slate-950 tracking-widest uppercase">
               <span>★ OFFICIAL VIP DISPATCH PASS ★</span>
               <span class="font-mono">VERIFIED</span>
             </div>
@@ -846,8 +990,10 @@
 
           <!-- Feature Note -->
           <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-200/80 text-xs text-slate-600 space-y-1">
-            <span class="font-bold text-blue-800 flex items-center gap-1.5"><i data-lucide="info" class="w-3.5 h-3.5"></i> Multi-Recipient Formatting Note</span>
-            <p>Paste multiple email addresses separated by commas or line breaks. The engine validates each address and tracks delivery success per recipient in real time below.</p>
+            <span class="font-bold text-blue-800 flex items-center gap-1.5"><i data-lucide="info"
+                class="w-3.5 h-3.5"></i> Multi-Recipient Formatting Note</span>
+            <p>Paste multiple email addresses separated by commas or line breaks. The engine validates each address and
+              tracks delivery success per recipient in real time below.</p>
           </div>
 
         </div>
@@ -856,9 +1002,10 @@
 
       <!-- Live Status Console Feed Section (Full Width) -->
       <div id="live-console-section" class="dark-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
-        
+
         <!-- Console Title & Telemetry Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-6">
           <div class="flex items-center gap-3">
             <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
             <div>
@@ -901,30 +1048,43 @@
 
           <!-- Progress Bar Container -->
           <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 relative">
-            <div id="dispatch-progress-bar" class="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-500 rounded-full transition-all duration-300 w-0 progress-bar-shimmer"></div>
+            <div id="dispatch-progress-bar"
+              class="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-500 rounded-full transition-all duration-300 w-0 progress-bar-shimmer">
+            </div>
           </div>
         </div>
 
         <!-- Console Log Feed Filters & Search Controls -->
         <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 pt-2">
-          
+
           <!-- Filter Tabs -->
           <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs">
-            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition bg-blue-600 text-white" data-filter="all">All Logs (<span id="count-filter-all">0</span>)</button>
-            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="success">Delivered (<span id="count-filter-success">0</span>)</button>
-            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="failed">Failed (<span id="count-filter-failed">0</span>)</button>
-            <button type="button" class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white" data-filter="pending">Pending (<span id="count-filter-pending">0</span>)</button>
+            <button type="button"
+              class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition bg-blue-600 text-white"
+              data-filter="all">All Logs (<span id="count-filter-all">0</span>)</button>
+            <button type="button"
+              class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white"
+              data-filter="success">Delivered (<span id="count-filter-success">0</span>)</button>
+            <button type="button"
+              class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white"
+              data-filter="failed">Failed (<span id="count-filter-failed">0</span>)</button>
+            <button type="button"
+              class="log-filter-btn px-3 py-1.5 rounded-lg font-medium transition text-slate-400 hover:text-white"
+              data-filter="pending">Pending (<span id="count-filter-pending">0</span>)</button>
           </div>
 
           <!-- Action Buttons -->
           <div class="flex items-center gap-2 text-xs">
-            <button type="button" id="btn-export-csv" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition flex items-center gap-1.5">
+            <button type="button" id="btn-export-csv"
+              class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition flex items-center gap-1.5">
               <i data-lucide="download" class="w-3.5 h-3.5 text-blue-400"></i> Export CSV
             </button>
-            <button type="button" id="btn-retry-failed" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold border border-amber-500/30 transition flex items-center gap-1.5">
+            <button type="button" id="btn-retry-failed"
+              class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-semibold border border-amber-500/30 transition flex items-center gap-1.5">
               <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Retry Failed
             </button>
-            <button type="button" id="btn-clear-console" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-rose-950/50 text-slate-400 hover:text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1.5">
+            <button type="button" id="btn-clear-console"
+              class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-rose-950/50 text-slate-400 hover:text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1.5">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear Feed
             </button>
           </div>
@@ -932,12 +1092,14 @@
         </div>
 
         <!-- Terminal Console Log Window -->
-        <div class="console-log-container bg-slate-950 rounded-2xl border border-slate-800/80 p-4 space-y-2 shadow-inner">
+        <div
+          class="console-log-container bg-slate-950 rounded-2xl border border-slate-800/80 p-4 space-y-2 shadow-inner">
           <div id="console-feed-list" class="space-y-2">
             <!-- Default Empty Console State -->
             <div id="console-empty-state" class="py-12 text-center text-slate-500 text-xs space-y-2">
               <i data-lucide="terminal" class="w-8 h-8 mx-auto text-slate-700"></i>
-              <p>Console standby. Enter recipient email addresses above and click <strong>"Dispatch Bulk Invitations"</strong> to start live status feed.</p>
+              <p>Console standby. Enter recipient email addresses above and click <strong>"Dispatch Bulk
+                  Invitations"</strong> to start live status feed.</p>
             </div>
           </div>
         </div>
@@ -952,9 +1114,9 @@
   <!-- SECTION 10: Footer -->
   <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
+
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-        
+
         <!-- Brand Info -->
         <div class="md:col-span-5 space-y-4">
           <a href="#" class="flex items-center gap-3">
@@ -964,7 +1126,8 @@
             <span class="font-syne font-bold text-xl text-white">Event<span class="text-blue-500">Sphere</span></span>
           </a>
           <p class="text-xs text-slate-500 leading-relaxed max-w-sm">
-            Premium glassmorphic event operations and guest management platform. Engineered for seamless check-ins, VIP pass generation, and real-time event analytics.
+            Premium glassmorphic event operations and guest management platform. Engineered for seamless check-ins, VIP
+            pass generation, and real-time event analytics.
           </p>
           <div class="text-xs text-slate-400 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -989,7 +1152,8 @@
           <h5 class="font-bold text-white uppercase tracking-wider">Tech Architecture</h5>
           <div class="flex flex-wrap gap-2">
             <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">HTML5</span>
-            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Tailwind CSS v3</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Tailwind CSS
+              v3</span>
             <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Vanilla ES6+</span>
             <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Chart.js v4</span>
             <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">EmailJS SDK</span>
@@ -999,7 +1163,8 @@
 
       </div>
 
-      <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+      <div
+        class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
         <span>© 2026 EventSphere Inc. All rights reserved. Prepared for GitHub Pages deployment.</span>
         <div class="flex gap-4">
           <a href="#" class="hover:text-slate-400">Privacy Policy</a>
@@ -1017,4 +1182,5 @@
   <script src="js/email.js"></script>
   <script src="js/app.js"></script>
 </body>
+
 </html>

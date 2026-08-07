@@ -1,7 +1,7 @@
 // Module 5: Bulk Invitation Sender & Dispatch Console Controller for EventSphere
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize EmailJS SDK – replace the empty string with your actual public key
-  emailjs.init({ publicKey: 'XTi7N9hNrw0iyuVjT' });
+  emailjs.init({ publicKey: 'GMRXKs3IuQbvLP-of' });
   // Elements Selection
   const bulkForm = document.getElementById('bulk-invitation-form');
   const toastContainer = document.getElementById('toast-container');
