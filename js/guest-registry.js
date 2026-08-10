@@ -242,6 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <button onclick="window.toggleCheckIn('${g.id}')" class="px-3 py-1 rounded-lg text-xs font-bold ${isChecked ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'} transition">
               ${isChecked ? 'Undo Check-In' : 'Check-In'}
             </button>
+            <button onclick="window.generatePass('${g.id}')" class="px-3 py-1 rounded-lg text-xs font-bold bg-purple-50 text-purple-600 hover:bg-purple-100 transition">
+              Pass 🎟
+            </button>
             <button onclick="window.editGuest('${g.id}')" class="px-3 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 transition">
               Edit
             </button>
@@ -306,6 +309,19 @@ document.addEventListener('DOMContentLoaded', () => {
       renderTable();
       showToast('Guest record removed.', 'success');
     }
+  };
+
+  // Generate VIP Pass for Guest
+  window.generatePass = function(id) {
+    const g = guests.find(item => item.id === id);
+    if (!g) return;
+    const params = new URLSearchParams({
+      name: g.name || '',
+      designation: g.designation || '',
+      company: g.company || '',
+      tier: g.notes?.includes('VIP') ? 'VIP' : 'Standard'
+    });
+    window.location.href = `vip-pass.html?${params.toString()}`;
   };
 
   // Edit Guest Modal Trigger

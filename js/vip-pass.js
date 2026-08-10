@@ -12,6 +12,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayDate = document.getElementById('display-date');
     const displayQr = document.getElementById('display-qr');
 
+    // Check URL parameters for pre-filled guest data from Guest Registry
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramName = urlParams.get('name');
+    const paramDesignation = urlParams.get('designation');
+    const paramCompany = urlParams.get('company');
+    const paramTier = urlParams.get('tier');
+
+    if (paramName && form) {
+        document.getElementById('fullName').value = paramName;
+        if (paramDesignation) document.getElementById('designation').value = paramDesignation;
+        if (paramCompany) document.getElementById('company').value = paramCompany;
+        if (paramTier) document.getElementById('accessTier').value = paramTier;
+
+        // Auto trigger badge generation
+        setTimeout(() => {
+            form.dispatchEvent(new Event('submit'));
+        }, 100);
+    }
+
     // Format date to DD MMM YYYY
     function formatDate(date) {
         const options = { day: '2-digit', month: 'short', year: 'numeric' };

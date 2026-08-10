@@ -17,6 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Highlight active nav link based on current page URL
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('header nav a');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    const isCurrentPage = (currentPath === '' || currentPath === 'index.html') 
+      ? (href === 'index.html' || href === '#hero' || href === '#') 
+      : href.includes(currentPath);
+
+    if (isCurrentPage) {
+      link.classList.add('nav-active');
+      link.classList.remove('text-slate-700', 'hover:bg-white');
+    } else {
+      link.classList.remove('nav-active');
+    }
+  });
+
   // Mobile Drawer Toggle
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileDrawer = document.getElementById('mobile-drawer');

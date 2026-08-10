@@ -4,8 +4,8 @@
     --brand-50: #eff6ff;
     --brand-100: #dbeafe;
     --brand-500: #3b82f6;
-    --brand-600: #6B46C1; /* Adjusted for the purple button */
-    --brand-700: #553C9A;
+    --brand-600: #0066FF;
+    --brand-700: #0052cc;
     --dark-slate: #0F172A;
     --gold: #F59E0B;
     --gold-dark: #B45309;
@@ -19,18 +19,8 @@
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #f8fbff;
-    background-image:
-        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.12), transparent 25%),
-        radial-gradient(circle at 80% 15%, rgba(168, 85, 247, 0.12), transparent 20%),
-        radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.08), transparent 18%),
-        linear-gradient(180deg, #ffffff 0%, #edf5ff 100%);
     color: #1f2937;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
 }
 
 .main-wrapper {
