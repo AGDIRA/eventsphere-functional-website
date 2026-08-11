@@ -115,9 +115,12 @@ h1, h2, h3, h4, .font-syne {
 }
 
 .hero-gradient-bg {
-  background: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 90% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 50% 50%, rgba(0, 168, 150, 0.04) 0%, transparent 60%);
+  background-color: #f8fbff;
+  background-image: radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.08) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 60%, rgba(0, 102, 255, 0.08) 0%, transparent 45%),
+                    radial-gradient(circle at 50% 90%, rgba(0, 168, 150, 0.05) 0%, transparent 50%),
+                    linear-gradient(180deg, #ffffff 0%, #edf5ff 100%);
+  background-attachment: fixed;
 }
 
 /* Animations */
@@ -215,5 +218,16 @@ h1, h2, h3, h4, .font-syne {
 @keyframes progress-shimmer {
   0% { background-position: 0 0; }
   100% { background-position: 1rem 0; }
+}
+
+/* GPU Hardware Acceleration & Smooth Rendering */
+#particles-canvas {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.glass-card, .dark-glass-card {
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
