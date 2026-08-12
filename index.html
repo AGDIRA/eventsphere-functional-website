@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="bg-white text-slate-900 selection:bg-blue-600 selection:text-white relative">
+<body class="bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white relative hero-gradient-bg min-h-screen">
 
   <!-- Toast Notification Container -->
   <div id="toast-container"></div>
@@ -96,7 +96,7 @@
         <a href="cost-estimator.html"
           class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
             data-lucide="calculator" class="w-3.5 h-3.5"></i> Cost Estimator</a>
-        <a href="#invitation-sender"
+        <a href="invitation.html"
           class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-blue-600 rounded-full hover:bg-white transition flex items-center gap-1.5"><i
             data-lucide="send" class="w-3.5 h-3.5"></i> Invitations</a>
         <a href="#why-us"
@@ -106,7 +106,7 @@
 
       <!-- Right CTA & Mobile Toggle -->
       <div class="flex items-center gap-3">
-        <a href="#invitation-sender"
+        <a href="invitation.html"
           class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-blue-600 transition duration-300 shadow-md hover:shadow-blue-500/20">
           <span>Get Started</span>
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -145,7 +145,7 @@
             data-lucide="layout-dashboard" class="w-5 h-5"></i> Live Analytics</a>
         <a href="cost-estimator.html" class="text-lg font-semibold text-blue-400 flex items-center gap-3"><i
             data-lucide="calculator" class="w-5 h-5"></i> Cost Estimator</a>
-        <a href="#invitation-sender"
+        <a href="invitation.html"
           class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i data-lucide="send"
             class="w-5 h-5"></i> Invitation Dispatcher</a>
         <a href="#why-us" class="text-lg font-semibold text-slate-200 hover:text-blue-400 flex items-center gap-3"><i
@@ -153,7 +153,7 @@
       </nav>
     </div>
     <div class="pt-6 border-t border-slate-800">
-      <a href="#invitation-sender"
+      <a href="invitation.html"
         class="w-full block text-center py-3 rounded-xl bg-blue-600 text-white font-bold">Launch Access Portal</a>
     </div>
   </div>
@@ -323,7 +323,7 @@
 
 
   <!-- SECTION 3: Feature Modules Grid (5 Cards) -->
-  <section id="features" class="py-24 bg-slate-50 relative">
+  <section id="features" class="py-24 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Section Header -->
@@ -422,8 +422,8 @@
         </div>
 
         <!-- Card 5: Invitation Sender -->
-        <div href="#invitation-sender" onclick="document.getElementById('invitation-sender').scrollIntoView()"
-          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 md:col-span-2 lg:col-span-1">
+        <a href="invitation.html"
+          class="glass-card rounded-2xl p-7 cursor-pointer group hover:-translate-y-2 transition duration-300 md:col-span-2 lg:col-span-1 block" style="text-decoration:none;">
           <div
             class="w-12 h-12 rounded-xl bg-rose-500 text-white flex items-center justify-center mb-6 shadow-md shadow-rose-500/20 group-hover:scale-110 transition">
             <i data-lucide="send" class="w-6 h-6"></i>
@@ -435,10 +435,10 @@
           </p>
           <span
             class="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 group-hover:gap-2.5 transition-all">
-            <span>Jump to Sender Form</span>
+            <span>Launch Dispatcher</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </span>
-        </div>
+        </a>
 
       </div>
 
@@ -447,7 +447,7 @@
 
 
   <!-- SECTION 4: Platform Workflow Timeline -->
-  <section id="workflow" class="py-24 bg-white relative">
+  <section id="workflow" class="py-24 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Section Header -->
@@ -521,7 +521,7 @@
 
 
   <!-- SECTION 5: Dashboard Preview Section (Chart.js Integration) -->
-  <section id="dashboard" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+  <section id="dashboard" class="py-24 text-white relative overflow-hidden">
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
@@ -601,12 +601,12 @@
 
 
   <!-- SECTION 6: Statistics Section (4 KPI Cards with Scroll Counter) -->
-  <section id="stats-section" class="py-20 bg-white">
+  <section id="stats-section" class="py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
 
         <!-- KPI 1 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+        <div class="p-6 rounded-2xl glass-card text-center space-y-2">
           <div class="w-10 h-10 mx-auto rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-2">
             <i data-lucide="users" class="w-5 h-5"></i>
           </div>
@@ -616,7 +616,7 @@
         </div>
 
         <!-- KPI 2 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+        <div class="p-6 rounded-2xl glass-card text-center space-y-2">
           <div class="w-10 h-10 mx-auto rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-2">
             <i data-lucide="calendar" class="w-5 h-5"></i>
           </div>
@@ -626,7 +626,7 @@
         </div>
 
         <!-- KPI 3 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+        <div class="p-6 rounded-2xl glass-card text-center space-y-2">
           <div class="w-10 h-10 mx-auto rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center mb-2">
             <i data-lucide="send" class="w-5 h-5"></i>
           </div>
@@ -636,7 +636,7 @@
         </div>
 
         <!-- KPI 4 -->
-        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-center space-y-2">
+        <div class="p-6 rounded-2xl glass-card text-center space-y-2">
           <div class="w-10 h-10 mx-auto rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center mb-2">
             <i data-lucide="dollar-sign" class="w-5 h-5"></i>
           </div>
@@ -651,7 +651,7 @@
 
 
   <!-- SECTION 7: Why EventSphere (4 Advantage Cards) -->
-  <section id="why-us" class="py-24 bg-slate-50">
+  <section id="why-us" class="py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
@@ -665,7 +665,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
         <!-- Advantage 1 -->
-        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-3">
+        <div class="p-6 rounded-2xl glass-card space-y-3">
           <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
             <i data-lucide="zap" class="w-5 h-5"></i>
           </div>
@@ -675,7 +675,7 @@
         </div>
 
         <!-- Advantage 2 -->
-        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-3">
+        <div class="p-6 rounded-2xl glass-card space-y-3">
           <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
             <i data-lucide="smartphone" class="w-5 h-5"></i>
           </div>
@@ -685,7 +685,7 @@
         </div>
 
         <!-- Advantage 3 -->
-        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-3">
+        <div class="p-6 rounded-2xl glass-card space-y-3">
           <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
             <i data-lucide="lock" class="w-5 h-5"></i>
           </div>
@@ -695,7 +695,7 @@
         </div>
 
         <!-- Advantage 4 -->
-        <div class="p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm space-y-3">
+        <div class="p-6 rounded-2xl glass-card space-y-3">
           <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
             <i data-lucide="globe" class="w-5 h-5"></i>
           </div>
@@ -711,7 +711,7 @@
 
 
   <!-- SECTION 8: Call to Action Banner -->
-  <section class="py-16 bg-white">
+  <section class="py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div
         class="rounded-3xl p-10 sm:p-16 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white text-center space-y-6 shadow-2xl relative overflow-hidden">
@@ -720,7 +720,7 @@
           Transform your next tech summit or VIP gala into an unforgettable guest experience with EventSphere.
         </p>
         <div class="pt-2 relative z-10">
-          <a href="#invitation-sender"
+          <a href="invitation.html"
             class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-blue-600 font-bold text-sm hover:bg-slate-100 transition shadow-lg">
             <span>Open EventSphere Form</span>
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -732,7 +732,7 @@
 
 
   <!-- SECTION 9: Module 5 - Bulk Invitation Sender & Dispatch Console -->
-  <section id="invitation-sender" class="py-24 bg-slate-50 relative">
+  <section id="invitation-sender" class="py-24 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       <!-- Section Header -->
@@ -1143,7 +1143,7 @@
             <li><a href="#features" class="hover:text-white transition">VIP Modules</a></li>
             <li><a href="#workflow" class="hover:text-white transition">Platform Workflow</a></li>
             <li><a href="#dashboard" class="hover:text-white transition">Telemetry Dashboard</a></li>
-            <li><a href="#invitation-sender" class="hover:text-white transition">Invitation Dispatcher</a></li>
+            <li><a href="invitation.html" class="hover:text-white transition">Invitation Dispatcher</a></li>
           </ul>
         </div>
 
